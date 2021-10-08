@@ -34,3 +34,10 @@ else
 {
     $control    = (file_exists("{$pasta}/{$parametros}.php") ? $parametros : "comuns/error");
 }
+
+// views
+
+require_once $pasta . "/comuns/header.php";
+require_once $pasta . "/comuns/sidebar.php";
+require_once $pasta . "/" . $control . ".php";
+require_once $pasta . "/comuns/footer.php";
