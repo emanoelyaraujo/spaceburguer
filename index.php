@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once 'config\config.php';
+
 // Roteamento da plataforma
 
 $pasta      = "site";
