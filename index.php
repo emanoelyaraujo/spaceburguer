@@ -2,7 +2,14 @@
 
 session_start();
 
+// carrega as configurações da plataforma
 require_once 'config\config.php';
+
+// Carregando as bibliotecas
+require_once "lib/ModelBase.php";
+require_once "lib/Database.php";
+require_once "lib/Redirect.php";
+require_once "lib/Formulario.php";
 
 // Roteamento da plataforma
 
@@ -40,6 +47,8 @@ else
 // views
 
 require_once $pasta . "/comuns/header.php";
-require_once $pasta . "/comuns/sidebar.php";
+if($control != "login" && $control != "cadastrar"){
+    require_once $pasta . "/comuns/sidebar.php";
+}
 require_once $pasta . "/" . $control . ".php";
 require_once $pasta . "/comuns/footer.php";
