@@ -23,61 +23,31 @@ switch ($metodo) {
 
     case 'formLanche':
 
-        if ($acao != 'insert') {
-            //$aDados['data'] = $model->getId("lanches", $id);
-        }
-
-        require_once "site/admin/formSobreoAutor.php";
+        require_once "site/admin/formLanches.php";
         break;
 
     case 'formUsuario':
 
-        if ($acao != 'insert') {
-            $aDados['data'] = $model->getId("sobreoautor", $id);
-        }
-
-        require_once "site/admin/formSobreoAutor.php";
+        require_once "site/admin/formUsuarios.php";
         break;
 
-    case 'formcateoria':
+    case 'formCateoria':
 
-        if ($acao != 'insert') {
-            $aDados['data'] = $model->getId("sobreoautor", $id);
-        }
-
-        require_once "site/admin/formSobreoAutor.php";
+        require_once "site/admin/formCategorias.php";
         break;
 
-    case 'insert':
+    case 'listLanche':
 
-        if ($model->insert($_POST)) {
-            $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
-        } else {
-            $_SESSION['msgError'] = 'Falha ao tentar inserir o registro na base de dados.';
-        }
-
-        Redirect::Page("sobreoAutor/lista");
+        require_once "site/admin/listLanches.php";
         break;
 
-    case 'update':
+    case 'listUsuario':
 
-        if ($model->update($_POST)) {
-            $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
-        } else {
-            $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
-        }
-
-        Redirect::Page("sobreoAutor/lista");
+        require_once "site/admin/listUsuarios.php";
         break;
 
-    case 'delete':
+    case 'listCateoria':
 
-        if ($model->delete($_POST['id'])) {
-            $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
-        } else {
-            $_SESSION['msgError'] = 'Falha ao tentar excluir o registro na base de dados.';
-        }
-
-        Redirect::Page("sobreoAutor/lista");
+        require_once "site/admin/listCategorias.php";
         break;
 }
