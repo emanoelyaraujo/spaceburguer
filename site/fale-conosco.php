@@ -13,8 +13,8 @@
                 </div>
 
                 <div class="form-group col-md-8 mt-3">
-                    <label for="input-group">Assunto</label>
-                    <textarea class="form-control" rows="15" cols="10" id="assunto" required>
+                    <label for="input-group">Descrição</label>
+                    <textarea class="form-control" rows="15" cols="10" name="decricao" id="descricao" required>
 
                     </textarea>
                 </div>
@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
     ClassicEditor
-        .create(document.querySelector("#assunto"))
+        .create(document.querySelector("#descricao"))
         .catch(error => {
             console.error( error );
         });
