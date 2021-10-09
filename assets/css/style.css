@@ -1,32 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-.logo-sidebar {
-    color: aliceblue;
-}
-
-* {
-    --color-roxo: #4621b0;
-}
-
-.offcanvas-header {
-    background: var(--color-roxo);
-}
-
-.btn:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.list-inline a {
-    color: black !important;
-    text-decoration: none;
-}
-
-.list-inline:hover, .dropdown>ul>li>a:hover {
-    background-color: rgba(21, 21, 99, 0.226);
-    transition: 1.5s;
-}
-
-.dropdown>ul>li>a:hover {
-    background-color: rgba(189, 189, 192, 0.226);
-    transition: 1.5s;
-}
+    @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+    .logo-sidebar {
+        color: aliceblue;
+    }
+    
+    * {
+        --color-roxo: #4621b0;
+    }
+    
+    .offcanvas-header {
+        background: var(--color-roxo);
+    }
+    
+    .btn:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    
+    .list-inline a {
+        color: black !important;
+        text-decoration: none;
+    }
+    
+    .list-inline:hover,
+    .dropdown>ul>li>a:hover {
+        background-color: rgba(21, 21, 99, 0.226);
+        transition: 1.5s;
+    }
+    
+    .dropdown>ul>li>a:hover {
+        background-color: rgba(189, 189, 192, 0.226);
+        transition: 1.5s;
+    }
+    /* Págiba Login */
+    
+    div .login {
+        border-radius: 50px 5px;
+        background-color: #d5cdebfb;
+    }
+    
+    input.form-control,
+    textarea.form-control {
+        outline: none;
+        background: #f8f7fa;
+        border: none;
+    }
