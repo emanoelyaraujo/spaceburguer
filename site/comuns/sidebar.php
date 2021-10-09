@@ -9,6 +9,7 @@
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
+            <img src="<?= SITE_URL ?>assets/img/simbolo.png" width="50" alt="">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                 <span class="fs-4 logo-sidebar">Space Burguer</span>
             </a>
@@ -54,7 +55,7 @@
                         </svg>
                         Área Administrativa
                     </button>
-                    <ul style="background-color: #4621b0;" class="dropdown-menu text-small" aria-labelledby="dropdownMenuButton1">
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownMenuButton1">
                         <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/pedidos">Pedidos</a></li>
                         <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controlerAdmin/listUsuario">Usuários</a></li>
                         <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/listLanche">Lanches</a></li>
@@ -83,11 +84,11 @@
                         <strong>Usuariodsfd@22</strong>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="text-light dropdown-item" href="#">Perfil</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Sair</a></li>
+                        <li><a class="text-light dropdown-item" href="#">Sair</a></li>
                     </ul>
                 </div>
             </div>
