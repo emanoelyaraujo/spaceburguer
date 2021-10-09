@@ -1,32 +1,32 @@
-    @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+.logo-sidebar {
+    color: aliceblue;
+}
 
-    .logo-sidebar {
-        color: aliceblue;
-    }
+* {
+    --color-roxo: #4621b0;
+}
 
-    .offcanvas-header {
-        background: #4621b0;
-    }
+.offcanvas-header {
+    background: var(--color-roxo);
+}
 
-    .btn:focus {
-        outline: none;
-        box-shadow: none;
-    }
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
 
-    .list a {
-        color: black !important;
-        text-decoration: none;
-    }
+.list-inline a {
+    color: black !important;
+    text-decoration: none;
+}
 
-    .list:hover {
+.list-inline:hover, .dropdown>ul>li>a:hover {
+    background-color: rgba(21, 21, 99, 0.226);
+    transition: 1.5s;
+}
 
-        background-color: rgba(21, 21, 99, 0.226) !important;
-        transition: 1.5s;
-
-    }
-
-    .perfil {
-        padding: 10px;
-        position: absolute;
-        bottom: 0;
-    }
+.dropdown>ul>li>a:hover {
+    background-color: rgba(189, 189, 192, 0.226);
+    transition: 1.5s;
+}
