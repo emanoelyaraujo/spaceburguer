@@ -2,7 +2,7 @@
     <div class="container">
         <div class="login-card">
             <div class="row no-gutters">
-                <div class="col-md-5 px-0">
+                <div class="col-md-5 px-0 area-img">
                     <img class="login-card-img" id="pacote" src="<?= SITE_URL ?>assets/img/pacote.jpg" width="100%" height="100%" alt="">
                 </div>
                 <div class="col-md-7">
