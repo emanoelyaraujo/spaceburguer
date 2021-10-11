@@ -1,123 +1,167 @@
 <?php
 
-require_once 'modelUsuario.php';    
+require_once 'modelUsuario.php';
 
-$model = new Usuario();            
+$model = new Usuario();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
 
-switch ($metodo) {
+switch ($metodo)
+{
 
-    // case 'signIn' :
+    case 'login':
 
-    //     // super usário
-        
-    //     $superUser = $model->criaSuperUser();
+        // super usário
 
-    //     if ($superUser > 0) {          // 1=Falhou criação do super user; 2=sucesso na criação do super user
-    //         Redirect::page("login");
-    //     }
+        $superUser = $model->criaSuperUser();
 
-    //     // Buscar usuário na base de dados
+        if ($superUser > 0)
+        {          // 1=Falhou criação do super user; 2=sucesso na criação do super user
+            Redirect::page("login");
+        }
 
-    //     $aUsuario = $model->getUserEmail($post['email']);
+        // Buscar usuário na base de dados
 
-    //     if (count($aUsuario) > 0 ) {
+        $aUsuario = $model->getUserEmail($post['email']);
 
-    //         // validar a senha
-            
-    //         if (!password_verify(trim($post["senha"]), $aUsuario['senha']) ) {
-    //             $_SESSION["msgError"] = 'Usuário e ou senha inválido.';
-    //             Redirect::page("login");
-    //         }
-            
-    //         // validar o status do usuário
-            
-    //         if ($aUsuario['statusRegistro'] == 2 ) {
-    //             $_SESSION["msgError"] = "Usuário Inativo, não será possível prosseguir !";
-    //             Redirect::page("login");
-    //         }
+        if (count($aUsuario) > 0)
+        {
 
-    //         //  Criar flag's de usuário logado no sistema
-            
-    //         $_SESSION["userCodigo"] = $aUsuario['id'];
-    //         $_SESSION["userLogin"]  = $aUsuario['nome'];
-    //         $_SESSION["userEmail"]  = $aUsuario['email'];
-    //         $_SESSION["userNivel"]  = $aUsuario['nivel'];
-    //         $_SESSION["userSenha"]  = $aUsuario['senha'];
-            
-    //         // Direcionar o usuário para página home
-            
-    //         Redirect::page("homeAdmin");
+            // validar a senha
 
-    //         //
+            if (!password_verify(trim($post["senha"]), $aUsuario['senha']))
+            {
+                $_SESSION["msgError"] = 'Usuário e ou senha inválido.';
+                Redirect::page("login");
+            }
 
-    //     } else {
-    //         $_SESSION['msgError'] = 'Usuário e ou senha inválido.';
-    //         Redirect::page("login");
-    //     }
+            // validar o status do usuário
 
-    //     break;
+            if ($aUsuario['status'] == 2)
+            {
+                $_SESSION["msgError"] = "Usuário Inativo, não será possível prosseguir !";
+                Redirect::page("login");
+            }
 
-    // case 'signOut' :
+            //  Criar flag's de usuário logado no sistema
 
-    //     unset($_SESSION['userCodigo']);
-    //     unset($_SESSION['userLogin']);
-    //     unset($_SESSION['userEmail']);
-    //     unset($_SESSION['userNivel']);
-    //     unset($_SESSION['userSenha']);
-        
-    //     Redirect::Page("home");
-    //     break;
+            $_SESSION["userId"] = $aUsuario['id'];
+            $_SESSION["userNome"]  = $aUsuario['nome'];
+            $_SESSION["userEmail"]  = $aUsuario['email'];
+            $_SESSION["userNivel"]  = $aUsuario['nivel'];
+            $_SESSION["userSenha"]  = $aUsuario['senha'];
 
-    // case 'lista':
+            // Direcionar o usuário para página home
 
-    //     $aDados['data'] = $model->getLista("usuario");
+            if($_SESSION["userNivel"] == 1){
+                Redirect::page("homeAdmin");
+            } else {
+                Redirect::page("home");
+            }
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Usuário e ou senha inválido.';
+            Redirect::page("login");
+        }
 
-    //     require_once "site/admin/listaUsuario.php";
+        break;
 
-    //     break;
+    case "register":
 
-    // case 'form':
+        $aUsuario = $model->getUserEmail($post['email']);
 
-    //     if ($acao != 'insert') {
-    //         $aDados['data'] = $model->getId("usuario", $id);
-    //     }
+        // verifica se o email informado já existe na base de dados
+        if ($aUsuario["email"] == $post["email"])
+        {
+            $_SESSION["msgError"] = "E-mail informado já foi cadastrado";
+            Redirect::page("login");
+            break;
+        }
+        else
+        {
+            $rscUser = $model->insertUser($post);
+        }
 
-    //     require_once "site/admin/formUsuario.php";
-    //     break;
+        if ($rscUser > 0)
+        {
+            $aUsuario = $model->getUserEmail($post['email']);
 
-    // case 'insert':
+            Redirect::page("home");
+        }
+        else
+        {
+            $_SESSION["msgError"] = "Falha ao criar usuário";
+            Redirect::page("login");
+        }
 
-    //     if ($model->insert($_POST)) {
-    //         $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
-    //     } else {
-    //         $_SESSION['msgError'] = 'Falha ao tentar inserir o registro na base de dados.';
-    //     }
+        $_SESSION["userId"] = $aUsuario['id'];
+        $_SESSION["userNome"]  = $aUsuario['nome'];
+        $_SESSION["userEmail"]  = $aUsuario['email'];
+        $_SESSION["userNivel"]  = $aUsuario['nivel'];
+        $_SESSION["userSenha"]  = $aUsuario['senha'];
 
-    //     Redirect::Page("usuario/lista");
-    //     break;
+        break;
 
-    // case 'update':
+    case 'logout':
 
-    //     if ($model->update($_POST)) {
-    //         $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
-    //     } else {
-    //         $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
-    //     }
+        unset($_SESSION['userId']);
+        unset($_SESSION['userNome']);
+        unset($_SESSION['userEmail']);
+        unset($_SESSION['userNivel']);
+        unset($_SESSION['userSenha']);
 
-    //     Redirect::Page("usuario/lista");
-    //     break;
+        Redirect::Page("home");
+        break;
 
-    // case 'delete':
+        // case 'lista':
 
-    //     if ($model->delete($_POST['id'])) {
-    //         $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
-    //     } else {
-    //         $_SESSION['msgError'] = 'Falha ao tentar excluir o registro na base de dados.';
-    //     }
+        //     $aDados['data'] = $model->getLista("usuario");
 
-    //     Redirect::Page("usuario/lista");
-    //     break;
+        //     require_once "site/admin/listaUsuario.php";
+
+        //     break;
+
+        // case 'form':
+
+        //     if ($acao != 'insert') {
+        //         $aDados['data'] = $model->getId("usuario", $id);
+        //     }
+
+        //     require_once "site/admin/formUsuario.php";
+        //     break;
+
+        // case 'insert':
+
+        //     if ($model->insert($_POST)) {
+        //         $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
+        //     } else {
+        //         $_SESSION['msgError'] = 'Falha ao tentar inserir o registro na base de dados.';
+        //     }
+
+        //     Redirect::Page("usuario/lista");
+        //     break;
+
+        // case 'update':
+
+        //     if ($model->update($_POST)) {
+        //         $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+        //     } else {
+        //         $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+        //     }
+
+        //     Redirect::Page("usuario/lista");
+        //     break;
+
+        // case 'delete':
+
+        //     if ($model->delete($_POST['id'])) {
+        //         $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
+        //     } else {
+        //         $_SESSION['msgError'] = 'Falha ao tentar excluir o registro na base de dados.';
+        //     }
+
+        //     Redirect::Page("usuario/lista");
+        //     break;
 }

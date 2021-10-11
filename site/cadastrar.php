@@ -2,42 +2,42 @@
     <div class="container">
         <div class="login-card">
             <div class="row no-gutters">
-                <div class="col-md-5 area-img">
+                <div class="col-md-5 px-0">
                     <img class="login-card-img" id="pacote" src="<?= SITE_URL ?>assets/img/pacote.jpg" width="100%" height="100%" alt="">
                 </div>
                 <div class="col-md-7">
                     <div class="card card-body">
-                        <form class="p-3">
-                            <h3>Cadastro</h3>
+                        <form class="p-3" method="post" action="<?= SITE_URL ?>usuario/register">
+                            <h4 class="text-center pb-2">CRIE SUA NOVA CONTA AQUI</h4>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
                                         <label for="nome">Nome<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" maxlength="100" id="nome" autofocus required>
+                                        <input type="text" name="nome" class="form-control" maxlength="100" id="nome" autofocus required>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
                                         <label for="telefone">Telefone<span class="text-danger">*</span></label>
-                                        <input type="text" maxlength="11" class="form-control" id="telefone" autofocus required>
+                                        <input type="text" name="telefone" maxlength="11" class="form-control" id="telefone" autofocus required>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <div class="form-group">
+                                <div class="col-12">
+                                    <div class="form-gro mb-3">
                                         <label for="email">E-mail<span class="text-danger">*</span></label>
-                                        <input type="email" maxlength="100" class="form-control" id="email" aria-describedby="emailHelp" autofocus required>
+                                        <input type="email" name="email" maxlength="100" class="form-control" id="email" aria-describedby="emailHelp" autofocus required>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="password">Senha<span class="text-danger">*</span></label>
-                                        <input type="password" maxlength="15" class="form-control" id="password" id="password" required>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="senha">Senha<span class="text-danger">*</span></label>
+                                        <input type="password" name="senha" maxlength="15" class="form-control" id="senha" id="senha" required>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
                                         <label for="confirmPassword">Confirme sua senha<span class="text-danger">*</span></label>
-                                        <input type="password" maxlength="15" class="form-control" id="confirmPassword" id="confirmPassword" required>
+                                        <input type="password" maxlength="15" class="form-control" id="confirmSenha" id="confirmPassword" required>
                                     </div>
                                 </div>
                                 <div class="form-group mt-2 mb-3">
