@@ -11,7 +11,6 @@
 
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="<?= SITE_URL ?>assets/css/bootstrap.min.css">
-    <script src="<?= SITE_URL ?>assets/js/bootstrap.min.js"></script>
     <link href="<?= SITE_URL ?>assets/css/style.css" rel="stylesheet">
 </head>
 
