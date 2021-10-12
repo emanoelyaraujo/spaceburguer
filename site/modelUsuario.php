@@ -114,14 +114,17 @@ class Usuario extends ModelBase
      */
     public function insert($dados)
     {
+        $telefone = trim(str_replace("(",")","-", $dados['telefone']));
+
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO usuario
-            (nome, email, statusRegistro, nivel, senha)
-            VALUES ( ?, ?, ?, ?, ?) ",
+            (nome, telefone, email, status, nivel, senha)
+            VALUES ( ?, ?, ?, ?, ?, ?) ",
             [
                 $dados['nome'],
+                $telefone,
                 $dados['email'],
-                $dados['statusRegistro'],
+                $dados['status'],
                 $dados['nivel'],
                 password_hash(trim($dados['senha']), PASSWORD_DEFAULT)
             ]
@@ -144,15 +147,20 @@ class Usuario extends ModelBase
      * @return boolean
      */
     public function update($dados)
-    {
+    {   
+        $telefone = $dados['telefone'];
+        //var_dump($telefone);exit; //debug pronto para testar máscara
+
+
         $rsc = $this->conDb->dbUpdate(
             "UPDATE usuario 
-                SET nome = ?, email = ?, statusRegistro = ?, nivel = ?
+                SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
                 WHERE id = ?",
             [
                 $dados['nome'],
+                $telefone,
                 $dados['email'],
-                $dados['statusRegistro'],
+                $dados['status'],
                 $dados['nivel'],
                 $dados['id']
             ]
