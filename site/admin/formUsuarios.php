@@ -46,12 +46,12 @@
                             echo ('readonly');
                         }
                     ?>
-                    value="<?= isset($aDados['data']['email']) ? $aDados['data']['email'] : "" ?>" required placeholder="E-mail: seu-nome@dominio.com">
+                    value="<?= isset($aDados['data']['email']) ? $aDados['data']['email'] : "" ?>" required placeholder="exemplo@dominio.com">
                 </div>
 
                 <div class="form-group col-12 col-md-3">
                     <label for="telefone" class="form-label">Telefone</label>
-                    <input type="text" name="telefone" id="telefone" class="form-control" maxlength="11" 
+                    <input type="text" name="telefone" id="telefone" class="form-control" minlength="11"  maxlength="15" 
                     <?php 
                         if (isset($aDados['acao']) && $aDados['acao'] == 'view' or $aDados['acao'] == 'delete'){
                             echo ('readonly');
@@ -79,7 +79,7 @@
 
                 <div class="form-group col-12 col-md-6">
                     <label for="senha" class="form-label">Senha</label>
-                    <input type="password" name="senha" id="senha" class="form-control" maxlength="250"
+                    <input type="password" name="senha" id="senha" class="form-control" minlength="8" maxlength="8"
 
                     <?php 
                         if (isset($aDados['acao']) && $aDados['acao'] == 'view' or $aDados['acao'] == 'delete'){
@@ -91,7 +91,7 @@
 
                 <div class="form-group col-12 col-md-6">
                     <label for="confSenha" class="form-label">Conferir a senha</label>
-                    <input type="password" name="confSenha" id="confSenha" class="form-control" maxlength="250"
+                    <input type="password" name="confSenha" id="confSenha" class="form-control" minlength="8" maxlength="8"
                     <?php 
                         if (isset($aDados['acao']) && $aDados['acao'] == 'view' or $aDados['acao'] == 'delete'){
                             echo ('readonly');
