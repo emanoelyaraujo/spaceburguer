@@ -33,7 +33,10 @@ class Formulario
         {
             $textoBtnNovo = '
                 <a href="' . SITE_URL . '/' . $parametro['controller'] . '/form/insert" class="btn btn-secondary btn-sm btn-icons-crud" title="Novo">
-                    <i class="fa fa-plus" area-hidden="true"></i>Novo
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
                 </a>
             ';
         }
@@ -48,8 +51,15 @@ class Formulario
                                     </div>
                                     <div class="col-2 mt-5 mb-5 text-right">
                                         ' . $textoBtnNovo . '
-                                        <a href="' . SITE_URL . '/' . $parametro['controller'] . '/lista" class="btn btn-secondary btn-sm btn-icons-crud" title="Lista">
-                                            <i class="fa fa-list" area-hidden="true"></i>Lista
+                                        <a href="' . SITE_URL . '/' . $parametro['controller'] . '/lista" class="btn btn-secondary btn-sm btn-icons-crud" title="Lista">                                            
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                            </svg>
                                         </a>
                                     </div>
                                 </div>';
