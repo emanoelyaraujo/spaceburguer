@@ -51,10 +51,10 @@
                                 Área Administrativa
                             </button>
                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/pedidos">Pedidos</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>pedido/lista">Pedidos</a></li>
                                 <li><a class="text-light dropdown-item" href="<?=SITE_URL ?>usuario/lista">Usuários</a></li>
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/listLanche">Lanches</a></li>
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/listCategoria">Categorias</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>lanche/lista">Lanches</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>categoria/lista">Categorias</a></li>
                             </ul>
                         </div>
                         <?php
@@ -109,7 +109,7 @@
                                     <strong><?= $_SESSION["userNome"] ?></strong>
                                 </a>
                                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                    <li><a class="text-light dropdown-item" href="#">Perfil</a></li>
+                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>perfil">Perfil</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
