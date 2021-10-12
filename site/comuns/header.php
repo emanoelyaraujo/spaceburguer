@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
+    <link rel="icon" href="<?= SITE_URL ?>assets/img/space-icon.png" type="image/png">
     <title>Sidebars · Bootstrap v5.0</title>
 
     <script src="https://unpkg.com/feather-icons"></script>
