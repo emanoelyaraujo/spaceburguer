@@ -51,6 +51,7 @@ switch ($metodo)
             $_SESSION["userEmail"]  = $aUsuario['email'];
             $_SESSION["userNivel"]  = $aUsuario['nivel'];
             $_SESSION["userSenha"]  = $aUsuario['senha'];
+            $_SESSION["userTelefone"]  = $aUsuario['telefone'];
 
             // Direcionar o usuário para página home
 
