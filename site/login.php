@@ -7,6 +7,9 @@
                 </div>
                 <div class="col-md-7">
                     <div class="card card-body">
+                        <div class="area-logo">
+                            <img class="logo-login" src="<?= SITE_URL ?>assets/img/simbolo.png" alt="">
+                        </div>
                         <form method="post" action="<?= SITE_URL ?>usuario/login" class="row justify-content-center align-items-center">
                             <h4 class="text-center pb-2">ENTRE COM SEU LOGIN</h4>
                             <div class="col-md-6 col-sm-6">

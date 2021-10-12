@@ -1,100 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-.logo-sidebar {
-    color: aliceblue;
-}
-
-* {
-    --color-roxo: #433A8F;
-}
-
-.offcanvas-header {
-    background: var(--color-roxo);
-}
-
-.btn:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.list-inline a {
-    color: black !important;
-    text-decoration: none;
-}
-
-.dropdown-menu {
-    background-color: var(--color-roxo);
-}
-
-.list-inline:hover,
-.dropdown>ul>li>a:hover {
-    background-color: rgba(21, 21, 99, 0.226);
-    transition: 1.5s;
-}
-
-.dropdown>ul>li>a:hover {
-    background-color: rgba(189, 189, 192, 0.226);
-    transition: 1.5s;
-}
-
-
-/* Página Login e Cadastrar*/
-
-.login-card {
-    border: 0;
-    border-radius: 27.5px;
-    box-shadow: 0 10px 30px 0 rgb(172 168 168 / 43%);
-    overflow: hidden;
-}
-
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-}
-
-.no-gutters {
-    margin-right: 0;
-    margin-left: 0;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.login-card-img {
-    border-radius: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-img {
-    vertical-align: middle;
-    border-style: none;
-}
-
-.login-card .card-body {
-    padding: 85px 0px 76px;
-    border: 0;
-}
-
-@media screen and (max-width: 770px) {
-    .area-img {
-        display: none;
+    @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+    .logo-sidebar {
+        color: aliceblue;
     }
-}
-
-img.login-card-img {
-    object-fit: cover;
-}
-
-textarea.form-control {
-    outline: none;
-    background: #f8f7fa;
-    border: none;
-}
+    
+    * {
+        --color-roxo: #433A8F;
+    }
+    
+    .offcanvas-header {
+        background: var(--color-roxo);
+    }
+    
+    .btn:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    
+    .list-inline a {
+        color: black !important;
+        text-decoration: none;
+    }
+    
+    .dropdown-menu {
+        background-color: var(--color-roxo);
+    }
+    
+    .list-inline:hover,
+    .dropdown>ul>li>a:hover {
+        background-color: rgba(21, 21, 99, 0.226);
+        transition: 1.5s;
+    }
+    
+    .dropdown>ul>li>a:hover {
+        background-color: rgba(189, 189, 192, 0.226);
+        transition: 1.5s;
+    }
+    /* Página Login e Cadastrar*/
+    
+    .login-card {
+        border: 0;
+        border-radius: 27.5px;
+        box-shadow: 0 10px 30px 0 rgb(172 168 168 / 43%);
+        overflow: hidden;
+    }
+    
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+    }
+    
+    .no-gutters {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .login-card-img {
+        border-radius: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    img {
+        vertical-align: middle;
+        border-style: none;
+    }
+    
+    .login-card .card-body {
+        padding: 85px 0px 76px;
+        border: 0;
+    }
+    
+    @media screen and (max-width: 770px) {
+        .area-img {
+            display: none;
+        }
+    }
+    
+    @media screen and (min-width: 770px) {
+        .area-logo {
+            display: none;
+        }
+    }
+    
+    .area-logo {
+        text-align: center;
+        background-color: #734CBF;
+        margin-top: -20%;
+        margin-right: -10%;
+        margin-left: -10%;
+    }
+    
+    .logo-login {
+        margin-top: 2%;
+        width: 100px;
+        height: 100px;
+        object-fit: scale-down;
+    }
+    
+    img.login-card-img {
+        object-fit: cover;
+    }
+    
+    textarea.form-control {
+        outline: none;
+        background: #f8f7fa;
+        border: none;
+    }
