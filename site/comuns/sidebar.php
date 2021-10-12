@@ -57,7 +57,7 @@
                     </button>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownMenuButton1">
                         <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/pedidos">Pedidos</a></li>
-                        <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controlerAdmin/listUsuario">Usuários</a></li>
+                        <li><a class="text-light dropdown-item" href="<?=SITE_URL ?>usuario/lista">Usuários</a></li>
                         <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/listLanche">Lanches</a></li>
                         <li><a class="text-light dropdown-item" href="<?=SITE_URL?>controllerAdmin/listCategoria">Categorias</a></li>
                     </ul>

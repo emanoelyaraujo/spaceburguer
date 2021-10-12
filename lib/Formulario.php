@@ -33,7 +33,7 @@ class Formulario
         {
             $textoBtnNovo = '
                 <a href="' . SITE_URL . '/' . $parametro['controller'] . '/form/insert" class="btn btn-secondary btn-sm btn-icons-crud" title="Novo">
-                    <i class="fa fa-plus" area-hidden="true"></i>
+                    <i class="fa fa-plus" area-hidden="true"></i>Novo
                 </a>
             ';
         }
@@ -49,7 +49,7 @@ class Formulario
                                     <div class="col-2 mt-5 mb-5 text-right">
                                         ' . $textoBtnNovo . '
                                         <a href="' . SITE_URL . '/' . $parametro['controller'] . '/lista" class="btn btn-secondary btn-sm btn-icons-crud" title="Lista">
-                                            <i class="fa fa-list" area-hidden="true"></i>
+                                            <i class="fa fa-list" area-hidden="true"></i>Lista
                                         </a>
                                     </div>
                                 </div>';
