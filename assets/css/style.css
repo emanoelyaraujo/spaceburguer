@@ -25,7 +25,8 @@
     background-color: var(--color-roxo);
 }
 
-.list-inline:hover, .dropdown>ul>li>a:hover {
+.list-inline:hover,
+.dropdown>ul>li>a:hover {
     background-color: rgba(21, 21, 99, 0.226);
     transition: 1.5s;
 }
@@ -34,6 +35,7 @@
     background-color: rgba(189, 189, 192, 0.226);
     transition: 1.5s;
 }
+
 
 /* Página Login e Cadastrar*/
 
@@ -85,6 +87,10 @@ img {
     .area-img {
         display: none;
     }
+}
+
+img.login-card-img {
+    object-fit: cover;
 }
 
 textarea.form-control {

@@ -79,7 +79,7 @@
 
                 <div class="form-group col-12 col-md-6">
                     <label for="senha" class="form-label">Senha</label>
-                    <input type="password" name="senha" id="senha" class="form-control" minlength="8" maxlength="8"
+                    <input type="password" name="senha" id="senha" class="form-control"
 
                     <?php 
                         if (isset($aDados['acao']) && $aDados['acao'] == 'view' or $aDados['acao'] == 'delete'){
@@ -91,7 +91,7 @@
 
                 <div class="form-group col-12 col-md-6">
                     <label for="confSenha" class="form-label">Conferir a senha</label>
-                    <input type="password" name="confSenha" id="confSenha" class="form-control" minlength="8" maxlength="8"
+                    <input type="password" name="confSenha" id="confSenha" class="form-control"
                     <?php 
                         if (isset($aDados['acao']) && $aDados['acao'] == 'view' or $aDados['acao'] == 'delete'){
                             echo ('readonly');
@@ -99,6 +99,8 @@
                     ?>
                     value="<?= isset($aDados['data']['senha']) ? $aDados['data']['senha'] : "" ?>" required placeholder="Confirme a senha">
                 </div>
+
+                <input type="hidden" name="id" value="<?= isset($aDados['data']['id']) ? $aDados['data']['id'] : "" ?>">
 
                 <div class="form-group col-12 col-md-4 mt-2">
 
