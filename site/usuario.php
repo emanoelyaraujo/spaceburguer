@@ -55,9 +55,12 @@ switch ($metodo)
 
             // Direcionar o usuário para página home
 
-            if($_SESSION["userNivel"] == 1){
+            if ($_SESSION["userNivel"] == 1)
+            {
                 Redirect::page("homeAdmin");
-            } else {
+            }
+            else
+            {
                 Redirect::page("home");
             }
         }
@@ -102,6 +105,8 @@ switch ($metodo)
         $_SESSION["userEmail"]  = $aUsuario['email'];
         $_SESSION["userNivel"]  = $aUsuario['nivel'];
         $_SESSION["userSenha"]  = $aUsuario['senha'];
+        $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+
 
         break;
 
@@ -112,6 +117,7 @@ switch ($metodo)
         unset($_SESSION['userEmail']);
         unset($_SESSION['userNivel']);
         unset($_SESSION['userSenha']);
+        unset($_SESSION['userTelefone']);
 
         Redirect::Page("home");
         break;
@@ -126,7 +132,8 @@ switch ($metodo)
 
     case 'form':
 
-        if ($acao != 'insert') {
+        if ($acao != 'insert')
+        {
             $aDados['data'] = $model->getId("usuario", $id);
         }
 
@@ -135,9 +142,12 @@ switch ($metodo)
 
     case 'insert':
 
-        if ($model->insert($_POST)) {
+        if ($model->insert($_POST))
+        {
             $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
-        } else {
+        }
+        else
+        {
             $_SESSION['msgError'] = 'Falha ao tentar inserir o registro na base de dados.';
         }
 
@@ -145,10 +155,13 @@ switch ($metodo)
         break;
 
     case 'update':
-        
-        if ($model->update($_POST)) {
+
+        if ($model->update($_POST))
+        {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
-        } else {
+        }
+        else
+        {
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
         }
 
@@ -157,9 +170,12 @@ switch ($metodo)
 
     case 'delete':
 
-        if ($model->delete($_POST['id'])) {
+        if ($model->delete($_POST['id']))
+        {
             $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
-        } else {
+        }
+        else
+        {
             $_SESSION['msgError'] = 'Falha ao tentar excluir o registro na base de dados.';
         }
 
