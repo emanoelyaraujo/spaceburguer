@@ -28,8 +28,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= SITE_URL ?>/terceiros/ckeditor5/ckeditor.js"></script>
-
 <script type="text/javascript">
     ClassicEditor
         .create(document.querySelector("#descricao"))

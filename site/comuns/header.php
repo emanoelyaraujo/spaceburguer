@@ -13,6 +13,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="<?= SITE_URL ?>assets/css/bootstrap.min.css">
     <link href="<?= SITE_URL ?>assets/css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="<?= SITE_URL ?>/terceiros/ckeditor5/ckeditor.js"></script>
+
 </head>
 
 <body>
