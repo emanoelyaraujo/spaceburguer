@@ -1,6 +1,6 @@
 <?php
 
-class Categoria extends ModelBase
+class Lanche extends ModelBase
 {
     protected $conDb = null;
 
@@ -22,12 +22,15 @@ class Categoria extends ModelBase
     public function insert($dados)
     {
         $rsc = $this->conDb->dbInsert(
-            "INSERT INTO categoria
-            (descricao, status)
-            VALUES ( ?, ?) ",
+            "INSERT INTO lanche
+            (id_categoria, descricao, ingredientes, preco, status)
+            VALUES ( ?, ?, ?, ?, ?) ",
             [
+                $dados['id_categoria'],
                 $dados['descricao'],
-                $dados['status'],
+                $dados['ingredientes'],
+                $dados['preco'],
+                $dados['status']
             ]
         );
 
@@ -47,11 +50,14 @@ class Categoria extends ModelBase
     public function update($dados)
     {
         $rsc = $this->conDb->dbUpdate(
-            "UPDATE categoria 
-                SET descricao = ?, status = ?
+            "UPDATE lanche 
+                SET id_categoria = ?, descricao = ?, ingredientes = ?, preco = ?, status = ?
                 WHERE id = ?",
             [
+                $dados['id_categoria'],
                 $dados['descricao'],
+                $dados['ingredientes'],
+                $dados['preco'],
                 $dados['status'],
                 $dados['id']
             ]
@@ -73,7 +79,7 @@ class Categoria extends ModelBase
     public function delete($id)
     {
         $rsc = $this->conDb->dbDelete(
-            "DELETE FROM categoria WHERE id = ?",
+            "DELETE FROM lanche WHERE id = ?",
             [
                 $id
             ]
@@ -85,4 +91,5 @@ class Categoria extends ModelBase
             return false;
         }
     }
+
 }
