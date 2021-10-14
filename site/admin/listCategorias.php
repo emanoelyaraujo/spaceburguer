@@ -10,7 +10,6 @@
             <table class="table table-hover table-bordered table-striped table-sm">
                 <thead>
                     <tr class="text-weigth-bold">
-                        <th>Imagem</th>
                         <th>Descrição</th>
                         <th>Status</th>
                         <th>Opções</th>
@@ -18,8 +17,7 @@
                 </thead>
                 <tbody class="align-middle text-center">
                     <?php foreach ($aDados['data'] as $value) : ?>
-                        <tr class="<?= ($value['status'] == 1 ? "" : "bg-secondary") ?>">
-                            <td><img src="<?= $value['imagem']?>" style="width: 100px;" alt=""></td>
+                        <tr>
                             <td><?= $value['descricao'] ?></td>
                             <td><?= ($value['status'] == 1 ? "Ativo" : "Inativo") ?></td>
                             <td>
