@@ -19,7 +19,7 @@ switch ($metodo)
         {          // 1=Falhou criação do super user; 2=sucesso na criação do super user
             Redirect::page("login");
         }
-
+        
         // Buscar usuário na base de dados
 
         $aUsuario = $model->getUserEmail($post['email']);
@@ -53,15 +53,7 @@ switch ($metodo)
             $_SESSION["userTelefone"]  = $aUsuario['telefone'];
 
             // Direcionar o usuário para página home
-
-            if ($_SESSION["userNivel"] == 1)
-            {
-                Redirect::page("homeAdmin");
-            }
-            else
-            {
-                Redirect::page("home");
-            }
+            Redirect::page("home");
         }
         else
         {
@@ -127,38 +119,6 @@ switch ($metodo)
         Redirect::Page("home");
         break;
 
-    case 'lista':
-
-        $aDados['data'] = $model->getLista("usuario");
-
-        require_once "site/admin/listUsuarios.php";
-
-        break;
-
-    case 'form':
-
-        if ($acao != 'insert')
-        {
-            $aDados['data'] = $model->getId("usuario", $id);
-        }
-
-        require_once "site/admin/formUsuarios.php";
-        break;
-
-    case 'insert':
-
-        if ($model->insert($_POST))
-        {
-            $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
-        }
-        else
-        {
-            $_SESSION['msgError'] = 'Falha ao tentar inserir o registro na base de dados.';
-        }
-
-        Redirect::Page("usuario/lista");
-        break;
-
     case 'update':
 
         if (isset($post["confirmSenha"]))
@@ -194,19 +154,5 @@ switch ($metodo)
             Redirect::Page("perfil");
         }
 
-        break;
-
-    case 'delete':
-
-        if ($model->delete($_POST['id']))
-        {
-            $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
-        }
-        else
-        {
-            $_SESSION['msgError'] = 'Falha ao tentar excluir o registro na base de dados.';
-        }
-
-        Redirect::Page("usuario/lista");
         break;
 }
