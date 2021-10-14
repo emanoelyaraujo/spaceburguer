@@ -37,13 +37,22 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label for="confirmPassword">Confirme sua senha<span class="text-danger">*</span></label>
-                                        <input type="password" maxlength="15" class="form-control" id="confirmSenha" id="confirmPassword" required>
+                                        <input type="password" maxlength="15" class="form-control" name="confirmSenha" id="confirmSenha" id="confirmPassword" required>
                                     </div>
                                 </div>
                                 <div class="form-group mt-2 mb-3">
                                     <input type="checkbox" id="f-option2" name="selector">
                                     <label for="f-option2">Mantenha-me conectado</label>
                                 </div>
+
+                                <div class="col-12">
+                                    <?= Formulario::exibeMsgError() ?>
+                                </div>
+
+                                <div class="col-12">
+                                    <?= Formulario::exibeMsgSucesso() ?>
+                                </div>
+
                                 <div class="d-flex justify-content-center">
                                     <div class="form-group">
                                         <a class="btn btn-outline-secondary" href="<?= SITE_URL ?>" title="Voltar" id="voltar">Voltar</a>
