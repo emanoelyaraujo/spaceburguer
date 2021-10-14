@@ -1,5 +1,5 @@
 <?= Formulario::titulo("Usuário", [
-    "controller" => "usuario",
+    "controller" => "usuarioAdmin",
     "btNovo" => false,
     "acao" => $aDados['acao']
 ]) ?>
@@ -24,7 +24,7 @@ else if ($aDados["acao"] == "delete")
 
 <main class="container">
     <section class="mb-5">
-        <form method="POST" action="<?= SITE_URL ?>usuario/<?= $aDados['acao'] ?>">
+        <form method="POST" action="<?= SITE_URL ?>usuarioAdmin/<?= $aDados['acao'] ?>">
             <div class="row">
                 <div class="form-group col-12 col-md-8 mb-3">
                     <label for="nome" class="form-label">Nome</label>
@@ -77,7 +77,7 @@ else if ($aDados["acao"] == "delete")
                 <input type="hidden" name="id" value="<?= isset($aDados['data']['id']) ? $aDados['data']['id'] : "" ?>">
 
                 <div class="form-group col-12 col-md-4 mt-2">
-                    <a href="<?= SITE_URL ?>/Usuario/lista" class="btn btn-outline-secondary">Voltar</a>
+                    <a href="<?= SITE_URL ?>/usuarioAdmin/lista" class="btn btn-outline-secondary">Voltar</a>
                     <?php if($acao != "view"): ?>     
                         <button type="submit" value="submit" class="btn btn-<?= $corBotao ?> me-3"><?= $textoBotao ?></button>
                     <?php endif; ?>

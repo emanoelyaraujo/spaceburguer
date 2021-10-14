@@ -52,7 +52,7 @@
                             </button>
                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="text-light dropdown-item" href="<?=SITE_URL?>pedido/lista">Pedidos</a></li>
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL ?>usuario/lista">Usuários</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL ?>usuarioAdmin/lista">Usuários</a></li>
                                 <li><a class="text-light dropdown-item" href="<?=SITE_URL?>lanche/lista">Lanches</a></li>
                                 <li><a class="text-light dropdown-item" href="<?=SITE_URL?>categoria/lista">Categorias</a></li>
                             </ul>
