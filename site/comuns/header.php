@@ -11,6 +11,8 @@
     <title>Space Burguer</title>
 
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src="<?= SITE_URL ?>assets/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="<?= SITE_URL ?>assets/jQuery/jquery.mask.min.js"></script>
     <link rel="stylesheet" href="<?= SITE_URL ?>assets/css/bootstrap.min.css">
     <link href="<?= SITE_URL ?>assets/css/style.css" rel="stylesheet">
     <script type="text/javascript" src="<?= SITE_URL ?>/terceiros/ckeditor5/ckeditor.js"></script>

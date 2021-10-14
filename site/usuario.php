@@ -9,7 +9,6 @@ $aDados['acao'] = $acao;
 
 switch ($metodo)
 {
-
     case 'login':
 
         // super usário
@@ -66,47 +65,53 @@ switch ($metodo)
         }
         else
         {
-            $_SESSION['msgError'] = 'Usuário e ou senha inválido.';
-            Redirect::page("login");
+            $_SESSION['msgError'] = 'E-mail informado não está cadastrado.';
+            Redirect::page("cadastrar");
         }
 
         break;
 
     case "register":
 
-        $aUsuario = $model->getUserEmail($post['email']);
-
-        // verifica se o email informado já existe na base de dados
-        if ($aUsuario["email"] == $post["email"])
-        {
-            $_SESSION["msgError"] = "E-mail informado já foi cadastrado";
-            Redirect::page("login");
-            break;
-        }
-        else
-        {
-            $rscUser = $model->insertUser($post);
-        }
-
-        if ($rscUser > 0)
+        if ($post["senha"] === $post["confirmSenha"])
         {
             $aUsuario = $model->getUserEmail($post['email']);
 
-            Redirect::page("home");
+            // verifica se o email informado já existe na base de dados
+            if (!empty($aUsuario) && $aUsuario["email"] == $post["email"])
+            {
+                $_SESSION["msgError"] = "Este e-mail já foi cadastrado";
+                Redirect::page("login");
+                break;
+            }
+            else
+            {
+                $rscUser = $model->insertUser($post);
+            }
+
+            if ($rscUser > 0)
+            {
+                $aUsuario = $model->getUserEmail($post['email']);
+                Redirect::page("login");
+            }
+            else
+            {
+                $_SESSION["msgError"] = "Falha ao criar usuário";
+                Redirect::page("cadastrar");
+            }
+
+            $_SESSION["userId"] = $aUsuario['id'];
+            $_SESSION["userNome"]  = $aUsuario['nome'];
+            $_SESSION["userEmail"]  = $aUsuario['email'];
+            $_SESSION["userNivel"]  = $aUsuario['nivel'];
+            $_SESSION["userSenha"]  = $aUsuario['senha'];
+            $_SESSION["userTelefone"]  = $aUsuario['telefone'];
         }
         else
         {
-            $_SESSION["msgError"] = "Falha ao criar usuário";
-            Redirect::page("login");
+            $_SESSION["msgError"] = "Senhas não conferem";
+            Redirect::page("cadastrar");
         }
-
-        $_SESSION["userId"] = $aUsuario['id'];
-        $_SESSION["userNome"]  = $aUsuario['nome'];
-        $_SESSION["userEmail"]  = $aUsuario['email'];
-        $_SESSION["userNivel"]  = $aUsuario['nivel'];
-        $_SESSION["userSenha"]  = $aUsuario['senha'];
-        $_SESSION["userTelefone"]  = $aUsuario['telefone'];
-
 
         break;
 
@@ -156,6 +161,16 @@ switch ($metodo)
 
     case 'update':
 
+        if (isset($post["confirmSenha"]))
+        {
+            if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] === $post["confirmSenha"])
+            {
+                $_SESSION["msgError"] = "Senhas não conferem";
+                Redirect::page("cadastrar");
+            }
+        }
+        exit;
+
         if ($model->update($_POST))
         {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
@@ -165,7 +180,20 @@ switch ($metodo)
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
         }
 
-        Redirect::Page("usuario/lista");
+        if ($_SESSION["userNivel"] == 1)
+        {
+            Redirect::Page("usuario/lista");
+        }
+        else
+        {
+            $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
+
+            $_SESSION["userNome"]  = $aUsuario['nome'];
+            $_SESSION["userEmail"]  = $aUsuario['email'];
+            $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+            Redirect::Page("perfil");
+        }
+
         break;
 
     case 'delete':

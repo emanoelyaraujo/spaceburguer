@@ -80,11 +80,10 @@ class Usuario extends ModelBase
 
     public function insertUser($post)
     {
-        
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO usuario
-                    (nome, telefone, email, senha, nivel)
-                    VALUES(?, ?, ?, ?, ?)",
+            (nome, telefone, email, senha, nivel)
+            VALUES(?, ?, ?, ?, ?)",
             [
                 $post["nome"],
                 $post["telefone"],
@@ -114,7 +113,7 @@ class Usuario extends ModelBase
      */
     public function insert($dados)
     {
-        $telefone = trim(str_replace("(",")","-", $dados['telefone']));
+        $telefone = trim(str_replace("(", ")", "-", $dados['telefone']));
 
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO usuario
@@ -147,24 +146,46 @@ class Usuario extends ModelBase
      * @return boolean
      */
     public function update($dados)
-    {   
-        $telefone = $dados['telefone'];
-        //var_dump($telefone);exit; //debug pronto para testar máscara
+    {
+        $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
 
-
-        $rsc = $this->conDb->dbUpdate(
-            "UPDATE usuario 
-                SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
-                WHERE id = ?",
-            [
-                $dados['nome'],
-                $telefone,
-                $dados['email'],
-                $dados['status'],
-                $dados['nivel'],
-                $dados['id']
-            ]
-        );
+        if ($_SESSION["userNivel"] == 1)
+        {
+            $rsc = $this->conDb->dbUpdate(
+                "UPDATE usuario 
+                    SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
+                    WHERE id = ?",
+                [
+                    $dados['nome'],
+                    $telefone,
+                    $dados['email'],
+                    $dados['status'],
+                    $dados['nivel'],
+                    $dados['id']
+                ]
+            );
+        }
+        else
+        {
+            if (!isset($dados["confirmSenha"]))
+            {
+                $rsc = $this->conDb->dbUpdate(
+                    "UPDATE usuario 
+                        SET nome = ?, telefone = ?, email = ?
+                        WHERE id = ?",
+                    [
+                        $dados['nome'],
+                        $telefone,
+                        $dados['email'],
+                        $_SESSION["userId"]
+                    ]
+                );
+            }
+            else
+            {
+                
+            }
+        }
 
         if ($rsc > 0)
         {
