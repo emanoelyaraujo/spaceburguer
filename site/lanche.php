@@ -2,6 +2,8 @@
 
 require_once 'modelLanche.php';
 
+Security::isAdmin();
+
 $model = new Lanche();
 
 $post           = $_POST;
@@ -10,7 +12,7 @@ $aDados['categoria'] = $model->getLista("categoria", "descricao");
 
 switch ($metodo)
 {
-       
+
     case 'lista':
 
         $aDados['data'] = $model->getLista("lanche", "id_categoria");
@@ -20,7 +22,8 @@ switch ($metodo)
 
     case 'form':
 
-        if ($acao != 'insert') {
+        if ($acao != 'insert')
+        {
 
             $aDados['data'] = $model->getId("lanche", $id);
         }
@@ -32,9 +35,19 @@ switch ($metodo)
 
     case 'insert':
 
-        if ($model->insert($_POST)) {
+        if (empty(trim($post["ingredientes"])))
+        {
+            $_SESSION["msgError"] = "Campo ingredientes é obrigatório";
+            Redirect::Page("lanche/form/insert");
+            break;
+        }
+
+        if ($model->insert($_POST))
+        {
             $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
-        } else {
+        }
+        else
+        {
             $_SESSION['msgError'] = 'Falha ao tentar inserir o registro na base de dados.';
         }
 
@@ -42,10 +55,13 @@ switch ($metodo)
         break;
 
     case 'update':
-        
-        if ($model->update($_POST)) {
+
+        if ($model->update($_POST))
+        {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
-        } else {
+        }
+        else
+        {
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
         }
 
@@ -54,9 +70,12 @@ switch ($metodo)
 
     case 'delete':
 
-        if ($model->delete($_POST['id'])) {
+        if ($model->delete($_POST['id']))
+        {
             $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
-        } else {
+        }
+        else
+        {
             $_SESSION['msgError'] = 'Falha ao tentar excluir o registro na base de dados.';
         }
 

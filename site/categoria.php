@@ -2,6 +2,8 @@
 
 require_once 'modelCategoria.php';
 
+Security::isAdmin();
+
 $model = new Categoria();
 
 $post           = $_POST;
