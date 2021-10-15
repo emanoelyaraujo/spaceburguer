@@ -19,7 +19,7 @@ switch ($metodo)
         {          // 1=Falhou criação do super user; 2=sucesso na criação do super user
             Redirect::page("login");
         }
-        
+
         // Buscar usuário na base de dados
 
         $aUsuario = $model->getUserEmail($post['email']);
@@ -119,19 +119,20 @@ switch ($metodo)
         Redirect::Page("home");
         break;
 
-    case 'update':
 
+    case 'update':
+        
         if (isset($post["confirmSenha"]))
         {
-            if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] === $post["confirmSenha"])
+            if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
             {
                 $_SESSION["msgError"] = "Senhas não conferem";
-                Redirect::page("cadastrar");
+                Redirect::page("perfil");
+                break;
             }
         }
-        exit;
 
-        if ($model->update($_POST))
+        if ($model->update($_POST, false))
         {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
         }
@@ -142,15 +143,24 @@ switch ($metodo)
 
         if ($_SESSION["userNivel"] == 1)
         {
-            Redirect::Page("usuario/lista");
+            Redirect::Page("usuarioAdmin/lista");
         }
         else
         {
             $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
 
-            $_SESSION["userNome"]  = $aUsuario['nome'];
-            $_SESSION["userEmail"]  = $aUsuario['email'];
-            $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+            if (!isset($post["confirmSenha"]))
+            {
+
+                $_SESSION["userNome"]  = $aUsuario['nome'];
+                $_SESSION["userEmail"]  = $aUsuario['email'];
+                $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+            }
+            else 
+            {
+                $_SESSION["userSenha"] = $aUsuario["senha"];
+            }
+
             Redirect::Page("perfil");
         }
 
