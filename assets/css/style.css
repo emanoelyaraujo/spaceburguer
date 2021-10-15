@@ -113,3 +113,12 @@
         background: #f8f7fa;
         border: none;
     }
+
+    /* perfil */
+    #v-pills-tab > .active {
+        background-color: var(--color-roxo);
+    }
+
+    #v-pills-tab > .active > svg {
+        stroke: white;
+    }
