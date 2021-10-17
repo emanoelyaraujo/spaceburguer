@@ -50,10 +50,16 @@ else if ($aDados["acao"] == "delete")
                 </div>
 
                 <div class="col-md-6">
-                    <label for="ingredientes" class="form-label">Ingredientes</label>
-                    <textarea class="form-control" name="ingredientes" id="<?= $id_Ingredientes ?>" <?= $editar["readonly"] ?> required>
-                        <?= isset($aDados['data']['ingredientes']) ? $aDados['data']['ingredientes'] : "" ?>
-                    </textarea>
+                    <div class="form-group">
+                        <label for="ingredientes" class="form-label">Ingredientes</label>
+                        <?php if($aDados["acao"] == "view" || $aDados["acao"] == "delete"): ?>
+                            <?= $aDados['data']['ingredientes'] ?>
+                        <?php else: ?>
+                            <textarea class="form-control" name="ingredientes" rows="10" id="<?= $id_Ingredientes ?>" <?= $editar["readonly"] ?> required>
+                                <?= isset($aDados['data']['ingredientes']) ? $aDados['data']['ingredientes'] : "" ?>
+                            </textarea>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
                 <div class="form-group col-lg-6 mb-3">
