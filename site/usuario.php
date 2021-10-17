@@ -122,6 +122,7 @@ switch ($metodo)
 
     case 'update':
         
+        // se foi setado está na view perfil
         if (isset($post["confirmSenha"]))
         {
             if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
@@ -132,6 +133,7 @@ switch ($metodo)
             }
         }
 
+        // senão, lista de usuários do adm
         if ($model->update($_POST, false))
         {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
