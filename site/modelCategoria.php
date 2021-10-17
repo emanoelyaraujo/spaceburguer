@@ -31,9 +31,12 @@ class Categoria extends ModelBase
             ]
         );
 
-        if ($rsc > 0) {
+        if ($rsc > 0)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -57,9 +60,12 @@ class Categoria extends ModelBase
             ]
         );
 
-        if ($rsc > 0) {
+        if ($rsc > 0)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -79,10 +85,36 @@ class Categoria extends ModelBase
             ]
         );
 
-        if ($rsc > 0) {
+        if ($rsc > 0)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
+        }
+    }
+    
+    /**
+     * getCategoriaLanche
+     *
+     * @param  int $id_categoria
+     * @return array
+     */
+    public function getCategoriaLanche($id_categoria)
+    {
+        $rsc = $this->conDb->dbSelect(
+            "SELECT id_categoria FROM lanche WHERE id_categoria = ?",
+            [$id_categoria]
+        );
+
+        if ($this->conDb->dbNumeroLinhas($rsc) > 0)
+        {
+            return $this->conDb->dbBuscaArray($rsc);
+        }
+        else
+        {
+            return [];
         }
     }
 }
