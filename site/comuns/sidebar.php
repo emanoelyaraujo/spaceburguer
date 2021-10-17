@@ -9,10 +9,7 @@
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <img src="<?= SITE_URL ?>assets/img/simbolo.png" width="50" alt="">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <span class="fs-4 logo-sidebar">Space Burguer</span>
-            </a>
+            <img src="<?= SITE_URL ?>assets/img/SVG/spaceBurguer.svg" width="75%" alt="">
             <button type="button" class="btn btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
