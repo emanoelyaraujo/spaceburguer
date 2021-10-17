@@ -11,6 +11,7 @@ require_once "lib/Database.php";
 require_once "lib/Redirect.php";
 require_once "lib/Formulario.php";
 require_once "lib/Security.php";
+require_once "lib/Lista.php";
 
 // Roteamento da plataforma
 
