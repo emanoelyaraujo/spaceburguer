@@ -2,7 +2,7 @@
 
 class Lista
 {
-    public static function montaLista($controller, $thead, $tbory, $id)
+    public static function montaLista($controller, $thead, $tbody, $id)
     {
         ?>
         <div class="container">
@@ -17,7 +17,7 @@ class Lista
                             </tr>
                         </thead>
                         <tbody class="align-middle text-center">
-                            <?php foreach ($tbory as $key => $row) : ?>
+                            <?php foreach ($tbody as $key => $row) : ?>
                                 <tr>
                                     <?php foreach($row as $col): ?>
                                         <td><?= $col ?></td>
