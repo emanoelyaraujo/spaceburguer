@@ -122,3 +122,8 @@
     #v-pills-tab > .active > svg {
         stroke: white;
     }
+
+    /* CKEditor */
+    .ck-editor__editable{
+        min-height: 200px;
+    }
