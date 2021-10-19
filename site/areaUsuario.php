@@ -47,4 +47,8 @@ switch ($metodo)
         Redirect::Page("minhaConta");
 
         break;
+
+    case "setPill":
+        $_SESSION["pill"] = $post["id"];
+        break;
 }

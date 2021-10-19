@@ -12,8 +12,20 @@ class Redirect
     {
         ?>
         <script language="JavaScript">
-            window.location="<?= SITE_URL . $caminho ?>";
+            window.location = "<?= SITE_URL . $caminho ?>";
         </script>
         <?php
+    }
+    
+    /**
+     * Pega o id do PIlls clicado para adicionar a classe active no botão e no form
+     *
+     * @param  string $id
+     * @param  boolean $show
+     * @return string
+     */
+    public static function getPills($id, $show = false)
+    {
+        return $_SESSION['pill'] == $id ? 'active' . ($show ? ' show' : '') : '';
     }
 }
