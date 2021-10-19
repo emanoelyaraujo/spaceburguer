@@ -149,43 +149,19 @@ class Usuario extends ModelBase
     {
         $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
 
-        if ($_SESSION["userNivel"] == 1)
-        {
-            $rsc = $this->conDb->dbUpdate(
-                "UPDATE usuario 
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE usuario 
                     SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
                     WHERE id = ?",
-                [
-                    $dados['nome'],
-                    $telefone,
-                    $dados['email'],
-                    $dados['status'],
-                    $dados['nivel'],
-                    $dados['id']
-                ]
-            );
-        }
-        else
-        {
-            if (!isset($dados["confirmSenha"]))
-            {
-                $rsc = $this->conDb->dbUpdate(
-                    "UPDATE usuario 
-                        SET nome = ?, telefone = ?, email = ?
-                        WHERE id = ?",
-                    [
-                        $dados['nome'],
-                        $telefone,
-                        $dados['email'],
-                        $_SESSION["userId"]
-                    ]
-                );
-            }
-            else
-            {
-                
-            }
-        }
+            [
+                $dados['nome'],
+                $telefone,
+                $dados['email'],
+                $dados['status'],
+                $dados['nivel'],
+                $dados['id']
+            ]
+        );
 
         if ($rsc > 0)
         {
