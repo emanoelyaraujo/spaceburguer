@@ -21,6 +21,8 @@ class Lanche extends ModelBase
      */
     public function insert($dados)
     {
+        $preco = Numeros::strValor($dados["preco"]);
+
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO lanche
             (id_categoria, descricao, ingredientes, preco, status)
@@ -29,7 +31,7 @@ class Lanche extends ModelBase
                 $dados['id_categoria'],
                 $dados['descricao'],
                 $dados['ingredientes'],
-                $dados['preco'],
+                $preco,
                 $dados['status']
             ]
         );
@@ -49,6 +51,8 @@ class Lanche extends ModelBase
      */
     public function update($dados)
     {
+        $preco = Numeros::strValor($dados["preco"]);
+
         $rsc = $this->conDb->dbUpdate(
             "UPDATE lanche 
                 SET id_categoria = ?, descricao = ?, ingredientes = ?, preco = ?, status = ?
@@ -57,7 +61,7 @@ class Lanche extends ModelBase
                 $dados['id_categoria'],
                 $dados['descricao'],
                 $dados['ingredientes'],
-                $dados['preco'],
+                $preco,
                 $dados['status'],
                 $dados['id']
             ]
