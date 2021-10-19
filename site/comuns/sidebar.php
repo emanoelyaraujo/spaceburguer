@@ -9,7 +9,7 @@
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <img src="<?= SITE_URL ?>assets/img/SVG/spaceBurguer.svg" width="75%" alt="">
+            <a href="<?= SITE_URL ?>"><img src="<?= SITE_URL ?>assets/img/SVG/spaceBurguer.svg" width="75%" alt=""></a>
             <button type="button" class="btn btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -106,7 +106,7 @@
                                     <strong><?= $_SESSION["userNome"] ?></strong>
                                 </a>
                                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>perfil">Perfil</a></li>
+                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>minhaConta">Minha Conta</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
