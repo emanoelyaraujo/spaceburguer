@@ -64,10 +64,13 @@ else if ($aDados["acao"] == "delete")
 
                 <div class="form-group col-lg-6 mb-3">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-3">
                             <label for="preco" class="form-label">Preço</label>
                             <div class="input-group mb-2">
-                                <input type="text" name="preco" id="preco" class="form-control text-end" onKeyUp="mask_valor(this,event,'##.###.###.###,##',true)" <?= $editar["readonly"] ?> value="<?= isset($aDados['data']['preco']) ? $aDados['data']['preco'] : "" ?>">
+                                <input type="text" name="preco" id="preco" class="form-control text-end" 
+                                    onKeyUp="mask_valor(this,event,'##.###.###.###,##',true)" 
+                                    <?= $editar["readonly"] ?> 
+                                    value="<?= isset($aDados['data']['preco']) ? Numeros::formataValor($aDados['data']['preco']) : "" ?>">
                             </div>
                         </div>
                         <div class="col-5">
