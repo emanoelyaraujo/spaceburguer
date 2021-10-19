@@ -6,6 +6,11 @@
     * {
         --color-roxo: #433A8F;
     }
+
+    span {
+        color: red;
+        font-weight: 500;
+    }
     
     .offcanvas-header {
         background: var(--color-roxo);
