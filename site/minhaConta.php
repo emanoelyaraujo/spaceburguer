@@ -7,16 +7,16 @@
 
 <div class="d-flex flex-column flex-md-row">
     <div class="nav d-flex flex-md-column nav-pills me-3 mt-3 ms-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link <?= Redirect::getPills('#v-pills-endereco') ?>" onclick="changeSession('#v-pills-endereco')" id="v-pills-endereco-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endereco" type="button" role="tab" title="Meus Endereço">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4621b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-        </button>
         <button class="nav-link <?= Redirect::getPills('#v-pills-dados') ?>" onclick="changeSession('#v-pills-dados')" id="v-pills-dados-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dados" type="button" role="tab" title="Meu Perfil">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4621b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </button>
+        <button class="nav-link <?= Redirect::getPills('#v-pills-endereco') ?>" onclick="changeSession('#v-pills-endereco')" id="v-pills-endereco-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endereco" type="button" role="tab" title="Meus Endereço">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4621b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
         </button>
         <button class="nav-link <?= Redirect::getPills('#v-pills-cartao') ?>" onclick="changeSession('#v-pills-cartao')" id="v-pills-cartao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cartao" type="button" role="tab" title="Meus Cartões">
@@ -41,6 +41,29 @@
         </div>
 
         <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade <?= Redirect::getPills('#v-pills-dados', true) ?>" id="v-pills-dados" role="tabpanel">
+                <h4>Meu Perfil</h4>
+                <form action="<?= SITE_URL ?>areaUsuario/updateDados" method="post">
+                    <div class="d-flex align-items-center flex-column">
+                        <div class="d-flex justify-content-center">
+                            <img src="<?= SITE_URL ?>assets/img/user.png" class="rounded-full w-75" alt="">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" name="nome" id="nome" class="form-control" maxlength="60" value="<?= isset($_SESSION["userNome"]) ? $_SESSION["userNome"] : "" ?>">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" name="email" id="email" class="form-control" maxlength="100" value="<?= isset($_SESSION["userEmail"]) ? $_SESSION["userEmail"] : "" ?>">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="text" name="telefone" id="telefone" class="form-control" maxlength="14" value="<?= isset($_SESSION["userTelefone"]) ? $_SESSION["userTelefone"] : "" ?>">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                    </div>
+                </form>
+            </div>
             <div class="tab-pane fade <?= Redirect::getPills('#v-pills-endereco', true) ?>" id="v-pills-endereco" role="tabpanel">
                 <h4>Meus Endereços</h4>
 
@@ -49,8 +72,6 @@
                         Adicionar novo Endereço
                     </button>
                 </div>
-
-                <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -59,12 +80,12 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form class="p-3" method="post" action="<?= SITE_URL ?>areaUsuario/register">
+                                <form class="p-3" method="post" action="<?= SITE_URL ?>areaUsuario/insertEndereco">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="nomeEndereco">Nome do Endereço<span>*</span></label>
-                                                <input type="text" name="nomeEndereco" class="form-control" maxlength="9" id="nomeEndereco" autofocus required>
+                                                <input type="text" name="nomeEndereco" class="form-control" maxlength="60" id="nomeEndereco" autofocus required>
                                                 <small>Exemplo: minha casa</small>
                                             </div>
                                         </div>
@@ -83,13 +104,13 @@
                                         <div class="col-12">
                                             <div class="form-gro mb-3">
                                                 <label for="bairro">Bairro<span>*</span></label>
-                                                <input type="email" name="bairro" maxlength="50" class="form-control" id="bairro" aria-describedby="emailHelp" autofocus required>
+                                                <input type="text" name="bairro" maxlength="50" class="form-control" id="bairro" autofocus required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="numero">Número<span>*</span></label>
-                                                <input type="text" name="numero" maxlength="15" class="form-control" id="numero" required>
+                                                <input type="text" name="numero" maxlength="4" class="form-control" id="numero" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -125,34 +146,10 @@
                     </div>
                 </div> -->
             </div>
-
-            <div class="tab-pane fade <?= Redirect::getPills('#v-pills-dados', true) ?>" id="v-pills-dados" role="tabpanel">
-                <h4>Meu Perfil</h4>
-                <form action="<?= SITE_URL ?>areaUsuario/update" method="post">
-                    <div class="d-flex align-items-center flex-column">
-                        <div class="d-flex justify-content-center">
-                            <img src="<?= SITE_URL ?>assets/img/user.png" class="rounded-full w-75" alt="">
-                        </div>
-                        <div class="col-md-5 mb-3">
-                            <label for="nome" class="form-label">Nome</label>
-                            <input type="text" name="nome" id="nome" class="form-control" maxlength="60" value="<?= isset($_SESSION["userNome"]) ? $_SESSION["userNome"] : "" ?>">
-                        </div>
-                        <div class="col-md-5 mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" name="email" id="email" class="form-control" maxlength="100" value="<?= isset($_SESSION["userEmail"]) ? $_SESSION["userEmail"] : "" ?>">
-                        </div>
-                        <div class="col-md-5 mb-3">
-                            <label for="telefone" class="form-label">Telefone</label>
-                            <input type="text" name="telefone" id="telefone" class="form-control" maxlength="14" value="<?= isset($_SESSION["userTelefone"]) ? $_SESSION["userTelefone"] : "" ?>">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Editar</button>
-                    </div>
-                </form>
-            </div>
             <div class="tab-pane fade <?= Redirect::getPills('#v-pills-cartao', true) ?>" id="v-pills-cartao" role="tabpanel">...</div>
             <div class="tab-pane fade <?= Redirect::getPills('#v-pills-senha', true) ?>" id="v-pills-senha" role="tabpanel">
                 <h4>Alterar Senha</h4>
-                <form action="<?= SITE_URL ?>areaUsuario/update" method="post">
+                <form action="<?= SITE_URL ?>areaUsuario/updateSenha" method="post">
                     <div class="d-flex align-items-center flex-column">
                         <div class="col-md-5 mb-3">
                             <label for="senhaAtual" class="form-label">Senha Atual</label>

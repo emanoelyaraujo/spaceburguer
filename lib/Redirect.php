@@ -26,6 +26,6 @@ class Redirect
      */
     public static function getPills($id, $show = false)
     {
-        return $_SESSION['pill'] == $id ? 'active' . ($show ? ' show' : '') : '';
+        return isset($_SESSION['pill']) ? ($_SESSION['pill'] == $id ? 'active' . ($show ? ' show' : '') : '') : '';
     }
 }

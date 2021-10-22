@@ -9,19 +9,33 @@ $aDados['acao'] = $acao;
 
 switch ($metodo)
 {
-    case 'update':
-        // se foi setado está na view perfil
-        if (isset($post["confirmSenha"]))
+    case 'updateSenha':
+
+        if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
         {
-            if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
-            {
-                $_SESSION["msgError"] = "Senhas não conferem";
-                Redirect::page("minhaConta");
-                break;
-            }
+            $_SESSION["msgError"] = "Senhas não conferem";
+            Redirect::page("minhaConta");
+            break;
         }
-        // senão, lista de usuários do adm
-        if ($model->update($post))
+
+        if ($model->updateSenha($post))
+        {
+            $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+        }
+
+        $_SESSION["userSenha"] = $aUsuario["senha"];
+
+        Redirect::Page("minhaConta");
+
+        break;
+
+    case "updateDados":
+
+        if ($model->updateDados($post))
         {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
         }
@@ -32,16 +46,23 @@ switch ($metodo)
 
         $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
 
-        if (!isset($post["confirmSenha"]))
-        {
+        $_SESSION["userNome"]  = $aUsuario['nome'];
+        $_SESSION["userEmail"]  = $aUsuario['email'];
+        $_SESSION["userTelefone"]  = $aUsuario['telefone'];
 
-            $_SESSION["userNome"]  = $aUsuario['nome'];
-            $_SESSION["userEmail"]  = $aUsuario['email'];
-            $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+        Redirect::Page("minhaConta");
+
+        break;
+
+    case "insertEndereco":
+
+        if ($model->insertEndereco($post))
+        {
+            $_SESSION['msgSucesso'] = 'Endereço criado com sucesso.';
         }
         else
         {
-            $_SESSION["userSenha"] = $aUsuario["senha"];
+            $_SESSION['msgError'] = 'Falha ao tentar criar o endereço na base de dados.';
         }
 
         Redirect::Page("minhaConta");

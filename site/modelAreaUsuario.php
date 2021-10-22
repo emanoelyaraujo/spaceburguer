@@ -12,7 +12,7 @@ class AreaUsuario extends ModelBase
         $this->conDb = $this->conectaDb();
     }
 
-    public function update($dados)
+    public function updateDados($dados)
     {
         $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
 
@@ -42,33 +42,67 @@ class AreaUsuario extends ModelBase
 
         if ($alterado)
         {
-            if (!isset($dados["confirmSenha"]))
-            {
-                $rsc = $this->conDb->dbUpdate(
-                    "UPDATE usuario 
+            $rsc = $this->conDb->dbUpdate(
+                "UPDATE usuario 
                         SET nome = ?, telefone = ?, email = ?
                         WHERE id = ?",
-                    [
-                        $dados['nome'],
-                        $telefone,
-                        $dados['email'],
-                        $_SESSION["userId"]
-                    ]
-                );
-            }
-            else
-            {
-                $rsc = $this->conDb->dbUpdate(
-                    "UPDATE usuario 
+                [
+                    $dados['nome'],
+                    $telefone,
+                    $dados['email'],
+                    $_SESSION["userId"]
+                ]
+            );
+        }
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function updateSenha($dados)
+    {
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE usuario 
                         SET senha = ?
                         WHERE id = ?",
-                    [
-                        password_hash(trim($dados['senha']), PASSWORD_DEFAULT),
-                        $_SESSION["userId"]
-                    ]
-                );
-            }
+            [
+                password_hash(trim($dados['senha']), PASSWORD_DEFAULT),
+                $_SESSION["userId"]
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function insertEndereco($post)
+    {
+        $rsc = $this->conDb->dbInsert(
+            "INSERT INTO endereco 
+            (id_usuario, nomeEndereco, cep, rua, bairro, numero, complemento)
+            VALUES (?, ?, ?, ?, ?, ?, ?)",
+            [
+                $_SESSION["userId"],
+                $post["nomeEndereco"],
+                $post["cep"],
+                $post["rua"],
+                $post["bairro"],
+                $post["numero"],
+                $post["complemento"]
+            ]
+        );
 
         if ($rsc > 0)
         {
