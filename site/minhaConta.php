@@ -65,13 +65,7 @@
                 </form>
             </div>
             <div class="tab-pane fade <?= Redirect::getPills('#v-pills-endereco', true) ?>" id="v-pills-endereco" role="tabpanel">
-                <h4>Meus Endereços</h4>
-
-                <div class="d-flex justify-content-center mt-3">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Adicionar novo Endereço
-                    </button>
-                </div>
+                <h4 class="mb-3">Meus Endereços</h4>
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -135,16 +129,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <?php foreach($dados["endereco"] as $endereco): ?>
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= $endereco["nomeEndereco"] ?></h5>
+                                    <p class="card-text"><?= $endereco["rua"] . ", " . $endereco["numero"] . 
+                                        "<br>" . $endereco["bairro"] . ", " . $endereco["cep"] ?>
+                                    </p>
+                                    <hr>
+                                    <div class="d-flex justify-content-end">
+                                        <a class="text-decoration-none text-dark me-2" href="">
+                                            <img src="<?= SITE_URL ?>assets/img/SVG/edit.svg" alt="">Editar
+                                        </a>
+                                        <a class="text-decoration-none text-dark" href="">
+                                            <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">Excluir
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
 
-                <!-- <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div> -->
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Adicionar novo Endereço
+                    </button>
+                </div>
             </div>
             <div class="tab-pane fade <?= Redirect::getPills('#v-pills-cartao', true) ?>" id="v-pills-cartao" role="tabpanel">...</div>
             <div class="tab-pane fade <?= Redirect::getPills('#v-pills-senha', true) ?>" id="v-pills-senha" role="tabpanel">
@@ -160,7 +173,7 @@
                             <input type="password" name="novaSenha" id="novaSenha" class="form-control" maxlength="15" minlength="8" required>
                         </div>
                         <div class="col-md-5 mb-3">
-                            <label for="confirmSenha" class="form-label">Confirmae sua Senha</label>
+                            <label for="confirmSenha" class="form-label">Confirme sua Senha</label>
                             <input type="password" name="confirmSenha" id="confirmSenha" class="form-control" maxlength="15" minlength="8" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Editar</button>
