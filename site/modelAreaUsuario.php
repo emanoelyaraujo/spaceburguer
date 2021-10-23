@@ -67,12 +67,13 @@ class AreaUsuario extends ModelBase
 
     public function updateSenha($dados)
     {
+        
         $rsc = $this->conDb->dbUpdate(
             "UPDATE usuario 
                         SET senha = ?
                         WHERE id = ?",
             [
-                password_hash(trim($dados['senha']), PASSWORD_DEFAULT),
+                password_hash(trim($dados['novaSenha']), PASSWORD_DEFAULT),
                 $_SESSION["userId"]
             ]
         );
@@ -88,7 +89,9 @@ class AreaUsuario extends ModelBase
     }
 
     public function insertEndereco($post)
-    {
+    {   
+        $cep = str_replace("-", "", $post["cep"]);
+        
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO endereco 
             (id_usuario, nomeEndereco, cep, rua, bairro, numero, complemento)
@@ -96,7 +99,7 @@ class AreaUsuario extends ModelBase
             [
                 $_SESSION["userId"],
                 $post["nomeEndereco"],
-                $post["cep"],
+                $cep,
                 $post["rua"],
                 $post["bairro"],
                 $post["numero"],
