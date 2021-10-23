@@ -9,6 +9,13 @@ $aDados['acao'] = $acao;
 
 switch ($metodo)
 {
+    case "dados":
+        $dados["endereco"] = $model->getLista("endereco", "id");
+
+        require_once "site/minhaConta.php";
+
+        break;
+
     case 'updateSenha':
 
         if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
@@ -27,8 +34,10 @@ switch ($metodo)
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
         }
 
-        $_SESSION["userSenha"] = $aUsuario["senha"];
+        $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
 
+        $_SESSION["userSenha"] = $aUsuario["senha"];
+        
         Redirect::Page("minhaConta");
 
         break;
@@ -55,7 +64,6 @@ switch ($metodo)
         break;
 
     case "insertEndereco":
-
         if ($model->insertEndereco($post))
         {
             $_SESSION['msgSucesso'] = 'Endereço criado com sucesso.';
@@ -65,7 +73,7 @@ switch ($metodo)
             $_SESSION['msgError'] = 'Falha ao tentar criar o endereço na base de dados.';
         }
 
-        Redirect::Page("minhaConta");
+        Redirect::Page("areaUsuario/dados");
 
         break;
 

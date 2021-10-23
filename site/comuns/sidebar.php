@@ -106,7 +106,7 @@
                                     <strong><?= $_SESSION["userNome"] ?></strong>
                                 </a>
                                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>minhaConta">Minha Conta</a></li>
+                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>areaUsuario/dados">Minha Conta</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
