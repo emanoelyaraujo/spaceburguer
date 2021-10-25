@@ -1,6 +1,6 @@
 <?php
 
-require_once 'modelLanche.php';
+require_once 'ModelLanche.php';
 
 Security::isAdmin();
 
@@ -44,11 +44,11 @@ switch ($metodo)
 
         if ($model->insert($_POST))
         {
-            $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
+            $_SESSION['msgSucesso'] = 'Lanche inserido com sucesso.';
         }
         else
         {
-            $_SESSION['msgError'] = 'Falha ao tentar inserir o registro na base de dados.';
+            $_SESSION['msgError'] = 'Falha ao tentar inserir o lanche na base de dados.';
         }
 
         Redirect::Page("lanche/lista");
@@ -58,11 +58,11 @@ switch ($metodo)
 
         if ($model->update($_POST))
         {
-            $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+            $_SESSION['msgSucesso'] = 'Lanche atualizado com sucesso.';
         }
         else
         {
-            $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+            $_SESSION['msgError'] = 'Falha ao tentar atualizar o lanche na base de dados.';
         }
 
         Redirect::Page("lanche/lista");
@@ -72,11 +72,11 @@ switch ($metodo)
 
         if ($model->delete($_POST['id']))
         {
-            $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
+            $_SESSION['msgSucesso'] = 'Lanche excluído com sucesso.';
         }
         else
         {
-            $_SESSION['msgError'] = 'Falha ao tentar excluir o registro na base de dados.';
+            $_SESSION['msgError'] = 'Falha ao tentar excluir o lanche na base de dados.';
         }
 
         Redirect::Page("lanche/lista");
