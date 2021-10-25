@@ -1,6 +1,6 @@
 <?php
 
-require_once 'modelAreaUsuario.php';
+require_once 'ModelAreaUsuario.php';
 
 $model = new AreaUsuario();
 
@@ -9,12 +9,12 @@ $aDados['acao'] = $acao;
 
 switch ($metodo)
 {
-    case "dados":
-        $dados["endereco"] = $model->getLista("endereco", "id");
+    // case "minhaConta":
+    //     $dados["endereco"] = $model->getLista("endereco", "id");
 
-        require_once "site/minhaConta.php";
+    //     require_once "site/minhaConta.php";
 
-        break;
+    //     break;
 
     case 'updateSenha':
 
@@ -37,7 +37,7 @@ switch ($metodo)
         $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
 
         $_SESSION["userSenha"] = $aUsuario["senha"];
-        
+
         Redirect::Page("minhaConta");
 
         break;
