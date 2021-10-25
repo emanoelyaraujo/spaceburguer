@@ -1,4 +1,4 @@
-<main>
+<main class="sidebar">
     <button class="btn btn-outline-link mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -106,11 +106,11 @@
                                     <strong><?= $_SESSION["userNome"] ?></strong>
                                 </a>
                                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>areaUsuario/dados">Minha Conta</a></li>
+                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>minhaConta">Minha Conta</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>usuario/logout">Sair</a></li>
+                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>Usuario/logout">Sair</a></li>
                                 </ul>
                             </div>
                         <?php
