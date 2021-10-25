@@ -16,7 +16,7 @@ require_once "lib/Numeros.php";
 
 // Roteamento da plataforma
 
-$pasta      = "site";
+$pasta      = "app";
 $parametros = (isset($_GET["parametro"]) ? $_GET["parametro"] : "HomePrincipal/home");
 $metodo     = "";
 $acao       = "";
@@ -25,7 +25,7 @@ $id         = 0;
 if (substr_count($parametros, "/") > 0)
 {
     $aParam     = explode("/", $parametros);
-    $control    = (file_exists("{$pasta}/{$aParam[0]}.php") ? $aParam[0] : "comuns/error");
+    $control    = (file_exists("{$pasta}/controller/{$aParam[0]}.php") ? $aParam[0] : "/view/comuns/error");
     $metodo     = $aParam[1];
 
     if (isset($aParam[2]))
@@ -44,14 +44,14 @@ if (substr_count($parametros, "/") > 0)
 }
 else
 {
-    $control    = (file_exists("{$pasta}/{$parametros}.php") ? $parametros : "comuns/error");
+    $control    = (file_exists("{$pasta}/controller/{$parametros}.php") ? $parametros : "/view/comuns/error");
 }
 
 // views
 
-require_once $pasta . "/comuns/header.php";
+require_once $pasta . "/view/comuns/header.php";
 if($control != "login" && $control != "cadastrar"){
-    require_once $pasta . "/comuns/sidebar.php";
+    require_once $pasta . "/view/comuns/sidebar.php";
 }
-require_once $pasta . "/" . $control . ".php";
-require_once $pasta . "/comuns/footer.php";
+require_once $pasta . "/controller/" . $control . ".php";
+require_once $pasta . "/view/comuns/footer.php";

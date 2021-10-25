@@ -1,6 +1,6 @@
 <?php
 
-require_once 'ModelHome.php';
+require_once 'app/model/ModelHome.php';
 
 $model = new Home();
 
@@ -13,7 +13,7 @@ switch ($metodo)
 
         $dados = $model->getLanches();
 
-        require_once "site/home.php";
+        require_once "app/view/home.php";
 
         break;
 }

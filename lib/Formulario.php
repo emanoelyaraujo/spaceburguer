@@ -89,9 +89,7 @@ class Formulario
             $texto .= '
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>' . $_SESSION['msgError'] . '</strong>
-                <div class="col-1">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
 
             unset($_SESSION['msgError']);
@@ -116,10 +114,8 @@ class Formulario
             $texto .= '
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>' . $_SESSION['msgSucesso'] . '</strong>
-                    <div class="col-1">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>';
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';    
             unset($_SESSION["msgSucesso"]);
         }
 
