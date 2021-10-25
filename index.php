@@ -17,7 +17,7 @@ require_once "lib/Numeros.php";
 // Roteamento da plataforma
 
 $pasta      = "site";
-$parametros = (isset($_GET["parametro"]) ? $_GET["parametro"] : "home");
+$parametros = (isset($_GET["parametro"]) ? $_GET["parametro"] : "HomePrincipal/home");
 $metodo     = "";
 $acao       = "";
 $id         = 0;
