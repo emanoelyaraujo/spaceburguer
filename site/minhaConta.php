@@ -3,7 +3,23 @@
         $("#telefone").mask('(00)00000-0000');
         $("#cep").mask('00000-000');
     });
+
+    function changeSession() {
+        let id = $("button.active").data("bs-target")
+
+        $.post("areaUsuario/dados", {
+            id
+        });
+    }
 </script>
+
+<?php
+if (!isset($_SESSION['pill']))
+{
+    $_SESSION["pill"] = "#v-pills-dados";
+}
+
+?>
 
 <div class="d-flex flex-column flex-md-row">
     <div class="nav d-flex flex-md-column nav-pills me-3 mt-3 ms-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -43,7 +59,7 @@
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade <?= Redirect::getPills('#v-pills-dados', true) ?>" id="v-pills-dados" role="tabpanel">
                 <h4>Meu Perfil</h4>
-                <form action="<?= SITE_URL ?>areaUsuario/updateDados" method="post">
+                <form action="<?= SITE_URL ?>controller/AreaUsuario/updateDados" method="post">
                     <div class="d-flex align-items-center flex-column">
                         <div class="d-flex justify-content-center">
                             <img src="<?= SITE_URL ?>assets/img/user.png" class="rounded-full w-75" alt="">
@@ -129,14 +145,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <?php foreach($dados["endereco"] as $endereco): ?>
-                        <div class="col">
+                <div class="card-group">
+                    <?php foreach ($dados["endereco"] as $endereco) : ?>
+                        <div class="p-1">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $endereco["nomeEndereco"] ?></h5>
-                                    <p class="card-text"><?= $endereco["rua"] . ", " . $endereco["numero"] . 
-                                        "<br>" . $endereco["bairro"] . ", " . $endereco["cep"] ?>
+                                    <p class="card-text"><?= $endereco["rua"] . ", " . $endereco["numero"] .
+                                                                "<br>" . $endereco["bairro"] . ", " . $endereco["cep"] ?>
                                     </p>
                                     <hr>
                                     <div class="d-flex justify-content-end">
@@ -183,13 +199,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function changeSession() {
-        const id = $("button.active").data("bs-target")
-
-        $.post("areaUsuario/setPill", {
-            id
-        });
-    }
-</script>
