@@ -1,6 +1,6 @@
 <?php
 
-require_once 'modelCategoria.php';
+require_once 'ModelCategoria.php';
 
 Security::isAdmin();
 

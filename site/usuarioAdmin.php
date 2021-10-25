@@ -1,6 +1,6 @@
 <?php
 
-require_once 'modelUsuario.php';
+require_once 'ModelUsuario.php';
 
 Security::isAdmin();
 

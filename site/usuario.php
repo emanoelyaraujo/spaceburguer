@@ -1,6 +1,6 @@
 <?php
 
-require_once 'modelUsuario.php';
+require_once 'ModelUsuario.php';
 
 $model = new Usuario();
 
@@ -54,7 +54,7 @@ switch ($metodo)
             // $_SESSION["pill"]  = ;
 
             // Direcionar o usuário para página home
-            Redirect::page("home");
+            Redirect::page("HomePrincipal/home");
         }
         else
         {
@@ -118,6 +118,6 @@ switch ($metodo)
         unset($_SESSION['userTelefone']);
         unset($_SESSION['pill']);
 
-        Redirect::Page("home");
+        Redirect::Page("HomePrincipal/home");
         break;
 }
