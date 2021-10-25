@@ -31,6 +31,7 @@
         <?php
 
         $categoria = "";
+
         foreach ($dados as $key => $lanches)
         {
             $flag = $lanches["descricao"] != @$dados[$key + 1]["descricao"];
@@ -44,14 +45,14 @@
                             <p>Categoria</p>
                             <h2 class=""><?= $lanches["descricao"] ?></h2>
                             <div class="bbb_slider_nav">
-                                <div class="bbb_prev bbb_nav"><i class="fas fa-angle-left ml-auto"></i></div>
-                                <div class="bbb_next bbb_nav"><i class="fas fa-angle-right ml-auto"></i></div>
+                                <div class="bbb_prev bbb_nav" onclick="voltar(<?= $key ?>)"><i class="fas fa-angle-left ml-auto"></i></div>
+                                <div class="bbb_next bbb_nav" onclick="ir(<?= $key ?>)"><i class="fas fa-angle-right ml-auto"></i></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-9">
                         <div class="bbb_slider_container">
-                            <div class="owl-carousel owl-theme bbb_slider">
+                            <div class="owl-carousel owl-theme bbb_slider" id="bbb_slider<?= $key ?>">
                 <?php
             }
 
@@ -92,10 +93,19 @@
 </div>
 
 <script>
+    function voltar(key) {
+        $(`#bbb_slider${key}`).trigger('prev.owl.carousel');
+    }
+
+    function ir(key) {
+        $(`#bbb_slider${key}`).trigger('next.owl.carousel');
+    }
+
     $(document).ready(function() {
 
         if ($('.bbb_slider').length) {
             var trendsSlider = $('.bbb_slider');
+
             trendsSlider.owlCarousel({
                 loop: false,
                 margin: 30,
@@ -119,20 +129,6 @@
             trendsSlider.on('click', '.bbb_fav', function(ev) {
                 $(ev.target).toggleClass('active');
             });
-
-            if ($('.bbb_prev').length) {
-                var prev = $('.bbb_prev');
-                prev.on('click', function() {
-                    trendsSlider.trigger('prev.owl.carousel');
-                });
-            }
-
-            if ($('.bbb_next').length) {
-                var next = $('.bbb_next');
-                next.on('click', function() {
-                    trendsSlider.trigger('next.owl.carousel');
-                });
-            }
         }
     });
 </script>
