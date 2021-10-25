@@ -1,6 +1,6 @@
 <?php
 
-require_once 'ModelCategoria.php';
+require_once 'app/model/ModelCategoria.php';
 
 Security::isAdmin();
 
@@ -16,7 +16,7 @@ switch ($metodo)
 
         $aDados['data'] = $model->getLista("categoria", "descricao");
 
-        require_once "site/admin/listCategorias.php";
+        require_once "app/view/admin/listCategorias.php";
 
         break;
 
@@ -27,7 +27,7 @@ switch ($metodo)
             $aDados['data'] = $model->getId("categoria", $id);
         }
 
-        require_once "site/admin/formCategoria.php";
+        require_once "app/view/admin/formCategoria.php";
         break;
 
     case 'insert':

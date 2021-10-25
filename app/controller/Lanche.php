@@ -1,6 +1,6 @@
 <?php
 
-require_once 'ModelLanche.php';
+require_once 'app/model/ModelLanche.php';
 
 Security::isAdmin();
 
@@ -12,11 +12,10 @@ $aDados['categoria'] = $model->getLista("categoria", "descricao");
 
 switch ($metodo)
 {
-
     case 'lista':
 
         $aDados['data'] = $model->getLista("lanche", "id_categoria");
-        require_once "site/admin/listLanches.php";
+        require_once "app/view/admin/listLanches.php";
 
         break;
 
@@ -30,7 +29,7 @@ switch ($metodo)
 
         $aDados['categoria'];
 
-        require_once "site/admin/formLanche.php";
+        require_once "app/view/admin/formLanche.php";
         break;
 
     case 'insert':
