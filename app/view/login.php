@@ -10,7 +10,7 @@
                         <div class="area-logo">
                             <img class="logo-login" src="<?= SITE_URL ?>assets/img/simbolo.png" alt="">
                         </div>
-                        <form method="post" action="<?= SITE_URL ?>usuario/login" class="row justify-content-center align-items-center">
+                        <form method="post" action="<?= SITE_URL ?>Login/login" class="row justify-content-center align-items-center">
                             <h4 class="text-center pb-2">ENTRE COM SEU LOGIN</h4>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group mb-3">
@@ -34,13 +34,13 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <a href="<?= SITE_URL ?>home" type="submit" class="btn btn-outline-secondary me-1">Voltar</a>
+                                <a href="<?= SITE_URL ?>Home/index" type="submit" class="btn btn-outline-secondary me-1">Voltar</a>
                                 <button type="submit" class="btn btn-primary">Entrar</button>
                             </div>
                         </form>
                         <div class="text-center mt-3">
                             <a href="">Esqueci minha senha</a><br>
-                            <a href="<?= SITE_URL ?>cadastrar">Novo no site? Cadastre-se</a>
+                            <a href="<?= SITE_URL ?>Login/cadastrar">Novo no site? Cadastre-se</a>
                         </div>
                     </div>
                 </div>

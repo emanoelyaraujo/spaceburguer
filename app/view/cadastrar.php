@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-md-7">
                     <div class="card card-body">
-                        <form class="p-3" method="post" action="<?= SITE_URL ?>usuario/register">
+                        <form class="p-3" method="post" action="<?= SITE_URL ?>Login/register">
                             <h4 class="text-center pb-2">CRIE SUA NOVA CONTA AQUI</h4>
                             <div class="row">
                                 <div class="col-md-6">
@@ -55,12 +55,12 @@
 
                                 <div class="d-flex justify-content-center">
                                     <div class="form-group">
-                                        <a class="btn btn-outline-secondary" href="<?= SITE_URL ?>" title="Voltar" id="voltar">Voltar</a>
+                                        <a class="btn btn-outline-secondary" href="<?= SITE_URL ?>Home/index" title="Voltar" id="voltar">Voltar</a>
                                         <button class="btn btn-primary" type="submit" id="entrar" title="Cadastrar">Cadastrar</button>
                                     </div>
                                 </div>
                                 <div class="linksLogin text-center mt-3 mb-4">
-                                    <a href="<?= SITE_URL ?>login">Já possui conta? Faça seu login</a>
+                                    <a href="<?= SITE_URL ?>Login/index">Já possui conta? Faça seu login</a>
                                 </div>
                             </div>
                         </form>

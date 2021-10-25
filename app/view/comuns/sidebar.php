@@ -30,7 +30,7 @@
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        <a href="<?=SITE_URL?>login">Entre ou Cadastre-se</a>
+                        <a href="<?=SITE_URL?>Login/index">Entre ou Cadastre-se</a>
                     </div>
                     <?php
                 }
@@ -48,10 +48,10 @@
                                 Área Administrativa
                             </button>
                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>pedido/lista">Pedidos</a></li>
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL ?>usuarioAdmin/lista">Usuários</a></li>
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>lanche/lista">Lanches</a></li>
-                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>categoria/lista">Categorias</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>Pedido/lista">Pedidos</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL ?>UsuarioAdmin/lista">Usuários</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>Lanche/lista">Lanches</a></li>
+                                <li><a class="text-light dropdown-item" href="<?=SITE_URL?>Categoria/lista">Categorias</a></li>
                             </ul>
                         </div>
                         <?php
@@ -106,11 +106,11 @@
                                     <strong><?= $_SESSION["userNome"] ?></strong>
                                 </a>
                                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>minhaConta">Minha Conta</a></li>
+                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>MinhaConta/index">Minha Conta</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>Usuario/logout">Sair</a></li>
+                                    <li><a class="text-light dropdown-item" href="<?= SITE_URL ?>Login/logout">Sair</a></li>
                                 </ul>
                             </div>
                         <?php

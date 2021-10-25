@@ -1,6 +1,6 @@
 <?php
 
-require_once 'ModelUsuario.php';
+require_once 'app/model/ModelUsuario.php';
 
 Security::isAdmin();
 
@@ -15,7 +15,7 @@ switch ($metodo)
 
         $aDados['data'] = $model->getLista("usuario");
 
-        require_once "site/admin/listUsuarios.php";
+        require_once "app/view/admin/listUsuarios.php";
 
         break;
 
@@ -26,7 +26,7 @@ switch ($metodo)
             $aDados['data'] = $model->getId("usuario", $id);
         }
 
-        require_once "site/admin/formUsuarios.php";
+        require_once "app/view/admin/formUsuarios.php";
         break;
 
     case 'insert':
@@ -60,7 +60,7 @@ switch ($metodo)
 
     case 'delete':
 
-        if ($model->delete($_POST['id']))
+        if ($model->delete($post['id']))
         {
             $_SESSION['msgSucesso'] = 'Registro excluído com sucesso.';
         }
