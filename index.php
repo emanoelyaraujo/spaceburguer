@@ -50,7 +50,7 @@ else
 // views
 
 require_once $pasta . "/view/comuns/header.php";
-if($control != "login" && $control != "cadastrar"){
+if($control != "Login" && $control != "cadastrar"){
     require_once $pasta . "/view/comuns/sidebar.php";
 }
 require_once "$pasta/controller/$control.php";

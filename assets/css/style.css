@@ -2,8 +2,18 @@
     --color-roxo: #433A8F;
 }
 
+.btnRoxo {
+    background-color: var(--color-roxo);
+    color: #FFFFFF;
+}
+
+.btnRoxo:hover{
+    background-color: var(--color-roxo);
+    color: #FFFFFF;
+}
+
 /* sidebar */
-main.sidebar {
+body {
     background-color: #E0E0E0;
 }
 
@@ -121,12 +131,32 @@ textarea.form-control {
 
 /* perfil */
 
+button.nav-link {
+    color: var(--color-roxo);
+    font-weight: 600;
+}
+
+button.nav-link:hover {
+    background-color: #bab7d0;
+    transition: 1.5s;
+}
+
 #v-pills-tab>.active {
     background-color: var(--color-roxo);
 }
 
 #v-pills-tab>.active>svg {
     stroke: white;
+}
+
+.btnPerfil {
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.btnPerfil:hover {
+    background-color: #837eb3;
+    border: 1px solid var(--color-roxo);
 }
 
 /* CKEditor */
@@ -140,18 +170,6 @@ textarea.form-control {
 h1>div#nomeUsuario {
     display: block;
     color: var(--color-roxo);
-}
-
-.adicionarCarrinho {
-    background-color: var(--color-roxo);
-    color: #FFFFFF;
-}
-
-.adicionarCarrinho:hover{
-    background-color: var(--color-roxo);
-    color: #FFFFFF;
-    transform: scale(1.1);
-    transition: all 0.5s;
 }
 
 div {
@@ -186,12 +204,12 @@ p a {
     transition: all 200ms ease
 }
 
-a, a:hover, a:visited, a:active, a:link {
+/* a, a:hover, a:visited, a:active, a:link {
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
     -webkit-text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
     text-shadow: rgba(0, 0, 0, .01) 0 0 1px
-}
+} */
 
 p a:active {
     position: relative;
