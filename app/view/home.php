@@ -71,8 +71,8 @@
                             <p>R$ <?= $lanches["preco"] ?></p>
                         </div>
                     </div>
-                    <div class="d-grid gap-2 col-12 mx-auto">
-                        <button class="btn adicionarCarrinho" type="button">Adicionar ao Carrinho</button>
+                    <div class="d-grid gap-2 col-12 mx-auto mt-3">
+                        <button class="btn btnRoxo" type="button">Adicionar ao Carrinho</button>
                     </div>
                 </div>
             </div>
