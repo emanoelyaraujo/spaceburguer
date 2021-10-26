@@ -1,5 +1,5 @@
 <section>
-    <h4 class="mb-3">Meus Endereços</h4>
+    <h2 class="mb-3">Endereços</h2>
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -51,10 +51,10 @@
                             <div class="d-flex justify-content-center">
                                 <div class="d-flex flex-column bd-highlight justify-content-center mb-3">
                                     <div class="p-2 bd-highlight">
-                                        <button class="btn btn-primary" type="submit" id="entrar" title="Cadastrar">Salvar Informações</button>
+                                        <button class="btn btnRoxo btnPerfil" type="submit" id="entrar" title="Cadastrar">SALVAR INFORMAÇÕES</button>
                                     </div>
                                     <div class="p-2 bd-highlight text-center">
-                                        <a href="">Close</a>
+                                        <a href="">Cancelar</a>
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
     </div>
     <div class="card-group">
         <?php foreach ($dados["endereco"] as $endereco) : ?>
-            <div class="p-1">
+            <div class="p-2">
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title"><?= $endereco["nomeEndereco"] ?></h5>
@@ -76,10 +76,10 @@
                         </p>
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <a class="text-decoration-none text-dark me-2" href="">
+                            <a class="text-decoration-none text-dark me-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 <img src="<?= SITE_URL ?>assets/img/SVG/edit.svg" alt="">Editar
                             </a>
-                            <a class="text-decoration-none text-dark" href="">
+                            <a class="text-decoration-none text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">Excluir
                             </a>
                         </div>
@@ -89,9 +89,9 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="d-flex justify-content-center mt-5">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Adicionar novo Endereço
+    <div class="d-flex justify-content-center mt-3">
+        <button type="button" class="btn btnRoxo btnPerfil" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            ADICIONAR NOVO ENDEREÇO
         </button>
     </div>
 </section>

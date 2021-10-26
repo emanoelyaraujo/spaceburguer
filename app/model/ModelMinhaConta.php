@@ -12,6 +12,23 @@ class MinhaConta extends ModelBase
         $this->conDb = $this->conectaDb();
     }
 
+    public function getEnderecos()
+    {
+        $rscTable = $this->conDb->dbSelect(
+            "SELECT * FROM endereco WHERE id_usuario = ?",
+            [$_SESSION["userId"]]
+        );
+
+        if ($this->conDb->dbNumeroLinhas($rscTable) > 0)
+        {
+            return $this->conDb->dbBuscaArrayAll($rscTable);
+        }
+        else
+        {
+            return [];
+        }
+    }
+
     public function updateDados($dados)
     {
         $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));

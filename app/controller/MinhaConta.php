@@ -10,7 +10,7 @@ $aDados['acao'] = $acao;
 switch ($metodo)
 {
     case "index":
-        $dados["endereco"] = $model->getLista("endereco", "id");
+        $dados["endereco"] = $model->getEnderecos();
 
         require_once "app/view/minhaConta.php";
 
