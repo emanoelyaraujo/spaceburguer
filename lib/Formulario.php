@@ -47,7 +47,7 @@ class Formulario
                             <div class="blog-banner">
                                 <div class="row">
                                     <div class="col-10 mt-5 mb-5 text-left">
-                                        <h1 style="color: #384aeb;">' . $titulo . '</h1>
+                                        <h1 style="color: #433A8F;">' . $titulo . '</h1>
                                     </div>
                                     <div class="col-2 mt-5 mb-5 text-right">
                                         ' . $textoBtnNovo . '
@@ -88,7 +88,7 @@ class Formulario
 
             $texto .= '
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>' . $_SESSION['msgError'] . '</strong>
+                <h5 class="alert-heading">' . $_SESSION["msgError"] . '</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
 
@@ -113,7 +113,7 @@ class Formulario
 
             $texto .= '
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>' . $_SESSION['msgSucesso'] . '</strong>
+                    <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>';    
             unset($_SESSION["msgSucesso"]);
