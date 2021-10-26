@@ -84,7 +84,7 @@ class MinhaConta extends ModelBase
 
     public function updateSenha($dados)
     {
-        
+
         $rsc = $this->conDb->dbUpdate(
             "UPDATE usuario 
                         SET senha = ?
@@ -106,9 +106,9 @@ class MinhaConta extends ModelBase
     }
 
     public function insertEndereco($post)
-    {   
+    {
         $cep = str_replace("-", "", $post["cep"]);
-        
+
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO endereco 
             (id_usuario, nomeEndereco, cep, rua, bairro, numero, complemento)
@@ -132,5 +132,80 @@ class MinhaConta extends ModelBase
         {
             return false;
         }
+    }
+
+    public function updateEndereco($post)
+    {
+        $rsc = 1;
+
+        $select = $this->conDb->dbSelect(
+            "SELECT * FROM endereco WHERE id = ?",
+            [
+                $_GET["id"]
+            ]
+        );
+
+        $select = $this->conDb->dbBuscaArrayAll($select);
+
+        $select = $select[0];
+
+        $alterado = false;
+
+        if (
+            $select["nomeEndereco"] != $post["nomeEndereco"] ||
+            $select["cep"] != $post["cep"] ||
+            $select["rua"] != $post["rua"] ||
+            $select["bairro"] != $post["bairro"] ||
+            $select["numero"] != $post["numero"] ||
+            $select["complemento"] != $post["complemento"]
+         )
+        {
+            $alterado = true;
+        }
+
+        if ($alterado)
+        {
+            $rsc = $this->conDb->dbUpdate(
+                "UPDATE endereco 
+                SET nomeEndereco = ?, cep = ?, rua = ?, bairro = ?, numero = ?, complemento = ?
+                WHERE id = ?",
+                [
+                    $post["nomeEndereco"],
+                    $post["cep"],
+                    $post["rua"],
+                    $post["bairro"],
+                    $post["numero"],
+                    $post["complemento"],
+                    $_GET["id"]
+                ]
+            );
+        }
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function deleteEndereco($id)
+    {
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE endereco 
+            SET deleted_at = 
+            WHERE id = ?",
+            [
+                $post["nomeEndereco"],
+                $post["cep"],
+                $post["rua"],
+                $post["bairro"],
+                $post["numero"],
+                $post["complemento"],
+                $_GET["id"]
+            ]
+        );
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+ob_start();
 
 // carrega as configurações da plataforma
 require_once 'config\config.php';

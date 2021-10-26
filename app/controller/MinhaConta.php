@@ -16,6 +16,13 @@ switch ($metodo)
 
         break;
 
+    case "carregaDados":
+        $dados["endereco"] = $model->getId("endereco", $_GET["id"]);
+        ob_end_clean();
+        echo json_encode($dados["endereco"]);
+        exit;
+        break;
+
     case 'updateSenha':
 
         if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
@@ -71,6 +78,36 @@ switch ($metodo)
         else
         {
             $_SESSION['msgError'] = 'Falha ao tentar criar o endereço na base de dados.';
+        }
+
+        Redirect::Page("MinhaConta/index");
+
+        break;
+
+    case "updateEndereco":
+
+        if ($model->updateEndereco($post))
+        {
+            $_SESSION['msgSucesso'] = 'Endereço atualizado com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar atualizar o endereço na base de dados.';
+        }
+
+        Redirect::Page("MinhaConta/index");
+
+        break;
+    
+    case "deleteEndereco":
+        var_dump(date("Y/m/d"));exit;
+        if ($model->deleteEndereco($post))
+        {
+            $_SESSION['msgSucesso'] = 'Endereço excluído com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar excluir o endereço na base de dados.';
         }
 
         Redirect::Page("MinhaConta/index");

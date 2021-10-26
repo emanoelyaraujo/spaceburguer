@@ -1,12 +1,11 @@
 <section>
     <h2 class="mb-3">Endereços</h2>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel" style="color:#433A8F;">Adicione seu Endereço</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="titulo" style="color:#433A8F;">Adicionar Endereço</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="p-3" method="post" action="<?= SITE_URL ?>MinhaConta/insertEndereco">
@@ -76,12 +75,14 @@
                         </p>
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <a class="text-decoration-none text-dark me-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <a class="text-decoration-none text-dark me-3" onclick="teste(<?= $endereco['id'] ?>, 'update')">
                                 <img src="<?= SITE_URL ?>assets/img/SVG/edit.svg" alt="">Editar
                             </a>
-                            <a class="text-decoration-none text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">Excluir
-                            </a>
+                            <?php if(count($dados["endereco"]) > 1):?>
+                                <a class="text-decoration-none text-dark" onclick="teste(<?= $endereco['id'] ?>, 'delete')">
+                                    <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">Excluir
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -95,3 +96,47 @@
         </button>
     </div>
 </section>
+
+<script>
+   
+    var myModal = document.getElementById("staticBackdrop")
+    myModal.addEventListener('hidden.bs.modal', function(){
+        $("#nomeEndereco").val("")
+        $("#cep").val("")
+        $("#rua").val("")
+        $("#bairro").val("")
+        $("#numero").val("")
+        $("#complemento").val("")
+
+        $("form").prop("action", "<?= SITE_URL ?>MinhaConta/insertEndereco")
+        $("#titulo").html("Adicionar Endereço")
+        $("#entrar").html("SALVAR INFORMAÇÕES")
+    })
+
+    function teste(id, acao){
+        $.get(`<?= SITE_URL ?>/MinhaConta/carregaDados&id=${id}`).done((response) => {
+            response = JSON.parse(response)
+
+            $("#nomeEndereco").val(response.nomeEndereco)
+            $("#cep").val(response.cep)
+            $("#rua").val(response.rua)
+            $("#bairro").val(response.bairro)
+            $("#numero").val(response.numero)
+            $("#complemento").val(response.complemento)
+        })
+        
+        if(acao == "update"){
+        $("form").prop("action", `<?= SITE_URL ?>MinhaConta/updateEndereco&id=${id}`)
+            $("#titulo").html("Editar Endereço")
+            $("#entrar").html("EDITAR INFORMAÇÕES")
+        }
+        else 
+        {
+            $("form").prop("action", `<?= SITE_URL ?>MinhaConta/deleteEndereco&id=${id}`)
+            $("#entrar").html("EXCLUIR INFORMAÇÕES")
+        }
+
+        var myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"))
+        myModal.show()
+    }
+</script>
