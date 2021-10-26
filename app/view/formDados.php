@@ -1,9 +1,9 @@
 <section>
-    <h4>Meu Perfil</h4>
+    <h2>Seu perfil</h2>
     <form action="<?= SITE_URL ?>MinhaConta/updateDados" method="post">
         <div class="d-flex align-items-center flex-column">
             <div class="d-flex justify-content-center">
-                <img src="<?= SITE_URL ?>assets/img/user.png" class="rounded-full w-75" alt="">
+                <img src="<?= SITE_URL ?>assets/img/user2.jpg" class="rounded-circle rounded-full" width="180" height="180" alt="">
             </div>
             <div class="col-md-5 mb-3">
                 <label for="nome" class="form-label">Nome</label>
@@ -17,7 +17,8 @@
                 <label for="telefone" class="form-label">Telefone</label>
                 <input type="text" name="telefone" id="telefone" class="form-control" maxlength="14" value="<?= isset($_SESSION["userTelefone"]) ? $_SESSION["userTelefone"] : "" ?>">
             </div>
-            <button type="submit" class="btn btn-primary">Editar</button>
+
+            <button type="submit" class="btn btnRoxo btnPerfil mt-2">SALVAR INFORMAÇÕES</button>
         </div>
     </form>
 </section>

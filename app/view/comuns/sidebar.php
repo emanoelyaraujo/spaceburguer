@@ -102,7 +102,7 @@
                         ?>
                             <div class="dropdown perfil p-4 fixed-bottom">
                                 <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="<?= SITE_URL ?>assets/img/user.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                                    <img src="<?= SITE_URL ?>assets/img/user2.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
                                     <strong><?= $_SESSION["userNome"] ?></strong>
                                 </a>
                                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
