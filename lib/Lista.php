@@ -8,7 +8,7 @@ class Lista
         <div class="container">
             <section class="login_box_area mb-5">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered table-striped table-sm">
+                    <table class="table table-hover table-bordered table-light table-striped table-sm">
                         <thead>
                             <tr class="text-weigth-bold">
                                 <?php foreach ($thead as $th) : ?>
