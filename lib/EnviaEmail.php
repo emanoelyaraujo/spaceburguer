@@ -34,6 +34,7 @@ class EnviaEmail
             $mail->Port       = 465;
 
             $mail->setFrom($fromEmail, $fromName);
+            $mail->addReplyTo($fromEmail, $fromName);
             $mail->addAddress($adressEmail, $adressName);
 
             //Content
