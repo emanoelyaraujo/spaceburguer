@@ -1,11 +1,11 @@
 <section>
     <h2 class="mb-3">Endereços</h2>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="titulo" style="color:#433A8F;">Adicionar Endereço</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="p-3" method="post" action="<?= SITE_URL ?>MinhaConta/insertEndereco">
@@ -71,15 +71,15 @@
                         <h5 class="card-title"><?= $endereco["nomeEndereco"] ?></h5>
                         <p class="card-text">
                             <?= $endereco["rua"] . ", " . $endereco["numero"] .
-                            "<br>" . $endereco["bairro"] . ", " . $endereco["cep"] ?>
+                                "<br>" . $endereco["bairro"] . ", " . $endereco["cep"] ?>
                         </p>
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <a class="text-decoration-none text-dark me-3" onclick="teste(<?= $endereco['id'] ?>, 'update')">
+                            <a class="text-decoration-none text-dark me-3 acaoEndereco" onclick="teste(<?= $endereco['id'] ?>, 'update')">
                                 <img src="<?= SITE_URL ?>assets/img/SVG/edit.svg" alt="">Editar
                             </a>
-                            <?php if(count($dados["endereco"]) > 1):?>
-                                <a class="text-decoration-none text-dark" onclick="teste(<?= $endereco['id'] ?>, 'delete')">
+                            <?php if (count($dados["endereco"]) > 1) : ?>
+                                <a class="text-decoration-none text-dark acaoEndereco" onclick="teste(<?= $endereco['id'] ?>, 'delete')">
                                     <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">Excluir
                                 </a>
                             <?php endif; ?>
@@ -98,9 +98,8 @@
 </section>
 
 <script>
-   
     var myModal = document.getElementById("staticBackdrop")
-    myModal.addEventListener('hidden.bs.modal', function(){
+    myModal.addEventListener('hidden.bs.modal', function() {
         $("#nomeEndereco").val("")
         $("#cep").val("")
         $("#rua").val("")
@@ -113,7 +112,7 @@
         $("#entrar").html("SALVAR INFORMAÇÕES")
     })
 
-    function teste(id, acao){
+    function teste(id, acao) {
         $.get(`<?= SITE_URL ?>/MinhaConta/carregaDados&id=${id}`).done((response) => {
             response = JSON.parse(response)
 
@@ -124,14 +123,12 @@
             $("#numero").val(response.numero)
             $("#complemento").val(response.complemento)
         })
-        
-        if(acao == "update"){
-        $("form").prop("action", `<?= SITE_URL ?>MinhaConta/updateEndereco&id=${id}`)
+
+        if (acao == "update") {
+            $("form").prop("action", `<?= SITE_URL ?>MinhaConta/updateEndereco&id=${id}`)
             $("#titulo").html("Editar Endereço")
             $("#entrar").html("EDITAR INFORMAÇÕES")
-        }
-        else 
-        {
+        } else {
             $("form").prop("action", `<?= SITE_URL ?>MinhaConta/deleteEndereco&id=${id}`)
             $("#entrar").html("EXCLUIR INFORMAÇÕES")
         }

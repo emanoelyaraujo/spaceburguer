@@ -11,7 +11,7 @@ foreach($aDados['data'] as $b)
         $b['nome'],
         $b['email'],
         ($b['nivel'] == 1 ? 'Administrador' : 'Visitante'),
-        ($b['status'] == 1 ? 'Ativo' : 'Inativo')
+        ($b['status'] == 1 ? '<span class="badge bg-success">Ativo</span>' : '<span class="badge bg-warning">Inativo</span>')
     ];
 
     $id[] = [
