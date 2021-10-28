@@ -8,7 +8,7 @@ class Lista
         <div class="container">
             <section class="login_box_area mb-5">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered table-light table-striped table-sm">
+                    <table class="table table-hover table-bordered table-light table-sm" id="tblLista">
                         <thead>
                             <tr class="text-weigth-bold">
                                 <?php foreach ($thead as $th) : ?>
@@ -19,7 +19,7 @@ class Lista
                         <tbody class="align-middle text-center">
                             <?php foreach ($tbody as $key => $row) : ?>
                                 <tr>
-                                    <?php foreach($row as $col): ?>
+                                    <?php foreach ($row as $col) : ?>
                                         <td><?= $col ?></td>
                                     <?php endforeach; ?>
                                     <td>
