@@ -1,7 +1,6 @@
 <style>
     .form-control {
         border: none;
-        background: #f3f3f3;
     }
 
     input:focus {
