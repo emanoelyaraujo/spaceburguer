@@ -14,6 +14,7 @@ require_once "lib/Formulario.php";
 require_once "lib/Security.php";
 require_once "lib/Lista.php";
 require_once "lib/Numeros.php";
+require_once "lib/EnviaEmail.php";
 
 // Roteamento da plataforma
 

@@ -16,4 +16,16 @@ switch ($metodo)
         require_once "app/view/home.php";
 
         break;
+
+    case "envioEmail":
+        
+        EnviaEmail::email($post["email"], $post["nome"],"deliveryspaceburguer@gmail.com", "SpaceBurger", $post);
+
+        Redirect::page("Home/faleConosco");
+        break;
+
+    case "faleConosco":
+        require_once "app/view/fale-conosco.php";
+
+        break;
 }
