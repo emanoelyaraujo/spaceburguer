@@ -11,11 +11,16 @@ class MinhaConta extends ModelBase
     {
         $this->conDb = $this->conectaDb();
     }
-
+    
+    /**
+     * getEnderecos
+     *
+     * @return array
+     */
     public function getEnderecos()
     {
         $rscTable = $this->conDb->dbSelect(
-            "SELECT * FROM endereco WHERE id_usuario = ?",
+            "SELECT * FROM endereco WHERE id_usuario = ? AND deleted_at is null",
             [$_SESSION["userId"]]
         );
 
@@ -28,7 +33,13 @@ class MinhaConta extends ModelBase
             return [];
         }
     }
-
+    
+    /**
+     * updateDados
+     *
+     * @param  mixed $dados
+     * @return boolean
+     */
     public function updateDados($dados)
     {
         $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
@@ -81,10 +92,15 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * updateSenha
+     *
+     * @param  mixed $dados
+     * @return boolean
+     */
     public function updateSenha($dados)
     {
-
         $rsc = $this->conDb->dbUpdate(
             "UPDATE usuario 
                         SET senha = ?
@@ -104,7 +120,13 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * insertEndereco
+     *
+     * @param  mixed $post
+     * @return boolean
+     */
     public function insertEndereco($post)
     {
         $cep = str_replace("-", "", $post["cep"]);
@@ -133,9 +155,17 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * updateEndereco
+     *
+     * @param  mixed $post
+     * @return boolean
+     */
     public function updateEndereco($post)
     {
+        $cep = str_replace("-", "", $post["cep"]);
+
         $rsc = 1;
 
         $select = $this->conDb->dbSelect(
@@ -153,12 +183,12 @@ class MinhaConta extends ModelBase
 
         if (
             $select["nomeEndereco"] != $post["nomeEndereco"] ||
-            $select["cep"] != $post["cep"] ||
+            $select["cep"] != $cep ||
             $select["rua"] != $post["rua"] ||
             $select["bairro"] != $post["bairro"] ||
             $select["numero"] != $post["numero"] ||
             $select["complemento"] != $post["complemento"]
-         )
+        )
         {
             $alterado = true;
         }
@@ -171,7 +201,7 @@ class MinhaConta extends ModelBase
                 WHERE id = ?",
                 [
                     $post["nomeEndereco"],
-                    $post["cep"],
+                    $cep,
                     $post["rua"],
                     $post["bairro"],
                     $post["numero"],
@@ -190,22 +220,33 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * preenche o campo deleted_at com a data que o endereço foi excluido, 
+     * tudo isso para não não conflito caso o usuário queira ver os pedidos anteriores
+     *
+     * @param  int $id
+     * @return boolean
+     */
     public function deleteEndereco($id)
     {
         $rsc = $this->conDb->dbUpdate(
             "UPDATE endereco 
-            SET deleted_at = 
+            SET deleted_at = ?
             WHERE id = ?",
             [
-                $post["nomeEndereco"],
-                $post["cep"],
-                $post["rua"],
-                $post["bairro"],
-                $post["numero"],
-                $post["complemento"],
+                Data::dataSQL(date("Y/m/d")),
                 $_GET["id"]
             ]
         );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
