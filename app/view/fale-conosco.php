@@ -18,9 +18,9 @@
                     <div class="col-md-6">
                         <h1 class="heading mb-4">Fale Conosco</h1>
                         <p>Dúvidas, sugestões, reclamações, mande sua mensagem, iremos retornar em breve!</p>
-                        <p><img src="https://preview.colorlib.com/theme/bootstrap/contact-form-16/images/undraw-contact.svg" alt="Image" class="img-fluid"></p>
+                        <p><img src="<?= SITE_URL ?>assets/img/SVG/Astronauta.svg" alt="Image" class="img-fluid"></p>
                     </div>
-                    <div class="col-md-6 mt-5">
+                    <div class="col-md-6 mt-2">
                         <form action="<?= SITE_URL ?>Home/envioEmail" method="post" id="contactForm" name="contactForm">
                             <div class="row mb-3">
                                 <div class="col-md-12 form-group">
