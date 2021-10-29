@@ -115,10 +115,33 @@ class Formulario
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>';    
+                </div>';
             unset($_SESSION["msgSucesso"]);
         }
 
         return $texto;
+    }
+
+    public static function FormSenha($subtitulo, $dados)
+    {
+        $html = '<div class="container vh-100">
+                    <form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">
+                        <div class="col-md-4 p-5" style="background-color: #fff;">
+                            <div class="text-center mt-2">
+                                <h4 style="color: #433A8F;" class="mb-0 fw-bold">Recuperação de senha</h4>
+                                <p class="lead">' . $subtitulo .'</p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="' . $dados["name"] .'" class="form-label">' . $dados["label"] .'<span>*</span></label>
+                                <input class="form-control" type="' . $dados["type"] .'" name="' . $dados["name"] .'" id="' . $dados["name"] .'" required>
+                            </div>
+                            <div class="d-grid gap-2 col-6 mx-auto mt-4">
+                                <button type="submit" class="btn btnRoxo">ENTRAR</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>';
+
+        return $html;
     }
 }

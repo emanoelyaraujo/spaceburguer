@@ -130,4 +130,12 @@ switch ($metodo)
 
         Redirect::Page("Home/index");
         break;
+
+    case "esqueciMinhaSenha":
+
+        require_once "app/view/verificaEmail.php";
+        break;
+
+    case "verificaEmail": 
+        var_dump($post);exit;
 }

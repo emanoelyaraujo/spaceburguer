@@ -22,7 +22,7 @@
                                         <label for="senha" class="form-label">Senha</label>
                                         <input class="form-control" type="password" name="senha" id="senha" minlength="8" maxlength="15" placeholder="Coloque sua senha" required>
                                         <small>
-                                            <a href="">Esqueceu sua senha?</a>
+                                            <a href="<?= SITE_URL ?>Login/esqueciMinhaSenha">Esqueceu sua senha?</a>
                                         </small>
                                     </div>
                                     <div class="col-12">
@@ -53,3 +53,7 @@
         </div>
     </main>
 </div>
+
+<?php
+echo substr(uniqid(rand()), 0, 5);
+?>
