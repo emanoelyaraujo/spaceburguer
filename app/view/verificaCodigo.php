@@ -8,4 +8,4 @@ $dados = [
 
 ];
 
-echo Formulario::FormSenha("O código para recuperação de senha foi enviado para seu email.", $dados, $email['emailUser']);
+echo Formulario::FormEmailCodigo("O código para recuperação de senha foi enviado para seu email.", $dados, $email['emailUser']);

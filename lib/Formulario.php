@@ -122,10 +122,11 @@ class Formulario
         return $texto;
     }
 
-    public static function FormSenha($subtitulo, $dados)
+    public static function FormEmailCodigo($subtitulo, $dados, $email = '')
     {
-        $html = '<div class="container vh-100">
-                    <form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">
+        $html = '<div class="container vh-100">' . 
+                    Formulario::exibeMsgError() .
+                    '<form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">
                         <div class="col-md-4 p-5" style="background-color: #fff;">
                             <div class="text-center mt-2">
                                 <h4 style="color: #433A8F;" class="mb-0 fw-bold">Recuperação de senha</h4>
@@ -133,13 +134,14 @@ class Formulario
                             </div>
                             <div class="mb-3">
                                 <label for="' . $dados["name"] .'" class="form-label">' . $dados["label"] .'<span>*</span></label>
-                                <input class="form-control" type="' . $dados["type"] .'" name="' . $dados["name"] .'" id="' . $dados["name"] .'" required>
+                                <input class="form-control" type="' . $dados["type"] .'" name="' . $dados["name"] .'" id="' . $dados["name"] .'" maxlength=' . $dados["maxlength"] .'" required>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-4">
                                 <button type="submit" class="btn btnRoxo">ENTRAR</button>
                             </div>
-                        </div>
-                    </form>
+                        </div>' .
+                        (!empty($email) ? '<input type="hidden" name="email" value=' . $email .'>' : '')
+                     . '</form>
                 </div>';
 
         return $html;

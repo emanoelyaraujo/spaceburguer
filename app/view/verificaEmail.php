@@ -8,4 +8,4 @@ $dados = [
 
 ];
 
-echo Formulario::FormSenha("Informe seu email", $dados);
+echo Formulario::FormEmailCodigo("Informe seu email", $dados);
