@@ -197,4 +197,26 @@ class Usuario extends ModelBase
             return false;
         }
     }
+
+    public function updateCodigo($codigo, $id)
+    {
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE usuario 
+                    SET codVerificacao = ?
+                    WHERE id = ?",
+            [
+                $codigo,
+                $id
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

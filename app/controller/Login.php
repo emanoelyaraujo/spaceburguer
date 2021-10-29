@@ -1,8 +1,10 @@
 <?php
 
 require_once 'app/model/ModelUsuario.php';
+require_once 'app/model/ModelMinhaConta.php';
 
 $model = new Usuario();
+$minhaConta = new MinhaConta();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
@@ -136,6 +138,86 @@ switch ($metodo)
         require_once "app/view/verificaEmail.php";
         break;
 
-    case "verificaEmail": 
-        var_dump($post);exit;
+    case "verificaEmail":
+
+        $user = $model->getUserEmail($post["email"]);
+
+        if (!empty($user))
+        {
+            $codigo = substr(uniqid(rand()), 0, 6);
+
+            $salvaCodigo = $model->updateCodigo($codigo, $user["id"]);
+
+            if ($salvaCodigo)
+            {
+                $mail = EnviaEmail::create();
+                $mail->setFrom("deliveryspaceburguer@gmail.com", "SpaceBurger");
+                $mail->addAddress($user["email"], $user["nome"]);
+                $mail->Subject = "Alterar Senha";
+                $mail->Body    = EnviaEmail::bodyRecuperacaoSenha($codigo, $user["nome"]);
+
+                EnviaEmail::send($mail);
+
+                $email["emailUser"] = $user["email"];
+                require_once "app/view/verificaCodigo.php";
+                break;
+            }
+            else
+            {
+                $_SESSION["msgError"] = "Erro. Tente mais tarde.";
+                Redirect::page("Login/esqueciMinhaSenha");
+            }
+        }
+        else
+        {
+            $_SESSION["msgError"] = "E-mail informado não está cadastrado";
+            Redirect::page("Login/esqueciMinhaSenha");
+        }
+
+        break;
+
+    case "verificaCodigo":
+
+        $user = $model->getUserEmail($post['email']);
+
+        if ($user["codVerificacao"] == $post["codigo"])
+        {
+            $dados["usuario"] = $user;
+            require_once "app/view/formEsqueciSenha.php";
+            break;
+        }
+        else
+        {
+            $model->updateCodigo(null, $user['id']);
+            $_SESSION["msgError"] = "Erro. Tente mais tarde.";
+            Redirect::page("Login/esqueciMinhaSenha");
+        }
+
+        break;
+
+    case "updateSenha":
+
+        $user = $model->getId("usuario", $post["id"]);
+
+        if ($post["novaSenha"] != $post["confirmSenha"])
+        {
+            $_SESSION["msgError"] = "Senhas não conferem";
+            require_once "app/view/formEsqueciSenha.php";
+            break;
+        }
+
+        if ($minhaConta->updateSenha($post, $user["id"]))
+        {
+            $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+        }
+        
+        $model->updateCodigo(null, $user['id']);
+
+        Redirect::Page("Login/index");
+
+        break;
 }

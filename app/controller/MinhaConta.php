@@ -32,7 +32,7 @@ switch ($metodo)
             break;
         }
 
-        if ($model->updateSenha($post))
+        if ($model->updateSenha($post, $_SESSION["userId"]))
         {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
         }
@@ -100,7 +100,7 @@ switch ($metodo)
         break;
     
     case "deleteEndereco":
-        var_dump(date("Y/m/d"));exit;
+
         if ($model->deleteEndereco($post))
         {
             $_SESSION['msgSucesso'] = 'Endereço excluído com sucesso.';
