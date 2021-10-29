@@ -19,7 +19,16 @@ switch ($metodo)
 
     case "envioEmail":
         
-        EnviaEmail::email($post["email"], $post["nome"],"deliveryspaceburguer@gmail.com", "SpaceBurger", $post);
+        $mail = EnviaEmail::create();
+
+        $mail->setFrom($post["email"], $post["nome"]);
+        $mail->addReplyTo($post["email"], $post["nome"]);
+        $mail->addAddress("deliveryspaceburguer@gmail.com", "SpaceBurger");
+        $mail->Subject = $post["assunto"];
+        $mail->Body    = $post["mensagem"];
+        $mail->AltBody = $post["mensagem"];
+
+        EnviaEmail::send($mail);
 
         Redirect::page("Home/faleConosco");
         break;
