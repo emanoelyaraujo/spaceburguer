@@ -17,24 +17,33 @@ switch ($metodo)
 
         break;
 
-    case "envioEmail":
-        
-        $mail = EnviaEmail::create();
-
-        $mail->setFrom($post["email"], $post["nome"]);
-        $mail->addReplyTo($post["email"], $post["nome"]);
-        $mail->addAddress("deliveryspaceburguer@gmail.com", "SpaceBurger");
-        $mail->Subject = $post["assunto"];
-        $mail->Body    = $post["mensagem"];
-        $mail->AltBody = $post["mensagem"];
-
-        EnviaEmail::send($mail);
-
-        Redirect::page("Home/faleConosco");
-        break;
-
     case "faleConosco":
         require_once "app/view/fale-conosco.php";
 
+        break;
+
+    case "envioEmail":
+
+        if (!empty($post["mensagem"]))
+        {
+            $mail = EnviaEmail::create();
+
+            $mail->setFrom($post["email"], $post["nome"]);
+            $mail->addReplyTo($post["email"], $post["nome"]);
+            $mail->addAddress("deliveryspaceburguer@gmail.com", "SpaceBurger");
+            $mail->Subject = $post["assunto"];
+            $mail->Body    = $post["mensagem"];
+            $mail->AltBody = $post["mensagem"];
+
+            EnviaEmail::send($mail);
+        }
+        else
+        {
+            $_SESSION["msgError"] = "Campo mensagem é obrigatório.";
+            Redirect::page("Home/faleConosco");
+            break;
+        }
+
+        Redirect::page("Home/faleConosco");
         break;
 }
