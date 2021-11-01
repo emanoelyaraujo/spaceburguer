@@ -17,3 +17,19 @@
         <button type="submit" class="btn btnRoxo btnPerfil">REDEFINIR SENHA</button>
     </div>
 </form>
+
+<script>
+    var password = document.getElementById("novaSenha"),
+        confirm_password = document.getElementById("confirmSenha");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Senhas diferentes!");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>

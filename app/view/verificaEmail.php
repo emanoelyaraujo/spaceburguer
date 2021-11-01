@@ -1,4 +1,5 @@
 <?php
+var_dump($_SESSION);
 $dados = [
     "action" => "verificaEmail",
     "name" => "email",
@@ -8,4 +9,4 @@ $dados = [
 
 ];
 
-echo Formulario::FormEmailCodigo("Informe seu email", $dados);
+echo Formulario::FormEmailCodigo("Entrar com e-mail", "Informe seu email para continuar", $dados);

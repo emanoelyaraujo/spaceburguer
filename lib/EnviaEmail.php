@@ -56,13 +56,44 @@ class EnviaEmail
         }
     }
 
-    public static function bodyRecuperacaoSenha($codigo, $nome)
+    public static function bodyRecuperacaoSenha($codigo, $nome = "")
     {
-        $html = '<div>
-                    <div">
-                        <h4 style="color:#433a8f;font-size: 1.5rem;">Olá, '. $nome . '</h4>
-                        <h5 style="font-size: 1rem;"">Recebemos um pedido para alteração de senha, caso tenha solicitado copie o código abaixo.</h5>
-                        <p>Seu código de verificação é: <strong>' . $codigo . '</strong></p>
+        $html = '<div><u></u>
+                    <div style="color:#595756">
+                        <table role="presentation" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="0" style="margin:0 auto">
+                            <tbody>
+                                <tr>
+                                    <td align="center"> 
+                                        <span style="text-align:center;font-size:30px;font-weight:bold">
+                                            <h2 style="margin:40h2x 0 0; color: #433A8F;"> Olá, ' . $nome . ' </p>
+                                        </span> 
+                                        <span style="color: black; text-align:center;font-size:18px;margin:5px 60px 30px;display:block"> 
+                                            Este é o código para acessar a sua conta: 
+                                        </span> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" height="70px" border="0" cellpadding="0" cellspacing="0" style="min-width:340px">
+                                            <tbody>
+                                                <tr>
+                                                    <td align="center" bgcolor="#E0E0E0" style="border-radius:4px;text-align:center">
+                                                        <span style="text-align:center;font-size:36px;font-weight:bold;color:#3f3e3e;letter-spacing:20px">'. $codigo .'</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span style="text-align:center;font-size:14px;color:#a6a29f;line-height:18px">
+                                            <p style="margin-top:5px"> © 2021 SpaceBurguer Delivery - Todos os direitos reservados. </p>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>';
 

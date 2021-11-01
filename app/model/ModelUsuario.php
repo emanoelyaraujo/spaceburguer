@@ -113,18 +113,16 @@ class Usuario extends ModelBase
      */
     public function insert($dados)
     {
-        $telefone = trim(str_replace("(", ")", "-", $dados['telefone']));
+        $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
 
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO usuario
-            (nome, telefone, email, status, nivel, senha)
-            VALUES ( ?, ?, ?, ?, ?, ?) ",
+            (nome, email, telefone, senha)
+            VALUES ( ?, ?, ?, ?) ",
             [
                 $dados['nome'],
-                $telefone,
                 $dados['email'],
-                $dados['status'],
-                $dados['nivel'],
+                $telefone,
                 password_hash(trim($dados['senha']), PASSWORD_DEFAULT)
             ]
         );

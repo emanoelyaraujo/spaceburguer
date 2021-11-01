@@ -99,7 +99,7 @@ class MinhaConta extends ModelBase
      * @param  mixed $dados
      * @return boolean
      */
-    public function updateSenha($dados)
+    public function updateSenha($dados, $id)
     {
         $rsc = $this->conDb->dbUpdate(
             "UPDATE usuario 
@@ -107,7 +107,7 @@ class MinhaConta extends ModelBase
                         WHERE id = ?",
             [
                 password_hash(trim($dados['novaSenha']), PASSWORD_DEFAULT),
-                $_SESSION["userId"]
+                $id
             ]
         );
 
