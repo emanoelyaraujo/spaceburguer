@@ -15,6 +15,7 @@ class Redirect
             window.location = "<?= SITE_URL . $caminho ?>";
         </script>
         <?php
+        exit;
     }
     
     /**
