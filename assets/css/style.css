@@ -7,12 +7,13 @@
     color: #FFFFFF;
 }
 
-.btnRoxo:hover{
+.btnRoxo:hover {
     background-color: var(--color-roxo);
     color: #FFFFFF;
 }
 
 /* sidebar */
+
 body {
     background-color: #E0E0E0;
 }
@@ -410,7 +411,6 @@ section {
     color: rgba(0, 0, 0, 0.5)
 }
 
-
 .bbb_content {
     margin-top: 24px
 }
@@ -420,11 +420,9 @@ section {
     opacity: 1
 }
 
-/* .bbb_marks {
-position: absolute;
-left: 18px;
-top: 18px
-} */
+.bbb_marks {
+    padding-left: 0rem;
+}
 
 .bbb_mark {
     display: none;
@@ -447,7 +445,8 @@ top: 18px
 }
 
 .bbb_new {
-    background: var(--color-roxo)
+    background: #EE8218
+
 }
 
 @media only screen and (max-width: 991px) {
