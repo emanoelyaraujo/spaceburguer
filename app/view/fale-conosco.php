@@ -24,17 +24,17 @@
                         <form action="<?= SITE_URL ?>Home/envioEmail" method="post" id="contactForm" name="contactForm">
                             <div class="row mb-3">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Seu nome">
+                                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Seu nome" required>
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Seu e-mail">
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="Seu e-mail" required>
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto">
+                                    <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto" required>
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -56,7 +56,7 @@
 </div>
 
 
-<script type="text/javascript">
+<script>
     ClassicEditor
         .create(document.querySelector("#mensagem"))
         .catch(error => {
