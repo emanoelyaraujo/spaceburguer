@@ -122,16 +122,16 @@ class Formulario
         return $texto;
     }
 
-    public static function FormEmailCodigo($titulo, $subtitulo, $dados, $email = '')
+    public static function FormEmailCodigo($titulo, $subtitulo, $dados, $email = '', $view = "")
     {
-        $html = '<div class="container vh-100">' . 
-                    Formulario::exibeMsgError() .
-                    '<form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">
-                        <div class="col-md-4 p-5" style="background-color: #fff;">
-                        <div class="text-center mt-2">
-                                <img src="'. SITE_URL .'assets/img/space-icon.PNG" width="100px" alt="">
-                                <h5 style="color: #433A8F;" class="mb-0 fw-bold">'. $titulo .'</h5>
-                                <p class="pt-2 pb-2">' . $subtitulo .'</p>
+        $html = '<div class="container vh-100">
+                    <form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">'
+                        . Formulario::exibeMsgError() .
+                        '<div class="col-md-4 p-5" style="background-color: #fff;">
+                            <div class="text-center mt-2">
+                                    <img src="'. SITE_URL .'assets/img/space-icon.PNG" width="100px" alt="">
+                                    <h5 style="color: #433A8F;" class="mb-0 fw-bold">'. $titulo .'</h5>
+                                    <p class="pt-2 pb-2">' . $subtitulo .'</p>
                             </div>
                             <div class="mb-3">
                                 <input class="form-control" type="' . $dados["type"] .'" name="' . $dados["name"] .'" id="' . $dados["name"] .'" maxlength=' . $dados["maxlength"] .'" required>
@@ -139,9 +139,11 @@ class Formulario
                             <div class="d-grid gap-2 col-6 mx-auto mt-4">
                                 <button type="submit" class="btn btnRoxo">ENTRAR</button>
                             </div>
+                            </div>
                         </div>' .
-                        (!empty($email) ? '<input type="hidden" name="email" value=' . $email .'>' : '')
-                     . '</form>
+                        (!empty($email) ? '<input type="hidden" name="email" value=' . $email .'>' : '') .
+                        (!empty($view) ? '<input type="hidden" name="view" value=' . $view .'>' : '')
+                    .'</form>
                 </div>';
 
         return $html;

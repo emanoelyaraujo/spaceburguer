@@ -1,4 +1,5 @@
 <?php
+
 $dados = [
     "action" => "verificaCodigo",
     "name" => "codigo",

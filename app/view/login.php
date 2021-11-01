@@ -22,7 +22,7 @@
                                         <label for="senha" class="form-label">Senha</label>
                                         <input class="form-control" type="password" name="senha" id="senha" minlength="8" maxlength="15" placeholder="Coloque sua senha" required>
                                         <small>
-                                            <a href="<?= SITE_URL ?>Login/email">Esqueceu sua senha?</a>
+                                            <a href="<?= SITE_URL ?>Login/esqueciMinhaSenha">Esqueceu sua senha?</a>
                                         </small>
                                     </div>
                                     <div class="col-12">
@@ -41,7 +41,7 @@
                                     <div class="d-grid gap-2 col-6 mx-auto mt-4">
                                         <button type="submit" class="btn btnRoxo">ENTRAR</button>
                                         <small class="text-center">
-                                            <a href="<?= SITE_URL ?>Login/email">Novo no site? Cadastre-se</a>
+                                            <a href="<?= SITE_URL ?>Login/cadastrar">Novo no site? Cadastre-se</a>
                                         </small>
                                     </div>
                                 </form>

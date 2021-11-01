@@ -16,11 +16,6 @@ switch ($metodo)
 
         break;
 
-    case "cadastrar":
-        require_once "app/view/cadastrar.php";
-
-        break;
-
     case 'login':
 
         // super usário
@@ -70,7 +65,7 @@ switch ($metodo)
         else
         {
             $_SESSION['msgError'] = 'E-mail informado não está cadastrado.';
-            Redirect::page("Login/email");
+            Redirect::page("Login/cadastrar");
         }
 
         break;
@@ -119,8 +114,19 @@ switch ($metodo)
         Redirect::Page("Home/index");
         break;
 
-    case "email":
+    case "cadastrar":
+        $configs = [
+            "titulo" => "Entrar com e-mail",
+            "view" => "cadastrar"
+        ];
+        require_once "app/view/verificaEmail.php";
+        break;
 
+    case "esqueciMinhaSenha":
+        $configs = [
+            "titulo" => "Esqueci minha Senha",
+            "view" => "esqueciMinhaSenha"
+        ];
         require_once "app/view/verificaEmail.php";
         break;
 
@@ -134,28 +140,44 @@ switch ($metodo)
 
         if (!empty($user))
         {
-            $salvaCodigo = $model->updateCodigo($codigo, $user["id"]);
-
-            if ($salvaCodigo)
+            if ($post["view"] == "esqueciMinhaSenha")
             {
-                $mail->addAddress($user["email"], $user["nome"]);
-                $mail->Subject = "Alterar Senha";
-                $mail->Body    = EnviaEmail::bodyRecuperacaoSenha($codigo, $user["nome"]);
-                $view = "login";
+                $salvaCodigo = $model->updateCodigo($codigo, $user["id"]);
+
+                if ($salvaCodigo)
+                {
+                    $mail->addAddress($user["email"], $user["nome"]);
+                    $mail->Subject = "Alterar Senha";
+                    $mail->Body    = EnviaEmail::bodyRecuperacaoSenha($codigo, $user["nome"]);
+                    $view = "login";
+                }
+                else
+                {
+                    $_SESSION["msgError"] = "Erro. Tente mais tarde.";
+                    Redirect::page("Login/email");
+                }
             }
             else
             {
-                $_SESSION["msgError"] = "Erro. Tente mais tarde.";
-                Redirect::page("Login/email");
+                $_SESSION["msgError"] = "Usuário já está cadastrado.";
+                Redirect::page("Login/index");
             }
         }
         else
         {
-            $_SESSION["codigo"] = $codigo;
-            $mail->addAddress($post["email"]);
-            $mail->Subject = "Código de Verificação";
-            $mail->Body    = EnviaEmail::bodyRecuperacaoSenha($codigo);
-            $view = "cadastrar";
+            if ($post["view"] == "cadastrar")
+            {
+                $_SESSION["codigo"] = $codigo;
+                $mail->addAddress($post["email"]);
+                $mail->Subject = "Código de Verificação";
+                $mail->Body    = EnviaEmail::bodyRecuperacaoSenha($codigo);
+                $view = "cadastrar";
+            }
+            else
+            {
+                $_SESSION["msgError"] = "Usuário não está cadastrado.";
+                Redirect::page("Login/cadastrar");
+            }
         }
 
         EnviaEmail::send($mail);
@@ -165,33 +187,35 @@ switch ($metodo)
         break;
 
     case "verificaCodigo":
-
-        unset($_SESSION["msgSucesso"]);
-
         $user = $model->getUserEmail($post['email']);
+        $codigo = $_SESSION["codigo"];
 
-        if (@$user["codVerificacao"] == $post["codigo"] || $post["codigo"] == $_SESSION["codigo"])
+        unset($_SESSION["codigo"]);
+
+        if (@$user["codVerificacao"] == $post["codigo"] || $post["codigo"] == $codigo)
         {
-            if (isset($_SESSION["codigo"]))
+            if (!empty($codigo))
             {
                 $dados["email"] = $post["email"];
                 require_once "app/view/cadastrar.php";
             }
             else
             {
+                $model->updateCodigo(null, $user['id']);
                 $dados["usuario"] = $user;
                 require_once "app/view/formEsqueciSenha.php";
             }
-            break;
         }
         else
         {
-            $_SESSION["msgError"] = "Erro. Tente mais tarde.";
-            Redirect::page("Login/email");
+            if (empty($codigo))
+            {
+                $model->updateCodigo(null, $user['id']);
+            }
+            
+            $_SESSION["msgError"] = "Código incorreto!";
+            Redirect::page("Login/esqueciMinhaSenha");
         }
-
-        unset($_SESSION["codigo"]);
-        $model->updateCodigo(null, $user['id']);
 
         break;
 

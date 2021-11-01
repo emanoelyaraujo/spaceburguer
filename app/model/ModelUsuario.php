@@ -78,33 +78,6 @@ class Usuario extends ModelBase
         return 0;
     }
 
-    public function insertUser($post)
-    {
-        $rsc = $this->conDb->dbInsert(
-            "INSERT INTO usuario
-            (nome, telefone, email, senha, nivel)
-            VALUES(?, ?, ?, ?, ?)",
-            [
-                $post["nome"],
-                $post["telefone"],
-                $post["email"],
-                password_hash($post["senha"], PASSWORD_DEFAULT),
-                2
-            ]
-        );
-
-        if ($rsc > 0)
-        {
-            $_SESSION['msgSucesso'] = "Usuário criado com sucesso.";
-            return 2;
-        }
-        else
-        {
-            $_SESSION['msgError'] = "Falha na inclusão do usuário, não é possivel prosseguir.";
-            return 1;
-        }
-    }
-
     /**
      * insert
      *
