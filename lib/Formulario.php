@@ -87,9 +87,13 @@ class Formulario
         {
 
             $texto .= '
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <h5 class="alert-heading">' . $_SESSION["msgError"] . '</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="position-relative" style="z-index:1000;">
+                <div class="position-absolute top-0 end-0 p-3">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h5 class="alert-heading">' . $_SESSION["msgError"] . '</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
             </div>';
 
             unset($_SESSION['msgError']);
@@ -112,9 +116,13 @@ class Formulario
         {
 
             $texto .= '
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="position-relative" style="z-index:1000;">
+                    <div class="position-absolute top-0 end-0 p-3">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
                 </div>';
             unset($_SESSION["msgSucesso"]);
         }
@@ -144,8 +152,23 @@ class Formulario
                         (!empty($email) ? '<input type="hidden" name="email" value=' . $email .'>' : '') .
                         (!empty($view) ? '<input type="hidden" name="view" value=' . $view .'>' : '')
                     .'</form>
+                </div> 
+                <div aria-live="polite" aria-atomic="true" class="position-relative">
+                    <div class="toast-container position-absolute top-0 end-0 p-3">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="..." class="rounded me-2" alt="...">
+                                <strong class="me-auto">Bootstrap</strong>
+                                <small class="text-muted">just now</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                See? Just like this.
+                            </div>
+                        </div>
+                    </div>
                 </div>';
-
+                
         return $html;
     }
 }
