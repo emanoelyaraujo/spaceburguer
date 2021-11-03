@@ -188,7 +188,7 @@ switch ($metodo)
 
     case "verificaCodigo":
         $user = $model->getUserEmail($post['email']);
-        $codigo = $_SESSION["codigo"];
+        $codigo = (isset($_SESSION["codigo"]) ? $_SESSION["codigo"] : "");
 
         unset($_SESSION["codigo"]);
 
@@ -231,8 +231,6 @@ switch ($metodo)
         {
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
         }
-
-        $model->updateCodigo(null, $user['id']);
 
         Redirect::Page("Login/index");
 
