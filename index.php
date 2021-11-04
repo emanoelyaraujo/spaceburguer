@@ -54,7 +54,7 @@ else
 
 require_once $pasta . "/view/comuns/header.php";
 if($control != "Login" && $control != "cadastrar"){
-    require_once $pasta . "/view/comuns/sidebar.php";
+    require_once $pasta . "/view/comuns/navbar.php";
 }
 require_once "$pasta/controller/$control.php";
 require_once $pasta . "/view/comuns/footer.php";
