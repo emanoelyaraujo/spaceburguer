@@ -1,21 +1,30 @@
+<script>
+    function addCarrinho(id) {
+
+        $.post("/Home/addCarrinho", {
+            id
+        });
+    }
+</script>
+
 <section>
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?= SITE_URL ?>assets/img/carrossel01.png" class="d-block w-100" alt="...">
+                <img src="<?= SITE_URL ?>assets/img/carrossel01.png" class="d-none d-md-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="<?= SITE_URL ?>assets/img/carrossel02.png" class="d-block w-100" alt="...">
+                <img src="<?= SITE_URL ?>assets/img/carrossel02.png" class="d-none d-md-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="<?= SITE_URL ?>assets/img/carrossel03.png" class="d-block w-100" alt="...">
+                <img src="<?= SITE_URL ?>assets/img/carrossel03.png" class="d-none d-md-block w-100" alt="...">
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <button class="carousel-control-prev d-none d-md-block" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <button class="carousel-control-next d-none d-md-block" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
@@ -38,7 +47,7 @@
 
             if ($key == 0 || $lanches["descricao"] != $categoria)
             {
-                ?>
+        ?>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="bbb_container">
@@ -53,41 +62,41 @@
                     <div class="col-lg-9">
                         <div class="bbb_slider_container">
                             <div class="owl-carousel owl-theme bbb_slider" id="bbb_slider<?= $key ?>">
-                <?php
-            }
+                            <?php
+                        }
 
-            $categoria = $lanches["descricao"];
-            ?>
-            
-            <div class="owl-item">
-                <div class="bbb_item is_new">
-                    <ul class="bbb_marks">
-                        <li class="bbb_mark bbb_new">new</li>
-                    </ul>
-                    <div class="bbb_image d-flex flex-column align-items-center justify-content-center"><img src="<?= $lanches["imagem"] ?>" alt=""></div>
-                    <div class="bbb_content">
-                        <div class="bbb_info clearfix">
-                            <p><b><?= $lanches["nome"] ?></b></p>
-                            <p>R$ <?= $lanches["preco"] ?></p>
-                        </div>
-                    </div>
-                    <div class="d-grid gap-2 col-12 mx-auto mt-3">
-                        <button class="btn btnRoxo" type="button">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </div>
-            <?php
+                        $categoria = $lanches["descricao"];
+                            ?>
 
-            if (count($dados) == ($key - 1) || $flag)
-            {
-                ?>
+                            <div class="owl-item">
+                                <div class="bbb_item is_new">
+                                    <ul class="bbb_marks">
+                                        <li class="bbb_mark bbb_new">new</li>
+                                    </ul>
+                                    <div class="bbb_image d-flex flex-column align-items-center justify-content-center"><img src="<?= $lanches["imagem"] ?>" alt=""></div>
+                                    <div class="bbb_content">
+                                        <div class="bbb_info clearfix">
+                                            <p><b><?= $lanches["nome"] ?></b></p>
+                                            <p>R$ <?= $lanches["preco"] ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2 col-12 mx-auto mt-3">
+                                        <button class="btn btnRoxo" onclick="addCarrinho(<?= $lanches['id'] ?>)" type="button">Adicionar ao Carrinho</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+
+                            if (count($dados) == ($key - 1) || $flag)
+                            {
+                            ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <?php
-            }
-        }
+        <?php
+                            }
+                        }
         ?>
     </div>
 </div>
