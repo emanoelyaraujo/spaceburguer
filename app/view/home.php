@@ -1,9 +1,22 @@
 <script>
     function addCarrinho(id) {
 
-        $.post("/Home/addCarrinho", {
-            id
-        });
+        const codUsuario = <?= isset($_SESSION["userId"]) ? $_SESSION["userId"] : 0 ?>
+
+        if (codUsuario) {
+            $.post("/Carrinho/addCarrinho", {
+                id
+            }).done(function(response) {
+                response = JSON.parse(response)
+                if (response.status) {
+                    msgSucesso(response.mensagem);
+                } else {
+                    msgError(response.mensagem);
+                }
+            })
+        } else {
+            window.location = "<?= SITE_URL ?>Login/index";
+        }
     }
 </script>
 
