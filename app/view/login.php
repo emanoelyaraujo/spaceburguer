@@ -40,9 +40,6 @@
                                     </div>
                                     <div class="d-grid gap-2 col-6 mx-auto mt-4">
                                         <button type="submit" class="btn btnRoxo">ENTRAR</button>
-                                        <small class="text-center">
-                                            <a href="<?= SITE_URL ?>Login/cadastrar">Novo no site? Cadastre-se</a>
-                                        </small>
                                     </div>
                                 </form>
                             </div>
