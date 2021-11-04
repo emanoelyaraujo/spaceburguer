@@ -12,8 +12,6 @@
     color: #FFFFFF;
 }
 
-/* sidebar */
-
 body {
     background-color: #E0E0E0;
 }
@@ -21,34 +19,6 @@ body {
 span {
     color: red;
     font-weight: 500;
-}
-
-.offcanvas-header {
-    background: var(--color-roxo);
-}
-
-.btn:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.list-inline a {
-    color: black !important;
-    text-decoration: none;
-}
-
-.dropdown-menu {
-    background-color: var(--color-roxo);
-}
-
-.list-inline:hover, .dropdown>ul>li>a:hover {
-    background-color: rgba(21, 21, 99, 0.226);
-    transition: 1.5s;
-}
-
-.dropdown>ul>li>a:hover {
-    background-color: rgba(189, 189, 192, 0.226);
-    transition: 1.5s;
 }
 
 /* Página Login e Cadastrar*/
