@@ -2,6 +2,8 @@
 
 require_once 'app/model/ModelMinhaConta.php';
 
+Security::isUsuario();
+
 $model = new MinhaConta();
 
 $post           = $_POST;

@@ -24,15 +24,15 @@ class Security
     {
         if (isset($_SESSION["userNivel"]))
         {
-            if ($_SESSION["userNivel"] != 2)
+            if ($_SESSION["userNivel"] != 1 && $_SESSION["userNivel"] != 2)
             {
-                Redirect::page("login");
+                Redirect::page("Login/index");
                 exit;
             }
         }
         else
         {
-            Redirect::page("login");
+            Redirect::page("Login/index");
             exit;
         }
     }
