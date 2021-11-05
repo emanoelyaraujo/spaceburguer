@@ -1,4 +1,4 @@
-<script src="<?= SITE_URL ?>assets/js/bootstrap.bundle.js"></script>
+
 <script src="<?= SITE_URL ?>assets/js/Toasts.js"></script>
 <script src="<?= SITE_URL ?>assets/DataTables/js/jquery.dataTables.min.js"></script>
 <script src="<?= SITE_URL ?>assets/DataTables/js/dataTables.bootstrap5.min.js"></script>
