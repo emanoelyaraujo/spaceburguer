@@ -1,41 +1,5 @@
 <style>
-    .navbar {
-        background-color: #fff;
-    }
-
-    .navbar-toggler:focus {
-        outline: none;
-        box-shadow: none;
-    }
-
-    .nav-link {
-        color: #433A8F !important;
-        font-weight: 500;
-        margin-right: 15px !important;
-    }
-
-    .nav-link:hover {
-        background-color: rgba(21, 21, 99, 0.226);
-        transition: 1.5s;
-    }
-
-    #entrar {
-        background-color: #433A8F;
-        color: #fff;
-    }
-
-    #cadastrar {
-        border: 2px solid #ed8218;
-    }
-
-    #cadastrar:hover {
-        background-color: #ed8218;
-        color: #fff;
-    }
-
-    button.nav-toggler {
-        color: #000000;
-    }
+    
 </style>
 
 <main>
@@ -44,7 +8,7 @@
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="<?= SITE_URL ?>">
-                        <img src="<?= SITE_URL ?>assets/img/SVG/spaceburguer2.svg" alt="" width="200" height="60" class="d-inline-block align-text-top">
+                        <img src="<?= SITE_URL ?>assets/img/SVG/spaceburguer2.svg" alt="" width="200" height="50" class="d-inline-block align-text-top">
                     </a>
                 </div>
             </nav>
@@ -69,9 +33,9 @@
                                             Área Administrativa
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <li><a class="dropdown-item" href="#">Categorias</a></li>
-                                            <li><a class="dropdown-item" href="#">Lanches</a></li>
-                                            <li><a class="dropdown-item" href="#">Usuários</a></li>
+                                            <li><a class="dropdown-item" href="<?= SITE_URL ?>Categoria/lista">Categorias</a></li>
+                                            <li><a class="dropdown-item" href="<?= SITE_URL ?>Lanche/lista">Lanches</a></li>
+                                            <li><a class="dropdown-item" href="<?= SITE_URL ?>UsuarioAdmin/lista">Usuários</a></li>
                                         </ul>
                                     </li>
                                 <?php
@@ -79,7 +43,7 @@
                             {
                                 ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Carrinho</a>
+                                    <a class="nav-link" href="<?= SITE_URL ?>Carrinho/index">Carrinho</a>
                                 </li>
                                 <?php
                             }
@@ -116,8 +80,8 @@
  
                 <?php if (!isset($_SESSION["userId"])): ?>
                     <div class="d-flex">
-                        <a href="<?= SITE_URL ?>Login/index" class="btn btn-sm" id="entrar">Entrar</a>
-                        <a href="<?= SITE_URL ?>Login/cadastrar" class="btn btn-sm btn-outline ms-2" id="cadastrar">Cadastre-se</a>
+                        <a href="<?= SITE_URL ?>Login/index" class="btn btn-sm btnRoxo">Entrar</a>
+                        <a href="<?= SITE_URL ?>Login/cadastrar" class="btn btn-sm btn-outline ms-2 btnLaranja">Cadastre-se</a>
                     </div>
                 <?php endif; ?>
             </div>
