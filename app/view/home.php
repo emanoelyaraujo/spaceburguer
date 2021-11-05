@@ -20,6 +20,23 @@
     }
 </script>
 
+<div class="sticky-top">
+    <div class="position-relative" style="z-index: 1000; ">
+        <div class="toast-container position-absolute top-0 end-0 p-3">
+            <div class="toast" role="alert">
+                <div class="toast-header">
+                    <img src="<?= SITE_URL ?>assets/img/SVG/x.svg" class="rounded me-2" alt="...">
+                    <strong class="me-auto">Bootstrap</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    See? Just like this.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section>
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -63,7 +80,7 @@
         ?>
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="bbb_container">
+                        <div class="bbb_container mt-3">
                             <p>Categoria</p>
                             <h2 class=""><?= $lanches["descricao"] ?></h2>
                             <div class="bbb_slider_nav">
