@@ -16,7 +16,7 @@ foreach ($aDados["data"] as $b)
                 $categoria["descricao"],
                 $b["descricao"],
                 "R$ " . Numeros::formataValor($b["preco"]),
-                ($b["status"] == 1 ? "Ativo" : "Inativo")
+                ($b['status'] == 1 ? '<div class="text-center"><span class="badge bg-success">Ativo</span></div>' : '<span class="text-center badge bg-warning">Inativo</span>')
             ];
         }
     }

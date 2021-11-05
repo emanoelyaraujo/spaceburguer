@@ -36,9 +36,12 @@ class Lanche extends ModelBase
             ]
         );
 
-        if ($rsc > 0) {
+        if ($rsc > 0)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -53,23 +56,57 @@ class Lanche extends ModelBase
     {
         $preco = Numeros::strValor($dados["preco"]);
 
-        $rsc = $this->conDb->dbUpdate(
-            "UPDATE lanche 
-                SET id_categoria = ?, descricao = ?, ingredientes = ?, preco = ?, status = ?
-                WHERE id = ?",
+        $rsc = 1;
+
+        $select = $this->conDb->dbSelect(
+            "SELECT * FROM lanche WHERE id = ?",
             [
-                $dados['id_categoria'],
-                $dados['descricao'],
-                $dados['ingredientes'],
-                $preco,
-                $dados['status'],
-                $dados['id']
+                $dados["id"]
             ]
         );
 
-        if ($rsc > 0) {
+        $select = $this->conDb->dbBuscaArrayAll($select);
+
+        $select = $select[0];
+
+        $alterado = false;
+
+        if (
+            $dados["id_categoria"] != $select["id_categoria"] ||
+            $dados["descricao"] != $select["descricao"] ||
+            $dados["ingredientes"] != $select["ingredientes"] ||
+            $preco != $select["preco"] ||
+            $dados["status"] != $select["status"] ||
+            $dados["imagem"] != $select["imagem"]
+        )
+        {
+            $alterado = true;
+        }
+
+        if ($alterado)
+        {
+            $rsc = $this->conDb->dbUpdate(
+                "UPDATE lanche 
+                SET id_categoria = ?, descricao = ?, ingredientes = ?, preco = ?, status = ?, imagem = ?
+                WHERE id = ?",
+                [
+                    $dados['id_categoria'],
+                    $dados['descricao'],
+                    $dados['ingredientes'],
+                    $preco,
+                    $dados['status'],
+                    $dados["imagem"],
+                    $dados['id']
+                ]
+            );
+        }
+
+        if ($rsc > 0)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -89,11 +126,13 @@ class Lanche extends ModelBase
             ]
         );
 
-        if ($rsc > 0) {
+        if ($rsc > 0)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
-
 }

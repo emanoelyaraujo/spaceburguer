@@ -46,10 +46,10 @@ class Formulario
                         <div class="container">
                             <div class="blog-banner">
                                 <div class="row">
-                                    <div class="col-10 mt-5 mb-5 text-left">
+                                    <div class="col-10 mt-3 mb-3 text-left">
                                         <h1 style="color: #433A8F;">' . $titulo . '</h1>
                                     </div>
-                                    <div class="col-2 mt-5 mb-5 text-right">
+                                    <div class="col-2 mt-3 mb-3 text-right">
                                         ' . $textoBtnNovo . '
                                         <a href="' . SITE_URL . '/' . $parametro['controller'] . '/lista" class="btn btn-secondary btn-sm btn-icons-crud mt-1" title="Lista">                                            
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">

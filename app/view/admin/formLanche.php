@@ -52,10 +52,10 @@ else if ($aDados["acao"] == "delete")
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ingredientes" class="form-label">Ingredientes</label>
-                        <?php if($aDados["acao"] == "view" || $aDados["acao"] == "delete"): ?>
+                        <?php if ($aDados["acao"] == "view" || $aDados["acao"] == "delete") : ?>
                             <?= $aDados['data']['ingredientes'] ?>
-                        <?php else: ?>
-                            <textarea name="ingredientes"id="<?= $id_Ingredientes ?>" <?= $editar["readonly"] ?> required>
+                        <?php else : ?>
+                            <textarea name="ingredientes" id="<?= $id_Ingredientes ?>" <?= $editar["readonly"] ?> required>
                                 <?= isset($aDados['data']['ingredientes']) ? $aDados['data']['ingredientes'] : "" ?>
                             </textarea>
                         <?php endif; ?>
@@ -64,22 +64,25 @@ else if ($aDados["acao"] == "delete")
 
                 <div class="form-group col-lg-6 mb-3">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3">
                             <label for="preco" class="form-label">Preço</label>
                             <div class="input-group mb-2">
-                                <input type="text" name="preco" id="preco" class="form-control text-end" 
-                                    onKeyUp="mask_valor(this,event,'##.###.###.###,##',true)" 
-                                    <?= $editar["readonly"] ?> 
-                                    value="<?= isset($aDados['data']['preco']) ? Numeros::formataValor($aDados['data']['preco']) : "" ?>">
+                                <input type="text" name="preco" id="preco" class="form-control text-end" onKeyUp="mask_valor(this,event,'##.###.###.###,##',true)" <?= $editar["readonly"] ?> value="<?= isset($aDados['data']['preco']) ? Numeros::formataValor($aDados['data']['preco']) : "" ?>">
                             </div>
                         </div>
-                        <div class="col-5">
+                        <div class="col-8 col-sm-5">
                             <label for="status" class="form-label">Status</label>
                             <select name="status" id="status" class="form-control" required <?= $editar["disabled"] ?>>
-                                <option value="" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == ""  ? "selected" : "") : "") ?>>.....</option>
+                                <option value="" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == ""  ? "selected disabled" : "") : "") ?>>.....</option>
                                 <option value="1" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == "1" ? "selected" : "") : "") ?>>Ativo</option>
                                 <option value="2" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == "2" ? "selected" : "") : "") ?>>Inativo</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-8 mb-3">
+                            <label for="imagem" class="form-label">Imagem</label>
+                            <input type="text" name="imagem" id="imagem" class="form-control" maxlength="200" <?= $editar["readonly"] ?> value="<?= isset($aDados['data']['imagem']) ? $aDados['data']['imagem'] : "" ?>" required>
                         </div>
                     </div>
                 </div>

@@ -16,13 +16,13 @@ class Lista
                                 <?php endforeach; ?>
                             </tr>
                         </thead>
-                        <tbody class="align-middle text-center">
+                        <tbody class="align-middle">
                             <?php foreach ($tbody as $key => $row) : ?>
                                 <tr>
                                     <?php foreach ($row as $col) : ?>
                                         <td><?= $col ?></td>
                                     <?php endforeach; ?>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="<?= SITE_URL ?>/<?= $controller ?>/form/view/<?= (implode("", $id[$key])) ?>" class="btn btn-secondary btn-sm" title="Visualizar">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
                                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>

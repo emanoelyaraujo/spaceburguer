@@ -120,19 +120,48 @@ class Usuario extends ModelBase
     {
         $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
 
-        $rsc = $this->conDb->dbUpdate(
-            "UPDATE usuario 
-                    SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
-                    WHERE id = ?",
+        $rsc = 1;
+
+        $select = $this->conDb->dbSelect(
+            "SELECT * FROM usuario WHERE id = ?",
             [
-                $dados['nome'],
-                $telefone,
-                $dados['email'],
-                $dados['status'],
-                $dados['nivel'],
-                $dados['id']
+                $dados["id"]
             ]
         );
+
+        $select = $this->conDb->dbBuscaArrayAll($select);
+
+        $select = $select[0];
+
+        $alterado = false;
+
+        if (
+            $dados["nome"] != $select["nome"] ||
+            $dados["status"] != $select["status"] ||
+            $dados["email"] != $select["email"] ||
+            $telefone != $select["telefone"] ||
+            $dados["nivel"] != $select["nivel"]
+        )
+        {
+            $alterado = true;
+        }
+
+        if ($alterado)
+        {
+            $rsc = $this->conDb->dbUpdate(
+                "UPDATE usuario 
+                    SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
+                    WHERE id = ?",
+                [
+                    $dados['nome'],
+                    $telefone,
+                    $dados['email'],
+                    $dados['status'],
+                    $dados['nivel'],
+                    $dados['id']
+                ]
+            );
+        }
 
         if ($rsc > 0)
         {
