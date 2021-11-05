@@ -9,6 +9,12 @@ $aDados['acao'] = $acao;
 
 switch ($metodo)
 {
+    case "index":
+        $pedido = $model->getPedidosAbertos();
+        
+        require_once "app/view/carrinho.php";
+        break;
+
     case "addCarrinho":
         $pedidoPendente = $model->getPedidosAbertos();
         
