@@ -10,14 +10,15 @@ $aDados['acao'] = $acao;
 switch ($metodo)
 {
     case "index":
-        $pedido = $model->getPedidosAbertos();
-        
+        $pedido["dadosPedido"] = $model->getPedidosAbertos();
+        $pedido["itensPedido"] = $model->getItensCarrinho($pedido["dadosPedido"][0]["id"]);
+
         require_once "app/view/carrinho.php";
         break;
 
     case "addCarrinho":
         $pedidoPendente = $model->getPedidosAbertos();
-        
+
         if (empty($pedidoPendente))
         {
             $criaPedido = $model->createPedido($post["id"]);
@@ -42,6 +43,19 @@ switch ($metodo)
         echo json_encode([
             'mensagem' => ($flag ? 'Lanche adicionado no carrinho' : 'Falha ao tentar adicionar lanche no carrinho'),
             'status' => $flag
+        ]);
+        exit;
+        break;
+
+    case "updateQuantidade":
+
+        $atualiza = $model->updateLanche($post);
+
+        $pedido = $model->getItensCarrinho(0, $post["id_produto"]);
+        ob_end_clean();
+
+        echo json_encode([
+            'totalProduto' => $pedido[0]["valor_total"]
         ]);
         exit;
         break;
