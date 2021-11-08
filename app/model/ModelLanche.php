@@ -25,14 +25,14 @@ class Lanche extends ModelBase
 
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO lanche
-            (id_categoria, descricao, ingredientes, preco, status)
+            (id_categoria, descricao, ingredientes, preco, imagem)
             VALUES ( ?, ?, ?, ?, ?) ",
             [
                 $dados['id_categoria'],
                 $dados['descricao'],
                 $dados['ingredientes'],
                 $preco,
-                $dados['status']
+                $dados['imagem']
             ]
         );
 
