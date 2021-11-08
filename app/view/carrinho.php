@@ -9,8 +9,10 @@
     </div>
 <?php else : ?>
     <div class="container mt-4">
-        <!-- <h1 class="h3 mb-3">Meu carrinho</h1> -->
         <div class="row">
+
+            <!-- MEU CARRINHO -->
+            <?= Formulario::exibeMsgSucesso() . Formulario::exibeMsgError() ?>
             <div class="col-md-7 col-lg-6 mb-4">
                 <div class="card">
                     <div class="card-header">
@@ -22,30 +24,40 @@
                                 <?php foreach ($pedido["itensPedido"] as $itens) : ?>
                                     <div class="border text-sm text-muted p-2 mt-1 mb-3">
                                         <div class="row">
+                                            <?php if ($itens["ingredientes"] != "<p>-</p>") : ?>
+                                                <div class="text-end mt-auto">
+                                                    <button class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#433A8F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle">
+                                                            <circle cx="12" cy="12" r="10"></circle>
+                                                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                                                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            <?php endif; ?>
                                             <div class="col-5 col-sm-6">
-                                                <img src="<?= $itens['imagem'] ?>" class="img-fluid rounded-start" width="142" height="112" alt="...">
+                                                <img src="<?= $itens['imagem'] ?>" class="img-fluid rounded-center" width="142" height="112" alt="...">
                                             </div>
                                             <div class="col-7 col-sm-6 d-flex flex-column">
                                                 <h6><?= $itens["descricao"] ?></h6>
-                                                <span class="fw-bold" id="totalProduto<?= $itens['id'] ?>">R$<?= $itens["valor_total"] ?></span>
-
+                                                <span class="fw-bold" id="totalProduto<?= $itens['id'] ?>">R$<?= Numeros::formataValor($itens["valor_total"]) ?></span>
                                                 <div class="row justify-content-between mt-auto">
                                                     <div class="col-auto">
-                                                        <button data-type="quantity" onclick="decrease(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" class="btn btn-sm">
+                                                        <button data-type="quantity" onclick="decrease(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" class="btn btn-sm quantidade">
                                                             <i class="fas fa-minus"></i>
                                                         </button>
-                                                        <input id="quantity<?= $itens['id'] ?>" class="text-center" style="width: 30px; border: none; outline: none !important; box-shadow: none !important;" value="1">
-                                                        <button data-type="quantity" onclick="increase(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" class="btn btn-sm">
+                                                        <input id="quantity<?= $itens['id'] ?>" class="text-center inputQuantidade" value="<?= $itens["quantidade"] ?>">
+                                                        <button data-type="quantity" onclick="increase(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" class="btn btn-sm quantidade">
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                     </div>
                                                     <div class="col-auto">
-                                                        <button class="btn p-0">
+                                                        <a href="<?= SITE_URL ?>Carrinho/deleteItem/<?= $itens['id'] ?>" class="btn p-0">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
                                                                 <polyline points="3 6 5 6 21 6"></polyline>
                                                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                                             </svg>
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,66 +70,49 @@
                 </div>
             </div>
 
+            <!-- RESUMO DA COMPRA -->
             <div class="col-md-5 col-lg-6">
                 <div class="card mb-3">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Resumo da compra</h5>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-title">Subtotal(<?= count($pedido['itensPedido']) ?>)<span class="float-end text-muted">R$<?= $itens["total_pedido"] ?></span></h6>
-                        <h6 class="card-title">Frete<span class="float-end text-muted">R$4,00</span></h6>
+                        <!-- SUBTOTAL -->
+                        <h6 class="card-title d-inline text-muted">Subtotal(<?= count($pedido['itensPedido']) ?> itens)</h6>
+                        <span class="float-end text-muted" id="subtotal">R$<?= Numeros::formataValor($itens["subtotal"]) ?></span><br>
+                        <!-- FRETE -->
+                        <h6 class="card-title d-inline text-muted">Frete</h6>
+                        <span class="float-end text-muted">R$<?= Numeros::formataValor($itens['frete']) ?></span>
                         <hr>
-                        <h6 class="card-title">Valor Total<span class="float-end">R$<?= $itens["total_pedido"] ?></span></h6>
+                        <!-- TOTAL -->
+                        <h6 class="card-title d-inline">Valor Total</h6>
+                        <span class="float-end fw-bold" id="total">R$<?= Numeros::formataValor($itens["total_pedido"]) ?></span>
 
                         <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
                             <button class="btn btnRoxo" type="button">CONTINUAR</button>
-                            <button class="btn btnLaranja" type="button">ESCOLHER MAIS LANCHES</button>
+                            <a href="<?= SITE_URL ?>" class="btn btnLaranja" type="button">ESCOLHER MAIS LANCHES</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- MODAL INGREDIENTES -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ingredientes</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <?= $itens["ingredientes"] ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 <?php endif; ?>
-
-<script>
-    function handleSubmit(event, id_produto, quantidade, id_lanche, acao) {
-        $.post("/Carrinho/updateQuantidade", {
-            id_produto,
-            quantidade,
-            id_lanche,
-            acao
-        }).done(function(response) {
-            response = JSON.parse(response)
-            document.getElementById(`totalProduto${id_produto}`).innerHTML = `R$ ${response.totalProduto}`
-        })
-
-        
-    }
-
-    function decrease(event, id_produto, id_lanche) {
-
-        let quantidade = document.getElementById(`quantity${id_produto}`)
-        const newValue = parseInt(quantidade.value) - 1
-
-        if (newValue > 0) {
-            quantidade.value = newValue
-
-            setTimeout(
-                handleSubmit(event, id_produto, quantidade.value, id_lanche, "-"),
-                6000
-            )
-        }
-    }
-
-    function increase(event, id_produto, id_lanche) {
-        let quantidade = document.getElementById(`quantity${id_produto}`)
-        quantidade.value = parseInt(quantidade.value) + 1
-
-        setTimeout(
-            handleSubmit(event, id_produto, quantidade.value, id_lanche, "+"),
-            6000
-        )
-    }
-</script>
