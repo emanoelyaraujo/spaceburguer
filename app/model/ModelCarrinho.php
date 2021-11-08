@@ -34,11 +34,11 @@ class Carrinho extends ModelBase
     public function getItensCarrinho($idPedido, $itemPedido = "")
     {
         $rsc = $this->conDb->dbSelect(
-            "SELECT i.id as id, l.id as idLanche, i.id_pedido, i.valor_total, l.descricao, l.imagem, p.valor_total as total_pedido
+            "SELECT i.id as id, l.id as idLanche, i.id_pedido, i.quantidade,i.valor_total, l.descricao, l.ingredientes, l.imagem, p.subtotal, p.valor_total as total_pedido, p.frete
             FROM itens_pedido AS i
             INNER JOIN lanche AS l ON i.id_lanche = l.id
             INNER JOIN pedido AS p ON i.id_pedido = p.id
-            WHERE ". (empty($itemPedido) ? "id_pedido" : "i.id") ." = ?",
+            WHERE " . (empty($itemPedido) ? "id_pedido" : "i.id") . " = ?",
             [
                 (empty($itemPedido) ? $idPedido : $itemPedido)
             ]
@@ -51,25 +51,6 @@ class Carrinho extends ModelBase
         else
         {
             return [];
-        }
-    }
-
-    public function createPedido()
-    {
-        $rsc = $this->conDb->dbInsert(
-            "INSERT INTO pedido (id_usuario) VALUES (?)",
-            [
-                $_SESSION["userId"]
-            ]
-        );
-
-        if ($rsc > 0)
-        {
-            return $rsc;
-        }
-        else
-        {
-            return 0;
         }
     }
 
@@ -94,6 +75,27 @@ class Carrinho extends ModelBase
         }
     }
 
+    public function createPedido()
+    {
+        $rsc = $this->conDb->dbInsert(
+            "INSERT INTO pedido (id_usuario, valor_total, frete) VALUES (?, ?, ?)",
+            [
+                $_SESSION["userId"],
+                5,
+                5
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return $rsc;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public function adicionaLanche($idPedido, $idLanche)
     {
         $preco = implode("", $this->getLancheById($idLanche));
@@ -111,6 +113,43 @@ class Carrinho extends ModelBase
         if ($rsc > 0)
         {
             $this->calculaTotal($preco);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function calculaTotal($precoLanche, $acao = "+")
+    {
+        $dadosPedido = $this->getPedidosAbertos()[0];
+        $valorTotal = $dadosPedido["valor_total"];
+
+        if ($acao == "+")
+        {
+            $valorTotal += $precoLanche;
+        }
+        else
+        {
+            $valorTotal -= $precoLanche;
+        }
+
+        $subtotal = $valorTotal - $dadosPedido["frete"];
+
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE pedido
+            SET subtotal = ?, valor_total = ?
+            WHERE id = ?",
+            [
+                $subtotal,
+                $valorTotal,
+                $dadosPedido["id"]
+            ]
+        );
+
+        if ($rsc > 0)
+        {
             return true;
         }
         else
@@ -145,27 +184,32 @@ class Carrinho extends ModelBase
         }
     }
 
-    public function calculaTotal($precoLanche, $acao = "+")
+    public function deleteLanche($id)
     {
-        $dadosPedido = $this->getPedidosAbertos()[0];
-        $valorTotal = $dadosPedido["valor_total"];
+        $rsc = $this->conDb->dbDelete(
+            "DELETE FROM itens_pedido WHERE id = ?",
+            [
+                $id
+            ]
+        );
 
-        if ($acao == "+")
+
+        if ($rsc > 0)
         {
-            $valorTotal += $precoLanche;
+            return true;
         }
         else
         {
-            $valorTotal -= $precoLanche;
+            return false;
         }
+    }
 
-        $rsc = $this->conDb->dbUpdate(
-            "UPDATE pedido
-            SET valor_total = ?
-            WHERE id = ?",
+    public function deletePedido($pedido)
+    {
+        $rsc = $this->conDb->dbDelete(
+            "DELETE FROM pedido WHERE id = ?",
             [
-                $valorTotal,
-                $dadosPedido["id"]
+                $pedido
             ]
         );
 
