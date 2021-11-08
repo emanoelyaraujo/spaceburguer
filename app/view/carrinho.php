@@ -8,11 +8,10 @@
         </div>
     </div>
 <?php else : ?>
+    <?= Formulario::exibeMsgSucesso() . Formulario::exibeMsgError() ?>
     <div class="container mt-4">
         <div class="row">
-
             <!-- MEU CARRINHO -->
-            <?= Formulario::exibeMsgSucesso() . Formulario::exibeMsgError() ?>
             <div class="col-md-7 col-lg-6 mb-4">
                 <div class="card">
                     <div class="card-header">
@@ -79,17 +78,17 @@
                     <div class="card-body">
                         <!-- SUBTOTAL -->
                         <h6 class="card-title d-inline text-muted">Subtotal(<?= count($pedido['itensPedido']) ?> itens)</h6>
-                        <span class="float-end text-muted" id="subtotal">R$<?= Numeros::formataValor($itens["subtotal"]) ?></span><br>
+                        <span class="float-end text-muted" id="subtotal">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["subtotal"]) ?></span><br>
                         <!-- FRETE -->
                         <h6 class="card-title d-inline text-muted">Frete</h6>
-                        <span class="float-end text-muted">R$<?= Numeros::formataValor($itens['frete']) ?></span>
+                        <span class="float-end text-muted">R$<?= Numeros::formataValor($pedido['itensPedido'][0]['frete']) ?></span>
                         <hr>
                         <!-- TOTAL -->
                         <h6 class="card-title d-inline">Valor Total</h6>
-                        <span class="float-end fw-bold" id="total">R$<?= Numeros::formataValor($itens["total_pedido"]) ?></span>
+                        <span class="float-end fw-bold" id="total">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?></span>
 
                         <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
-                            <button class="btn btnRoxo" type="button">CONTINUAR</button>
+                            <a href="<?= SITE_URL ?>Carrinho/pagamento" class="btn btnRoxo" type="button">CONTINUAR</a>
                             <a href="<?= SITE_URL ?>" class="btn btnLaranja" type="button">ESCOLHER MAIS LANCHES</a>
                         </div>
                     </div>
