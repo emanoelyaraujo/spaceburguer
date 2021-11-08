@@ -21,25 +21,25 @@
                                 <form method="post" action="<?= SITE_URL ?>Login/register">
                                     <div class="row form-group mb-3">
                                         <div class="col-6">
-                                            <label for="nome" class="form-label">Nome<span class="text-danger">*</span></label>
+                                            <label for="nome" class="form-label">Nome<span class="spanRed">*</span></label>
                                             <input class="form-control" type="text" name="nome" id="nome" maxlength="60" placeholder="Digite seu nome" autofocus required>
                                         </div>
                                         <div class="col-6">
-                                            <label for="telefone" class="form-label">Telefone<span class="text-danger">*</span></label>
+                                            <label for="telefone" class="form-label">Telefone<span class="spanRed">*</span></label>
                                             <input class="form-control" type="text" name="telefone" id="telefone" maxlength="14" placeholder="(00)00000-0000" required>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="email" class="form-label">E-mail<span class="text-danger">*</span></label>
+                                        <label for="email" class="form-label">E-mail<span class="spanRed">*</span></label>
                                         <input class="form-control" type="email" name="email" id="email" value="<?= $dados["email"] ?>" maxlength="100" placeholder="Digite seu e-mail" readonly>
                                     </div>
                                     <div class="row form-group mb-3">
                                         <div class="col-6">
-                                            <label for="senha" class="form-label">Senha<span class="text-danger">*</span></label>
+                                            <label for="senha" class="form-label">Senha<span class="spanRed">*</span></label>
                                             <input class="form-control" type="password" name="senha" id="senha" maxlength="15" placeholder="Digite sua senha" required>
                                         </div>
                                         <div class="col-6">
-                                            <label for="confirmSenha" class="form-label">Confirmação<span class="text-danger">*</span></label>
+                                            <label for="confirmSenha" class="form-label">Confirmação<span class="spanRed">*</span></label>
                                             <input class="form-control" type="password" name="confirmSenha" id="confirmSenha" minlength="8" maxlength="15" placeholder="Confirme sua senha" required>
                                         </div>
                                         <small class="text-danger" id="error"></small>

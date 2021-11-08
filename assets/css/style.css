@@ -2,11 +2,13 @@
     --color-roxo: #433A8F;
 }
 
-/* paginção */
+.btn {
+    outline: none !important;
+    box-shadow: none !important;
+}
 
-.page-item.active .page-link {
-    background-color: var(--color-roxo);
-    border-color: var(--color-roxo);
+body {
+    background-color: #E0E0E0;
 }
 
 .btnRoxo {
@@ -19,11 +21,14 @@
     color: #FFFFFF;
 }
 
-body {
-    background-color: #E0E0E0;
+/* paginção */
+
+.page-item.active .page-link {
+    background-color: var(--color-roxo);
+    border-color: var(--color-roxo);
 }
 
-span {
+.spanRed {
     color: red;
     font-weight: 500;
 }
@@ -381,4 +386,18 @@ section {
     .bbb_slider_container {
         margin-top: 15px
     }
+}
+
+/* CARRINHO */
+
+.quantidade {
+    border-radius: 30px;
+    border: 2px solid #E0E0E0;
+}
+
+.inputQuantidade {
+    width: 30px;
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
 }
