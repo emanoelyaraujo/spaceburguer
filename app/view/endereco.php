@@ -75,11 +75,11 @@
                         </p>
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <a class="text-decoration-none text-dark me-3 acaoEndereco" onclick="teste(<?= $endereco['id'] ?>, 'update')">
+                            <a class="text-decoration-none text-dark me-3 acaoEndereco" onclick="acaoEndereco(<?= $endereco['id'] ?>, 'update')">
                                 <img src="<?= SITE_URL ?>assets/img/SVG/edit.svg" alt="">Editar
                             </a>
                             <?php if (count($dados["endereco"]) > 1) : ?>
-                                <a class="text-decoration-none text-dark acaoEndereco" onclick="teste(<?= $endereco['id'] ?>, 'delete')">
+                                <a class="text-decoration-none text-dark acaoEndereco" onclick="acaoEndereco(<?= $endereco['id'] ?>, 'delete')">
                                     <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">Excluir
                                 </a>
                             <?php endif; ?>
@@ -112,7 +112,7 @@
         $("#entrar").html("SALVAR INFORMAÇÕES")
     })
 
-    function teste(id, acao) {
+    function acaoEndereco(id, acao) {
         $.get(`<?= SITE_URL ?>/MinhaConta/carregaDados&id=${id}`).done((response) => {
             response = JSON.parse(response)
 
