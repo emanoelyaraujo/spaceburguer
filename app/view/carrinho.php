@@ -80,7 +80,7 @@
                         <h6 class="card-title d-inline text-muted">Subtotal(<?= count($pedido['itensPedido']) ?> itens)</h6>
                         <span class="float-end text-muted" id="subtotal">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["subtotal"]) ?></span><br>
                         <!-- FRETE -->
-                        <h6 class="card-title d-inline text-muted">Frete</h6>
+                        <h6 class="card-title d-inline text-muted">Taxa de entrega</h6>
                         <span class="float-end text-muted">R$<?= Numeros::formataValor($pedido['itensPedido'][0]['frete']) ?></span>
                         <hr>
                         <!-- TOTAL -->
