@@ -12,10 +12,13 @@ class Carrinho extends ModelBase
         $this->conDb = $this->conectaDb();
     }
 
-    public function getPedidosAbertos()
+    public function getPedidoAberto()
     {
         $rsc = $this->conDb->dbSelect(
-            "SELECT * FROM pedido WHERE id_usuario = ? AND status = 'A'",
+            "SELECT p.*, e.rua, e.numero, e.bairro, e.cep
+            FROM pedido AS p
+            LEFT JOIN endereco AS e ON e.id = p.id_endereco
+            WHERE p.id_usuario = ? AND status = 'A'",
             [
                 $_SESSION["userId"]
             ]
@@ -123,7 +126,7 @@ class Carrinho extends ModelBase
 
     public function calculaTotal($precoLanche, $acao = "+")
     {
-        $dadosPedido = $this->getPedidosAbertos()[0];
+        $dadosPedido = $this->getPedidoAberto()[0];
         $valorTotal = $dadosPedido["valor_total"];
 
         if ($acao == "+")
@@ -220,6 +223,87 @@ class Carrinho extends ModelBase
         else
         {
             return false;
+        }
+    }
+
+    public function addRemoveFrete($acao)
+    {
+        $pedido = $this->getPedidoAberto()[0];
+
+        if ($acao == "-")
+        {
+            $frete = 0;
+            $valorTotal = $pedido["valor_total"] - $pedido["frete"];
+        }
+        else
+        {
+            $frete = 5;
+            $valorTotal = $pedido["valor_total"] + $frete;
+        }
+
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE pedido
+            SET valor_total = ?, frete = ?
+            WHERE id = ?",
+            [
+                $valorTotal,
+                $frete,
+                $pedido["id"]
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function addEndereco($idEndereco)
+    {
+        $pedido = $this->getPedidoAberto()[0];
+
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE pedido
+            SET id_endereco = ?
+            WHERE id = ?",
+            [
+                $idEndereco,
+                $pedido["id"]
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function getEnderecoById($idEndereco)
+    {
+        $rsc = $this->conDb->dbSelect(
+            "SELECT * 
+            FROM endereco 
+            WHERE id = ?",
+            [
+                $idEndereco
+            ]
+        );
+
+        if ($this->conDb->dbNumeroLinhas($rsc) > 0)
+        {
+            return $this->conDb->dbBuscaArray($rsc);
+        }
+        else
+        {
+            return [];
         }
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
 require_once 'app/model/ModelCarrinho.php';
+require_once 'app/model/ModelMinhaConta.php';
 
 $model = new Carrinho();
+$endereco = new MinhaConta();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
@@ -10,20 +12,29 @@ $aDados['acao'] = $acao;
 switch ($metodo)
 {
     case "index":
-        $pedido["dadosPedido"] = $model->getPedidosAbertos();
+        $pedido["dadosPedido"] = $model->getPedidoAberto();
         @$pedido["itensPedido"] = $model->getItensCarrinho($pedido["dadosPedido"][0]["id"]);
 
         require_once "app/view/carrinho.php";
         break;
 
+    case "pagamento":
+        $pedido["enderecosUser"] = $endereco->getEnderecos();
+        $pedido["cartoesUser"] = $endereco->getCartoes();
+        $pedido["dadosPedido"] = $model->getPedidoAberto();
+        $pedido["itensPedido"] = $model->getItensCarrinho($pedido["dadosPedido"][0]["id"]);
+
+        require_once "app/view/pagamento.php";
+        break;
+
     case "addCarrinho":
 
-        $pedidoPendente = $model->getPedidosAbertos();
+        $pedidoPendente = $model->getPedidoAberto();
 
         if (empty($pedidoPendente))
         {
             $criaPedido = $model->createPedido();
-            
+
             // se foi criado o pedido, o idPedido será armazenado com ele 
             $idPedido = $criaPedido;
         }
@@ -100,5 +111,60 @@ switch ($metodo)
         }
 
         Redirect::Page("Carrinho/index");
+        break;
+
+    case "frete":
+
+        if ($model->addRemoveFrete($post["acao"]))
+        {
+            $flag = true;
+        }
+        else
+        {
+            $flag = false;
+        }
+
+        // limpa o buffer
+        ob_end_clean();
+
+        $pedido = $model->getPedidoAberto()[0];
+
+        if ($flag)
+        {
+            echo json_encode([
+                'frete' => $pedido["frete"],
+                'total' => $pedido["valor_total"]
+            ]);
+        }
+        exit;
+        break;
+
+    case "addEndereco":
+        
+        if ($model->addEndereco($post["idEndereco"]))
+        {
+            $flag = true;
+        }
+        else
+        {
+            $flag = false;
+        }
+
+        // limpa o buffer
+        ob_end_clean();
+
+        $endereco = $model->getEnderecoById($post["idEndereco"]);
+
+        if ($flag)
+        {
+            echo json_encode([
+                'rua' => $endereco["rua"],
+                'numero' => $endereco["numero"],
+                'bairro' => $endereco["bairro"],
+                'cep' => $endereco["cep"]
+            ]);
+        }
+        exit;
+
         break;
 }
