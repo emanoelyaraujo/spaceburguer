@@ -1,3 +1,4 @@
+<?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
 <div class="justify-content-center vh-100">
     <main>
         <div class="container flex-column">
@@ -24,13 +25,6 @@
                                         <small>
                                             <a href="<?= SITE_URL ?>Login/esqueciMinhaSenha">Esqueceu sua senha?</a>
                                         </small>
-                                    </div>
-                                    <div class="col-12">
-                                        <?= Formulario::exibeMsgError() ?>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <?= Formulario::exibeMsgSucesso() ?>
                                     </div>
                                     <div>
                                         <div class="form-check">
