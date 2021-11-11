@@ -13,15 +13,25 @@ switch ($metodo)
 {
     case "index":
         $dados["endereco"] = $model->getEnderecos();
+        $dados["cartao"] = $model->getCartoes();
 
         require_once "app/view/minhaConta.php";
 
         break;
 
-    case "carregaDados":
+    case "carregaDadosEndereco":
         $dados["endereco"] = $model->getId("endereco", $_GET["id"]);
+
         ob_end_clean();
         echo json_encode($dados["endereco"]);
+        exit;
+        break;
+
+    case "carregaDadosCartao":
+        $dados["cartao"] = $model->getId("cartao", $_GET["id"]);
+
+        ob_end_clean();
+        echo json_encode($dados["cartao"]);
         exit;
         break;
 
@@ -73,6 +83,7 @@ switch ($metodo)
         break;
 
     case "insertEndereco":
+
         if ($model->insertEndereco($post))
         {
             $_SESSION['msgSucesso'] = 'Endereço criado com sucesso.';
@@ -100,7 +111,7 @@ switch ($metodo)
         Redirect::Page("MinhaConta/index");
 
         break;
-    
+
     case "deleteEndereco":
 
         if ($model->deleteEndereco($post))
@@ -118,6 +129,50 @@ switch ($metodo)
 
     case "setPill":
         $_SESSION["pill"] = $post["id"];
+
+        break;
+
+    case "insertCartao":
+
+        if ($model->insertCartao($post))
+        {
+            $_SESSION['msgSucesso'] = 'Cartão criado com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar criar o cartão na base de dados.';
+        }
+
+        Redirect::Page("MinhaConta/index");
+        break;
+
+    case "updateCartao":
+
+        if ($model->updateCartao($post))
+        {
+            $_SESSION['msgSucesso'] = 'Cartão atualizado com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar atualizar o cartão na base de dados.';
+        }
+
+        Redirect::Page("MinhaConta/index");
+
+        break;
+
+    case "deleteCartao":
+
+        if ($model->deleteCartao())
+        {
+            $_SESSION['msgSucesso'] = 'Cartão excluído com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar excluir o cartão na base de dados.';
+        }
+
+        Redirect::Page("MinhaConta/index");
 
         break;
 }

@@ -63,7 +63,9 @@
                 <div class="tab-pane fade <?= Redirect::getPills('#v-pills-endereco', true) ?>" id="v-pills-endereco" role="tabpanel">
                     <?php require_once "app/view/endereco.php" ?>
                 </div>
-                <div class="tab-pane fade <?= Redirect::getPills('#v-pills-cartao', true) ?>" id="v-pills-cartao" role="tabpanel">...</div>
+                <div class="tab-pane fade <?= Redirect::getPills('#v-pills-cartao', true) ?>" id="v-pills-cartao" role="tabpanel">
+                    <?php require_once "app/view/cartao.php" ?>
+                </div>
                 <div class="tab-pane fade <?= Redirect::getPills('#v-pills-senha', true) ?>" id="v-pills-senha" role="tabpanel">
                     <?php require_once "app/view/formSenha.php" ?>
                 </div>

@@ -11,9 +11,9 @@ class MinhaConta extends ModelBase
     {
         $this->conDb = $this->conectaDb();
     }
-    
+
     /**
-     * getEnderecos
+     * busca todos os getEnderecos
      *
      * @return array
      */
@@ -33,7 +33,28 @@ class MinhaConta extends ModelBase
             return [];
         }
     }
-    
+
+    public function getCartoes()
+    {
+        $rscTable = $this->conDb->dbSelect(
+            "SELECT * 
+            FROM cartao 
+            WHERE id_usuario = ?",
+            [
+                $_SESSION["userId"]
+            ]
+        );
+
+        if ($this->conDb->dbNumeroLinhas($rscTable) > 0)
+        {
+            return $this->conDb->dbBuscaArrayAll($rscTable);
+        }
+        else
+        {
+            return [];
+        }
+    }
+
     /**
      * updateDados
      *
@@ -92,7 +113,7 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * updateSenha
      *
@@ -120,7 +141,7 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * insertEndereco
      *
@@ -155,7 +176,7 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * updateEndereco
      *
@@ -220,7 +241,7 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * preenche o campo deleted_at com a data que o endereço foi excluido, 
      * tudo isso para não não conflito caso o usuário queira ver os pedidos anteriores
@@ -237,6 +258,114 @@ class MinhaConta extends ModelBase
             [
                 Data::dataSQL(date("Y/m/d")),
                 $_GET["id"]
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function insertCartao($post)
+    {
+        $numero = str_replace(" ", "", $post["numeroCartao"]);
+        $data = str_replace("-", "", $post["data"]);
+
+        $rsc = $this->conDb->dbInsert(
+            "INSERT INTO cartao 
+            (id_usuario, numero, nome, cvv, data_vencimento, tipo)
+            VALUES (?, ?, ?, ?, ?, ?)",
+            [
+                $_SESSION["userId"],
+                $numero,
+                $post["nome"],
+                password_hash($post["cvv"], PASSWORD_DEFAULT),
+                $data,
+                $post["tipo"]
+
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function updateCartao($post)
+    {
+        $data = str_replace("-", "", $post["data"]);
+        $rsc = 1;
+
+        $select = $this->conDb->dbSelect(
+            "SELECT * 
+            FROM cartao 
+            WHERE id = ?",
+            [
+                $_GET["id"]
+            ]
+        );
+
+        $select = $this->conDb->dbBuscaArrayAll($select);
+
+        $select = $select[0];
+
+        $alterado = false;
+
+        if (
+            $select["numero"] != $post["numeroCartao"] ||
+            $select["nome"] != $post["nome"] ||
+            $select["cvv"] != $post["cvv"] ||
+            $select["data_vencimento"] != $data ||
+            $select["tipo"] != $post["tipo"]
+        )
+        {
+            $alterado = true;
+        }
+
+        if ($alterado)
+        {
+            $rsc = $this->conDb->dbUpdate(
+                "UPDATE cartao 
+                SET numero = ?, nome = ?, cvv = ?, data_vencimento = ?, tipo = ?
+                WHERE id = ?",
+                [
+                    $post["numeroCartao"],
+                    $post["nome"],
+                    $post["cvv"],
+                    $data,
+                    $post["tipo"],
+                    $_GET["id"]
+                ]
+            );
+        }
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function deleteCartao()
+    {
+        $rsc = $this->conDb->dbDelete(
+            "DELETE FROM cartao 
+            WHERE id = ?",
+            [
+               $_GET['id']
             ]
         );
 
