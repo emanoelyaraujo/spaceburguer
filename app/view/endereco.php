@@ -113,7 +113,7 @@
     })
 
     function acaoEndereco(id, acao) {
-        $.get(`<?= SITE_URL ?>/MinhaConta/carregaDados&id=${id}`).done((response) => {
+        $.get(`<?= SITE_URL ?>/MinhaConta/carregaDadosEndereco&id=${id}`).done((response) => {
             response = JSON.parse(response)
 
             $("#nomeEndereco").val(response.nomeEndereco)
