@@ -283,7 +283,7 @@ class MinhaConta extends ModelBase
             [
                 $_SESSION["userId"],
                 $numero,
-                $post["nome"],
+                $post["nomeCartao"],
                 password_hash($post["cvv"], PASSWORD_DEFAULT),
                 $data,
                 $post["tipo"]
@@ -303,6 +303,7 @@ class MinhaConta extends ModelBase
 
     public function updateCartao($post)
     {
+        $numero = str_replace(" ", "", $post["numeroCartao"]);
         $data = str_replace("-", "", $post["data"]);
         $rsc = 1;
 
@@ -322,9 +323,8 @@ class MinhaConta extends ModelBase
         $alterado = false;
 
         if (
-            $select["numero"] != $post["numeroCartao"] ||
-            $select["nome"] != $post["nome"] ||
-            $select["cvv"] != $post["cvv"] ||
+            $select["numero"] != $numero ||
+            $select["nome"] != $post['nomeCartao'] ||
             $select["data_vencimento"] != $data ||
             $select["tipo"] != $post["tipo"]
         )
@@ -336,12 +336,11 @@ class MinhaConta extends ModelBase
         {
             $rsc = $this->conDb->dbUpdate(
                 "UPDATE cartao 
-                SET numero = ?, nome = ?, cvv = ?, data_vencimento = ?, tipo = ?
+                SET numero = ?, nome = ?,  data_vencimento = ?, tipo = ?
                 WHERE id = ?",
                 [
-                    $post["numeroCartao"],
-                    $post["nome"],
-                    $post["cvv"],
+                    $numero,
+                    $post["nomeCartao"],
                     $data,
                     $post["tipo"],
                     $_GET["id"]

@@ -1,9 +1,3 @@
-<script>
-    $(document).ready(function() {
-        $("#numeroCartao").mask('0000 0000 0000 0000');
-    });
-</script>
-
 <section>
     <h2 class="mb-3">Cartões</h2>
     <div class="modal fade" id="modalCartao" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
@@ -31,13 +25,13 @@
                             <div class="col-12">
                                 <div class="form-group mb-3">
                                     <label for="data">Vencimento<span class="spanRed">*</span></label>
-                                    <input type="month" class="form-control" name="data" min="<?= date("Y-m") ?>">
+                                    <input type="month" id="data" value="" class="form-control" name="data" min="<?= date("Y-m") ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="tipo">Tipo<span class="spanRed">*</span></label>
-                                    <select class="form-select" name="tipo" aria-label="Default select example">
+                                    <select class="form-select" name="tipo" id="tipo" aria-label="Default select example">
                                         <option value="C" selected>Crédito</option>
                                         <option value="D">Débito</option>
                                     </select>
@@ -52,7 +46,7 @@
                             <div class="d-flex justify-content-center">
                                 <div class="d-flex flex-column bd-highlight justify-content-center mb-3">
                                     <div class="p-2 bd-highlight">
-                                        <button class="btn btnRoxo btnPerfil" type="submit" id="entrar" title="Cadastrar">SALVAR INFORMAÇÕES</button>
+                                        <button class="btn btnRoxo btnPerfil" type="submit" id="informacoesCartao">SALVAR INFORMAÇÕES</button>
                                     </div>
                                     <div class="p-2 bd-highlight text-center">
                                         <a href="">Cancelar</a>
@@ -102,17 +96,27 @@
 </section>
 
 <script>
+    $(document).ready(function() {
+        $("#numeroCartao").mask('0000 0000 0000 0000');
+    });
+
     var myModal = document.getElementById("modalCartao")
     myModal.addEventListener('hidden.bs.modal', function() {
         $("#numeroCartao").val("")
         $(".form-group #nomeCartao").val("")
         $("#data").val("")
         $("#cvv").val("")
-        $("#tipo").val("")
+        $("#tipo option").forEach(function(v) {
+            if (v.value == response.tipo) {
+                v.selected = true
+            } else {
+                v.selected = false
+            }
+        })
 
         $("form").prop("action", "<?= SITE_URL ?>MinhaConta/insertCartao")
         $("#tituloModal").html("Adicionar Cartão")
-        $("#entrar").html("SALVAR INFORMAÇÕES")
+        $("#informacoesCartao").html("SALVAR INFORMAÇÕES")
         $("label[for=cvv]").removeClass("invisible")
         $("input[name=cvv]").removeClass("invisible")
         $('input[name=cvv]').attr("required")
@@ -121,25 +125,29 @@
     function acaoCartao(id, acao) {
         $.get(`<?= SITE_URL ?>/MinhaConta/carregaDadosCartao&id=${id}`).done((response) => {
             response = JSON.parse(response)
-
+            data = "<?= substr($dados["cartao"][0]["data_vencimento"], 0, 4) . "-" . substr($dados["cartao"][0]["data_vencimento"], 4, 6) ?>"
+            console.log(data)
             $("#numeroCartao").val(response.numero)
             $(".form-group #nomeCartao").val(response.nome)
-            $("#data").val(response.vencimento)
+            $("#data").val(data)
             $("#cvv").val("")
-            $("#tipo").value(response.tipo)
+            $("#tipo").val(response.tipo)
+
         })
 
         if (acao == "update") {
             $("form").prop("action", `<?= SITE_URL ?>MinhaConta/updateCartao&id=${id}`)
             $("#tituloModal").html("Editar Cartão")
-            $("#entrar").html("EDITAR INFORMAÇÕES")
-            $("label[for='cvv']").addClass("invisible")
-            $("#cvv").addClass("invisible")
-            $('#cvv').removeAttr('required')
+            $("#informacoesCartao").html("EDITAR INFORMAÇÕES")
         } else {
             $("form").prop("action", `<?= SITE_URL ?>MinhaConta/deleteCartao&id=${id}`)
-            $("#entrar").html("EXCLUIR INFORMAÇÕES")
+            $("#tituloModal").html("Excluir Cartão")
+            $("#informacoesCartao").html("EXCLUIR INFORMAÇÕES")
         }
+
+        $("label[for='cvv']").addClass("invisible")
+        $("#cvv").addClass("invisible")
+        $('#cvv').removeAttr('required')
 
         var myModal = new bootstrap.Modal(document.getElementById("modalCartao"))
         myModal.show()
