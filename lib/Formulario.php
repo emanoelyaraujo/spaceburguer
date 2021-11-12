@@ -87,7 +87,7 @@ class Formulario
         {
 
             $texto .= '
-            <div class="position-relative" style="z-index:1000;">
+            <div class="position-relative" style="z-index:1050;">
                 <div class="position-absolute top-0 end-0 p-3">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <h5 class="alert-heading">' . $_SESSION["msgError"] . '</h5>
@@ -116,7 +116,7 @@ class Formulario
         {
 
             $texto .= '
-                <div class="position-relative" style="z-index:1000;">
+                <div class="position-relative" style="z-index:1050;">
                     <div class="position-absolute top-0 end-0 p-3">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
