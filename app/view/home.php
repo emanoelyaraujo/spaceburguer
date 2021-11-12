@@ -19,7 +19,7 @@
         }
     }
 </script>
-
+<?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
 <div class="sticky-top">
     <div class="position-relative" style="z-index: 1000; ">
         <div class="toast-container position-absolute top-0 end-0 p-3">
