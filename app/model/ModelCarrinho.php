@@ -15,10 +15,11 @@ class Carrinho extends ModelBase
     public function getPedidoAberto()
     {
         $rsc = $this->conDb->dbSelect(
-            "SELECT p.*, e.rua, e.numero, e.bairro, e.cep
+            "SELECT p.*, e.rua, e.numero, e.bairro, e.cep, c.nome as nomeCartao, c.numero as numeroCartao
             FROM pedido AS p
             LEFT JOIN endereco AS e ON e.id = p.id_endereco
-            WHERE p.id_usuario = ? AND status = 'A'",
+            LEFT JOIN cartao AS c ON c.id = p.id_cartao
+            WHERE p.id_usuario = ? AND p.status = 'A'",
             [
                 $_SESSION["userId"]
             ]
@@ -37,7 +38,8 @@ class Carrinho extends ModelBase
     public function getItensCarrinho($idPedido, $itemPedido = "")
     {
         $rsc = $this->conDb->dbSelect(
-            "SELECT i.id as id, l.id as idLanche, i.id_pedido, i.quantidade,i.valor_total, l.descricao, l.ingredientes, l.imagem, p.subtotal, p.valor_total as total_pedido, p.frete
+            "SELECT i.id as id, l.id as idLanche, i.id_pedido, i.quantidade,i.valor_total, 
+                l.descricao, l.ingredientes, l.imagem, p.subtotal, p.valor_total as total_pedido, p.frete
             FROM itens_pedido AS i
             INNER JOIN lanche AS l ON i.id_lanche = l.id
             INNER JOIN pedido AS p ON i.id_pedido = p.id
@@ -81,11 +83,12 @@ class Carrinho extends ModelBase
     public function createPedido()
     {
         $rsc = $this->conDb->dbInsert(
-            "INSERT INTO pedido (id_usuario, valor_total, frete) VALUES (?, ?, ?)",
+            "INSERT INTO pedido (id_usuario, valor_total, frete, forma_pagamento) VALUES (?, ?, ?, ?)",
             [
                 $_SESSION["userId"],
                 5,
-                5
+                5,
+                "D"
             ]
         );
 
@@ -223,87 +226,6 @@ class Carrinho extends ModelBase
         else
         {
             return false;
-        }
-    }
-
-    public function addRemoveFrete($acao)
-    {
-        $pedido = $this->getPedidoAberto()[0];
-
-        if ($acao == "-")
-        {
-            $frete = 0;
-            $valorTotal = $pedido["valor_total"] - $pedido["frete"];
-        }
-        else
-        {
-            $frete = 5;
-            $valorTotal = $pedido["valor_total"] + $frete;
-        }
-
-        $rsc = $this->conDb->dbUpdate(
-            "UPDATE pedido
-            SET valor_total = ?, frete = ?
-            WHERE id = ?",
-            [
-                $valorTotal,
-                $frete,
-                $pedido["id"]
-            ]
-        );
-
-        if ($rsc > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public function addEndereco($idEndereco)
-    {
-        $pedido = $this->getPedidoAberto()[0];
-
-        $rsc = $this->conDb->dbUpdate(
-            "UPDATE pedido
-            SET id_endereco = ?
-            WHERE id = ?",
-            [
-                $idEndereco,
-                $pedido["id"]
-            ]
-        );
-
-        if ($rsc > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public function getEnderecoById($idEndereco)
-    {
-        $rsc = $this->conDb->dbSelect(
-            "SELECT * 
-            FROM endereco 
-            WHERE id = ?",
-            [
-                $idEndereco
-            ]
-        );
-
-        if ($this->conDb->dbNumeroLinhas($rsc) > 0)
-        {
-            return $this->conDb->dbBuscaArray($rsc);
-        }
-        else
-        {
-            return [];
         }
     }
 }

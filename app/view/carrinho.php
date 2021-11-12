@@ -88,7 +88,7 @@
                         <span class="float-end fw-bold" id="total">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?></span>
 
                         <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
-                            <a href="<?= SITE_URL ?>Carrinho/pagamento" class="btn btnRoxo" type="button">CONTINUAR</a>
+                            <a href="<?= SITE_URL ?>Pagamento/index" class="btn btnRoxo" type="button">CONTINUAR</a>
                             <a href="<?= SITE_URL ?>" class="btn btnLaranja" type="button">ESCOLHER MAIS LANCHES</a>
                         </div>
                     </div>
