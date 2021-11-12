@@ -1,19 +1,38 @@
-<?php var_dump($pedido); ?>
+<?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-7 col-lg-6 mb-4">
             <div class="card mb-3 p-3">
                 <div class="tab">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" href="#tabDelivery" data-bs-toggle="tab" role="tab" aria-selected="false"><i class="fas fa-motorcycle"></i> Delivery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false"><i class="fas fa-walking"></i> Retirada</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= !is_null($pedido['dadosPedido']['id_endereco']) || 
+                            !is_null($pedido['dadosPedido']['id_cartao']) ? 'active' : '' ?>" 
+                            href="#tabDelivery" data-bs-toggle="tab" role="tab" aria-selected="false">
+                                <i class="fas fa-motorcycle"></i> 
+                                Delivery
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= is_null($pedido['dadosPedido']['id_endereco']) && is_null($pedido['dadosPedido']['id_cartao']) ? 
+                            'active' : '' ?>" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false">
+                                <i class="fas fa-walking"></i> 
+                                Retirada</a>
+                            </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tabDelivery" role="tabpanel">
+                        <div class="tab-pane <?= !is_null($pedido['dadosPedido']['id_endereco']) || !is_null($pedido['dadosPedido']['id_cartao']) ? 'active' : '' ?>" id="tabDelivery" role="tabpanel">
                             <div class="d-flex flex-column mt-2 ms-2">
                                 <div class="row justify-content-between mt-auto">
                                     <div class="col-auto">
-                                        <i class="fas fa-map-marked-alt"></i><span id="informacoesPedido"> <?= (isset($pedido["dadosPedido"][0]["id_endereco"]) ? $pedido['dadosPedido'][0]['rua'] . " ," . $pedido['dadosPedido'][0]['numero'] . "<br>" . $pedido['dadosPedido'][0]['bairro'] . " ," . $pedido['dadosPedido'][0]['cep'] : "") ?></span>
+                                        <i class="fas fa-map-marked-alt"></i>
+                                        <span id="informacoesPedido">
+                                            <?= (isset($pedido["dadosPedido"]["id_endereco"]) ?
+                                                $pedido['dadosPedido']['rua'] . " ," .
+                                                $pedido['dadosPedido']['numero'] . "<br>" .
+                                                $pedido['dadosPedido']['bairro'] . " ," .
+                                                $pedido['dadosPedido']['cep'] : "") ?>
+                                        </span>
                                     </div>
                                     <div class="col-auto">
                                         <button class="text-end btn btn-sm fw-bold text-decoration-underline" onclick="chamaModal()">Escolher</a>
@@ -21,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tabRetirada" role="tabpanel">
+                        <div class="tab-pane <?= is_null($pedido['dadosPedido']['id_endereco']) ? 'active' : '' ?>" id="tabRetirada" role="tabpanel">
                             <div class="mt-2 ms-2">
                                 <i class="fas fa-map-marked-alt"></i> Praça Irmã Annina Bisegna, 40<br>Centro, Muriaé - MG, 36880-083
                             </div>
@@ -32,9 +51,16 @@
                     <div class="col-6">
                         <label class="mt-3 mb-2" id="labelPagamento" for="pagamento">Pague na entrega</label>
                         <select class="form-select" id="pagamento" name="pagamento" aria-label="Default select example">
-                            <option value="1" selected>Dinheiro</option>
-                            <option value="2">Cartão</option>
+                            <option value="D" <?= ($pedido["dadosPedido"]["forma_pagamento"] == "D" ? "selected" : "") ?> >Dinheiro</option>
+                            <option value="C" <?= ($pedido["dadosPedido"]["forma_pagamento"] == "C" ? "selected" : "") ?>>Cartão</option>
                         </select>
+                    </div>
+                    <div class="col-6 mt-4" id="divDadosCartao">
+                        <p class="" id="dadosCartao">
+                            <?= (isset($pedido["dadosPedido"]["nomeCartao"]) ?
+                                $pedido['dadosPedido']['nomeCartao'] . "<br>" .
+                                "**** **** **** " . substr($pedido['dadosPedido']['numeroCartao'], 12, 16) . "<br>" : "") ?>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -74,7 +100,7 @@
                     <span class="float-end fw-bold" id="total">R$ <?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?></span>
 
                     <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
-                        <a href="<?= SITE_URL ?>Carrinho/pagamento" class="btn btnRoxo" type="button">Finalizar</a>
+                        <a href="<?= SITE_URL ?>Pagamento/finalizarPedido" class="btn btnRoxo" type="button">Finalizar</a>
                     </div>
                 </div>
             </div>
@@ -156,7 +182,7 @@
                                         </div>
                                         <h5 class="card-title d-inline ms-2"><?= $cartao['nome'] ?></h5>
                                     </div>
-                                    <p class=""><?= $cartao['numero'] . '<br>' . ($cartao['tipo'] == "D" ? "Débito" : "Crédito") ?></p>
+                                    <p class="">**** **** **** <?= substr($cartao['numero'], 12, 16) . '<br>' . ($cartao['tipo'] == "D" ? "Débito" : "Crédito") ?></p>
                                 </div>
                             </div>
                         </div>
@@ -167,11 +193,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btnLaranja" data-bs-dismiss="modal">Sair</button>
-                <button type="button" onclick="addEndereco()" class="btn btnRoxo">Salvar</button>
+                <button type="button" onclick="addCartao()" class="btn btnRoxo">Salvar</button>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <script>
@@ -185,12 +210,15 @@
         if ($(this).attr('href') == "#tabRetirada") {
             acao = "-"
             $("#labelPagamento").html("Pague na retirada")
+            $("#informacoesPedido").html("")
+            $("#dadosCartao").html("")
+            $.get(`<?= SITE_URL ?>/Pagamento/removeEnderecoCartao`)
         } else {
             acao = "+"
             $("#labelPagamento").html("Pague na entrega")
         }
 
-        $.post("/Carrinho/frete", {
+        $.post("/Pagamento/frete", {
             acao
         }).done(function(response) {
             response = JSON.parse(response)
@@ -225,7 +253,7 @@
 
         idEndereco = $("input[name=endereco]:checked").val()
 
-        $.post("/Carrinho/addEndereco", {
+        $.post("/Pagamento/addEndereco", {
             idEndereco
         }).done(function(response) {
             response = JSON.parse(response)
@@ -233,8 +261,28 @@
         });
     }
 
+    function addCartao() {
+
+        $('#modalCartao').modal('hide');
+
+        idCartao = $("input[name=cartao]:checked").val()
+
+        $.post("/Pagamento/addCartao", {
+            idCartao
+        }).done(function(response) {
+            response = JSON.parse(response)
+            document.getElementById('dadosCartao').innerHTML = ` ${response.nomeCartao}<br>${response.numero}`
+        });
+    }
+
     $("#pagamento").on('change', function() {
-        if ($("#pagamento").val() == "2" && $("a[href='#tabDelivery']").hasClass("active")) {
+
+        metodo = $("#pagamento").val()
+        $.post("/Pagamento/metodoPag", {
+            metodo
+        });
+
+        if ($("#pagamento").val() == "C" && $("a[href='#tabDelivery']").hasClass("active")) {
 
             var myModal = new bootstrap.Modal(document.getElementById('modalCartao'))
             myModal.show()
