@@ -20,7 +20,7 @@ class Security
         }
     }
 
-    public static function isUsuario()
+    public static function isLogado()
     {
         if (isset($_SESSION["userNivel"]))
         {
@@ -33,6 +33,15 @@ class Security
         else
         {
             Redirect::page("Login/index");
+            exit;
+        }
+    }
+
+    public static function pedidoAberto($pedido)
+    {
+        if(empty($pedido))
+        {
+            Redirect::page("Home/index");
             exit;
         }
     }

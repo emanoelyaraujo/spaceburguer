@@ -2,7 +2,7 @@
 
 require_once 'app/model/ModelMinhaConta.php';
 
-Security::isUsuario();
+Security::isLogado();
 
 $model = new MinhaConta();
 
