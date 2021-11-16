@@ -1,7 +1,7 @@
 <?php if (empty($pedido["dadosPedido"])) : ?>
     <div class="d-flex justify-content-center mt-4">
         <div class="container text-center">
-            <span><img src="<?= SITE_URL ?>assets/img/SVG/shopping-cart.svg" alt=""></span>
+            <img src="<?= SITE_URL ?>assets/img/astronauta_comprando.png" width="250" alt="">
             <h4 class="mt-2">Seu carrinho está vazio</h4>
             <p>Adicione lanches clicando no botão “ADICIONAR AO CARRINHO” na página principal.</p>
             <a href="<?= SITE_URL ?>" class="btn btn-sm btnLaranja mt-3">VOLTAR PARA A PÁGINA INICIAL</a>
@@ -85,7 +85,7 @@
                         <hr>
                         <!-- TOTAL -->
                         <h6 class="card-title d-inline">Valor Total</h6>
-                        <span class="float-end fw-bold" id="total">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?></span>
+                        <span class="float-end fw-bold" id="totalPedido">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?></span>
 
                         <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
                             <a href="<?= SITE_URL ?>Pagamento/index" class="btn btnRoxo" type="button">CONTINUAR</a>
@@ -115,3 +115,44 @@
         </div>
     </div>
 <?php endif; ?>
+
+<script>
+    function handleSubmit(event, id_produto, quantidade, id_lanche, acao) {
+        $.post("/Carrinho/updateQuantidade", {
+            id_produto,
+            quantidade,
+            id_lanche,
+            acao
+        }).done(function(response) {
+            response = JSON.parse(response)
+            document.getElementById(`totalProduto${id_produto}`).innerHTML = `R$ ${response.totalProduto}`
+            document.getElementById('subtotal').innerHTML = `R$ ${response.subtotal.replace('.', ',')}`
+            document.getElementById('totalPedido').innerHTML = `R$ ${response.total.replace('.', ',')}`
+        })
+    }
+
+    function decrease(event, id_produto, id_lanche) {
+
+        let quantidade = document.getElementById(`quantity${id_produto}`)
+        const newValue = parseInt(quantidade.value) - 1
+
+        if (newValue > 0) {
+            quantidade.value = newValue
+
+            setTimeout(
+                handleSubmit(event, id_produto, quantidade.value, id_lanche, "-"),
+                6000
+            )
+        }
+    }
+
+    function increase(event, id_produto, id_lanche) {
+        let quantidade = document.getElementById(`quantity${id_produto}`)
+        quantidade.value = parseInt(quantidade.value) + 1
+
+        setTimeout(
+            handleSubmit(event, id_produto, quantidade.value, id_lanche, "+"),
+            6000
+        )
+    }
+</script>
