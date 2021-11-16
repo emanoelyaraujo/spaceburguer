@@ -34,13 +34,6 @@ switch ($metodo)
 
     case 'insert':
 
-        if (empty(trim($post["ingredientes"])))
-        {
-            $_SESSION["msgError"] = "Campo ingredientes é obrigatório";
-            Redirect::Page("lanche/form/insert");
-            break;
-        }
-
         if ($model->insert($_POST))
         {
             $_SESSION['msgSucesso'] = 'Lanche inserido com sucesso.';
