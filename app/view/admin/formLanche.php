@@ -4,28 +4,6 @@
     "acao" => $aDados['acao']
 ]) ?>
 
-<?php
-
-$textoBotao = "";
-$corBotao = "";
-$id_Ingredientes = "";
-$editar = ["readonly" => "readonly", "disabled" => "disabled"];
-
-if ($aDados["acao"] == "insert" || $aDados["acao"] == "update")
-{
-    $textoBotao = "Gravar";
-    $corBotao = "primary";
-    $id_Ingredientes = "ingredientes";
-    $editar = ["readonly" => "", "disabled" => ""];
-}
-else if ($aDados["acao"] == "delete")
-{
-    $textoBotao = "Exluir";
-    $corBotao = "danger";
-}
-
-?>
-
 <div class="col-12">
     <?= Formulario::exibeMsgError() ?>
 </div>
@@ -36,7 +14,7 @@ else if ($aDados["acao"] == "delete")
             <div class="row">
                 <div class="form-group col-md-4 mb-3">
                     <label for="id_categoria" class="form-label">Categoria</label>
-                    <select name="id_categoria" class="form-control" required id="id_categoria" <?= $editar["readonly"] ?>>
+                    <select name="id_categoria" class="form-control" required id="id_categoria" <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?>>
                         <option value="" selected disabled></option>
                         <?php foreach ($aDados['categoria'] as $categoria) : ?>
                             <option value="<?= $categoria['id'] ?>" <?= (isset($aDados["data"]) ? ($categoria["id"] == $aDados["data"]["id_categoria"] ? "selected" : "") : "") ?>> <?= $categoria["descricao"] ?></option>
@@ -46,7 +24,7 @@ else if ($aDados["acao"] == "delete")
 
                 <div class="form-group col-lg-6 mb-3">
                     <label for="descricao" class="form-label">Descrição</label>
-                    <input type="text" name="descricao" id="descricao" class="form-control" maxlength="250" <?= $editar["readonly"] ?> value="<?= isset($aDados['data']['descricao']) ? $aDados['data']['descricao'] : "" ?>" required placeholder="X-Egge-bacon-burguer">
+                    <input type="text" name="descricao" id="descricao" class="form-control" maxlength="250" <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> value="<?= isset($aDados['data']['descricao']) ? $aDados['data']['descricao'] : "" ?>" required placeholder="X-Egge-bacon-burguer">
                 </div>
 
                 <div class="col-md-6">
@@ -55,7 +33,7 @@ else if ($aDados["acao"] == "delete")
                         <?php if ($aDados["acao"] == "view" || $aDados["acao"] == "delete") : ?>
                             <?= $aDados['data']['ingredientes'] ?>
                         <?php else : ?>
-                            <textarea name="ingredientes" id="<?= $id_Ingredientes ?>" <?= $editar["readonly"] ?> required>
+                            <textarea name="ingredientes" id="ingredientes" <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> required>
                                 <?= isset($aDados['data']['ingredientes']) ? $aDados['data']['ingredientes'] : "" ?>
                             </textarea>
                         <?php endif; ?>
@@ -67,12 +45,12 @@ else if ($aDados["acao"] == "delete")
                         <div class="col-6 col-sm-3">
                             <label for="preco" class="form-label">Preço</label>
                             <div class="input-group mb-2">
-                                <input type="text" name="preco" id="preco" class="form-control text-end" onKeyUp="mask_valor(this,event,'##.###.###.###,##',true)" <?= $editar["readonly"] ?> value="<?= isset($aDados['data']['preco']) ? Numeros::formataValor($aDados['data']['preco']) : "" ?>">
+                                <input type="text" name="preco" id="preco" class="form-control text-end" onKeyUp="mask_valor(this,event,'##.###.###.###,##',true)" <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> value="<?= isset($aDados['data']['preco']) ? Numeros::formataValor($aDados['data']['preco']) : "" ?>">
                             </div>
                         </div>
                         <div class="col-8 col-sm-5">
                             <label for="status" class="form-label">Status</label>
-                            <select name="status" id="status" class="form-control" required <?= $editar["disabled"] ?>>
+                            <select name="status" id="status" class="form-control" required <?= Helpers::$acoesInput[$aDados['acao']]['disabled'] ?>>
                                 <option value="" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == ""  ? "selected disabled" : "") : "") ?>>.....</option>
                                 <option value="1" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == "1" ? "selected" : "") : "") ?>>Ativo</option>
                                 <option value="2" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == "2" ? "selected" : "") : "") ?>>Inativo</option>
@@ -82,7 +60,7 @@ else if ($aDados["acao"] == "delete")
                     <div class="row">
                         <div class="form-group col-8 mb-3">
                             <label for="imagem" class="form-label">Imagem</label>
-                            <input type="text" name="imagem" id="imagem" class="form-control" maxlength="200" <?= $editar["readonly"] ?> value="<?= isset($aDados['data']['imagem']) ? $aDados['data']['imagem'] : "" ?>" required>
+                            <input type="text" name="imagem" id="imagem" class="form-control" maxlength="200" <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> value="<?= isset($aDados['data']['imagem']) ? $aDados['data']['imagem'] : "" ?>" required>
                         </div>
                     </div>
                 </div>
@@ -92,7 +70,7 @@ else if ($aDados["acao"] == "delete")
                 <div class="form-group col-12 mt-3">
                     <a href="<?= SITE_URL ?>/lanche/lista" class="btn btn-outline-secondary">Voltar</a>
                     <?php if ($acao != "view") : ?>
-                        <button id="btn" type="submit" value="submit" class="btn btn-<?= $corBotao ?> me-3"><?= $textoBotao ?></button>
+                        <button id="btn" type="submit" value="submit" class="btn btn-<?= Helpers::$botoes[$aDados['acao']]['corBotao'] ?> me-3"><?= Helpers::$botoes[$aDados['acao']]['textoBotao'] ?></button>
                     <?php endif; ?>
                 </div>
             </div>
