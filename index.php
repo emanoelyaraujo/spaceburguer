@@ -16,6 +16,7 @@ require_once "lib/Lista.php";
 require_once "lib/Numeros.php";
 require_once "lib/Data.php";
 require_once "lib/EnviaEmail.php";
+require_once "lib/Helpers.php";
 
 // Roteamento da plataforma
 
@@ -53,8 +54,14 @@ else
 // views
 
 require_once $pasta . "/view/comuns/header.php";
-if($control != "Login" && $control != "cadastrar"){
+
+if ($control != "Login" && $control != "cadastrar")
+{
     require_once $pasta . "/view/comuns/navbar.php";
 }
 require_once "$pasta/controller/$control.php";
-require_once $pasta . "/view/comuns/footer.php";
+
+if ($control != "Login" && $control != "cadastrar" && $control != "Carrinho")
+{
+    require_once $pasta . "/view/comuns/footer.php";
+}
