@@ -1,12 +1,5 @@
 <style>
-    .form-control {
-        border: none;
-    }
 
-    input:focus {
-        outline: none !important;
-        box-shadow: none !important;
-    }
 </style>
 
 <div class="content">
