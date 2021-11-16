@@ -6,28 +6,26 @@
                 <div class="tab">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link <?= !is_null($pedido['dadosPedido']['id_endereco']) || 
-                            !is_null($pedido['dadosPedido']['id_cartao']) ? 'active' : '' ?>" 
-                            href="#tabDelivery" data-bs-toggle="tab" role="tab" aria-selected="false">
-                                <i class="fas fa-motorcycle"></i> 
+                            <a class="nav-link tabPagamento <?= $pedido['dadosPedido']['frete'] != "0.00" ? 'active' : '' ?>" href="#tabDelivery" data-bs-toggle="tab" role="tab" aria-selected="false">
+                                <i class="fas fa-motorcycle"></i>
                                 Delivery
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= is_null($pedido['dadosPedido']['id_endereco']) && is_null($pedido['dadosPedido']['id_cartao']) ? 
-                            'active' : '' ?>" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false">
-                                <i class="fas fa-walking"></i> 
+                            <a class="nav-link tabPagamento <?= $pedido['dadosPedido']['frete'] == "0.00" ?
+                                'active' : '' ?>" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false">
+                                <i class="fas fa-walking"></i>
                                 Retirada</a>
-                            </li>
+                        </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane <?= !is_null($pedido['dadosPedido']['id_endereco']) || !is_null($pedido['dadosPedido']['id_cartao']) ? 'active' : '' ?>" id="tabDelivery" role="tabpanel">
+                        <div class="tab-pane <?= $pedido['dadosPedido']['frete'] != "0.00" ? 'active' : '' ?>" id="tabDelivery" role="tabpanel">
                             <div class="d-flex flex-column mt-2 ms-2">
                                 <div class="row justify-content-between mt-auto">
                                     <div class="col-auto">
                                         <i class="fas fa-map-marked-alt"></i>
                                         <span id="informacoesPedido">
-                                            <?= (isset($pedido["dadosPedido"]["id_endereco"]) ?
+                                            <?= (!is_null($pedido["dadosPedido"]["id_endereco"]) ?
                                                 $pedido['dadosPedido']['rua'] . " ," .
                                                 $pedido['dadosPedido']['numero'] . "<br>" .
                                                 $pedido['dadosPedido']['bairro'] . " ," .
@@ -40,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane <?= is_null($pedido['dadosPedido']['id_endereco']) ? 'active' : '' ?>" id="tabRetirada" role="tabpanel">
+                        <div class="tab-pane <?= $pedido['dadosPedido']['frete'] == "0.00" ? 'active' : '' ?>" id="tabRetirada" role="tabpanel">
                             <div class="mt-2 ms-2">
                                 <i class="fas fa-map-marked-alt"></i> Praça Irmã Annina Bisegna, 40<br>Centro, Muriaé - MG, 36880-083
                             </div>
@@ -51,7 +49,7 @@
                     <div class="col-6">
                         <label class="mt-3 mb-2" id="labelPagamento" for="pagamento">Pague na entrega</label>
                         <select class="form-select" id="pagamento" name="pagamento" aria-label="Default select example">
-                            <option value="D" <?= ($pedido["dadosPedido"]["forma_pagamento"] == "D" ? "selected" : "") ?> >Dinheiro</option>
+                            <option value="D" <?= ($pedido["dadosPedido"]["forma_pagamento"] == "D" ? "selected" : "") ?>>Dinheiro</option>
                             <option value="C" <?= ($pedido["dadosPedido"]["forma_pagamento"] == "C" ? "selected" : "") ?>>Cartão</option>
                         </select>
                     </div>
@@ -198,103 +196,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    let deliverySelecionado = true
-
-    $(".nav-link").on("click", function() {
-        if (deliverySelecionado && $("a[href='#tabDelivery']").hasClass("active")) {
-            return
-        }
-
-        if ($(this).attr('href') == "#tabRetirada") {
-            acao = "-"
-            $("#labelPagamento").html("Pague na retirada")
-            $("#informacoesPedido").html("")
-            $("#dadosCartao").html("")
-            $.get(`<?= SITE_URL ?>/Pagamento/removeEnderecoCartao`)
-        } else {
-            acao = "+"
-            $("#labelPagamento").html("Pague na entrega")
-        }
-
-        $.post("/Pagamento/frete", {
-            acao
-        }).done(function(response) {
-            response = JSON.parse(response)
-            document.getElementById('frete').innerHTML = `R$ ${response.frete.replace('.', ',')}`
-            document.getElementById('total').innerHTML = `R$ ${response.total.replace('.', ',')}`
-        });
-
-        if (!deliverySelecionado && $("a[href='#tabDelivery']").hasClass("active")) {
-            deliverySelecionado = true
-        } else {
-            deliverySelecionado = false
-        }
-    });
-
-    function chamaModal() {
-        var myModal = new bootstrap.Modal(document.getElementById('modalEndereco'))
-        myModal.show()
-    }
-
-    function chamaView(id) {
-
-        $.post("/MinhaConta/setPill", {
-            id: id
-        });
-
-        window.location = "<?= SITE_URL ?>MinhaConta/index"
-    }
-
-    function addEndereco() {
-
-        $('#modalEndereco').modal('hide');
-
-        idEndereco = $("input[name=endereco]:checked").val()
-
-        $.post("/Pagamento/addEndereco", {
-            idEndereco
-        }).done(function(response) {
-            response = JSON.parse(response)
-            document.getElementById('informacoesPedido').innerHTML = ` ${response.rua}, ${response.numero}<br>${response.bairro}, ${response.cep}`
-        });
-    }
-
-    function addCartao() {
-
-        $('#modalCartao').modal('hide');
-
-        idCartao = $("input[name=cartao]:checked").val()
-
-        $.post("/Pagamento/addCartao", {
-            idCartao
-        }).done(function(response) {
-            response = JSON.parse(response)
-            document.getElementById('dadosCartao').innerHTML = ` ${response.nomeCartao}<br>${response.numero}`
-        });
-    }
-
-    $("#pagamento").on('change', function() {
-
-        metodo = $("#pagamento").val()
-        $.post("/Pagamento/metodoPag", {
-            metodo
-        });
-
-        if ($("#pagamento").val() == "C" && $("a[href='#tabDelivery']").hasClass("active")) {
-
-            var myModal = new bootstrap.Modal(document.getElementById('modalCartao'))
-            myModal.show()
-        }
-    })
-
-    function chamaViewCartao() {
-
-        $.post("/MinhaConta/setPill", {
-            id: "#v-pills-cartao"
-        });
-
-        window.location = "<?= SITE_URL ?>MinhaConta/index"
-    }
-</script>
