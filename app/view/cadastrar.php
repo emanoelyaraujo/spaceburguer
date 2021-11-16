@@ -1,8 +1,3 @@
-<script>
-    $(document).ready(function() {
-        $("#telefone").mask('(00)00000-0000');
-    });
-</script>
 <div class="justify-content-center vh-100">
     <main>
         <div class="container flex-column">
