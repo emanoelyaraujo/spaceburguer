@@ -1,8 +1,10 @@
 <?php
 
 require_once 'app/model/ModelCarrinho.php';
+require_once 'app/model/ModelPedido.php';
 
 $model = new Carrinho();
+$dadosPedido = new Pedido();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
@@ -10,15 +12,15 @@ $aDados['acao'] = $acao;
 switch ($metodo)
 {
     case "index":
-        $pedido["dadosPedido"] = $model->getPedidoAberto();
-        @$pedido["itensPedido"] = $model->getItensCarrinho($pedido["dadosPedido"][0]["id"]);
+        $pedido["dadosPedido"] = $dadosPedido->getPedidoAberto();
+        @$pedido["itensPedido"] = $dadosPedido->getItensPedidoAberto($pedido["dadosPedido"][0]["id"]);
 
         require_once "app/view/carrinho.php";
         break;
 
     case "addCarrinho":
 
-        $pedidoPendente = $model->getPedidoAberto();
+        $pedidoPendente = $dadosPedido->getPedidoAberto();
 
         if (empty($pedidoPendente))
         {
@@ -34,7 +36,7 @@ switch ($metodo)
         }
 
         // adiciona o primeiro lanche escolhido
-        if ($lanches = $model->adicionaLanche($idPedido, $post["id"]))
+        if ($lanches = $model->adicionaLanche($idPedido, $post["id"], $dadosPedido->getPedidoAberto()[0]))
         {
             $flag = true;
         }
@@ -57,10 +59,10 @@ switch ($metodo)
     case "updateQuantidade":
 
         // atualiza a quantidade em cada item
-        $model->updateLanche($post);
+        $model->updateLanche($post, $dadosPedido->getPedidoAberto()[0]);
 
         // busca os dados do lanche que a quantidade foi alterada
-        $pedido = $model->getItensCarrinho(0, $post["id_produto"]);
+        $pedido = $dadosPedido->getItensPedidoAberto(0, $post["id_produto"]);
 
         // limpa o buffer de saida
         ob_end_clean();
@@ -77,14 +79,14 @@ switch ($metodo)
     case "deleteItem":
 
         // busca no banco os dados do pedido a ser excluido
-        $item = $model->getItensCarrinho(0, $id)[0];
+        $item = $dadosPedido->getItensPedidoAberto(0, $id)[0];
 
         if ($model->deleteLanche($id))
         {
-            if (count($model->getItensCarrinho($item["id_pedido"])) > 0)
+            if (count($dadosPedido->getItensPedidoAberto($item["id_pedido"])) > 0)
             {
                 // recalcula o total, valorTotalPedido - valorTotalItem
-                $model->calculaTotal($item["valor_total"], "-");
+                $model->calculaTotal($item["valor_total"], "-", $dadosPedido->getPedidoAberto()[0]);
 
                 $_SESSION['msgSucesso'] = 'Item removido com sucesso.';
             }
