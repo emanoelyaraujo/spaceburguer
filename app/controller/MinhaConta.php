@@ -1,10 +1,12 @@
 <?php
 
 require_once 'app/model/ModelMinhaConta.php';
+require_once 'app/model/ModelPedido.php';
 
 Security::isLogado();
 
 $model = new MinhaConta();
+$dadosPedidos = new Pedido();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
@@ -174,5 +176,38 @@ switch ($metodo)
 
         Redirect::Page("MinhaConta/index");
 
+        break;
+
+    case "informacoesPedido":
+
+        $pedidos["dadosPedido"] = $dadosPedidos->getAllPedidos();
+
+        require_once "app/view/informacoesPedido.php";
+
+        break;
+
+    case "getStatusPedido":
+
+        $pedido = $dadosPedidos->getAllPedidos();
+
+        ob_end_clean();
+
+        // envia para o método JS os novos valores
+        echo json_encode([
+            'pedido' => $pedido
+        ]);
+        exit;
+        break;
+
+    case "getItens":
+        $itens = $dadosPedidos->getAllItens($id);
+
+        ob_end_clean();
+
+        // envia para o método JS os novos valores
+        echo json_encode([
+            'itens' => $itens
+        ]);
+        exit;
         break;
 }

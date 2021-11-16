@@ -3,27 +3,27 @@
 require_once 'app/model/ModelCarrinho.php';
 require_once 'app/model/ModelPagamento.php';
 require_once 'app/model/ModelMinhaConta.php';
+require_once 'app/model/ModelPedido.php';
 
 $model = new Pagamento();
 $carrinho = new Carrinho;
 $endereco = new MinhaConta;
+$dadosPedido = new Pedido();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
 
-Security::pedidoAberto($carrinho->getPedidoAberto());
+Security::pedidoAberto($dadosPedido->getPedidoAberto());
 
-$pedidoAberto = $carrinho->getPedidoAberto()[0];
+$pedidoAberto = $dadosPedido->getPedidoAberto()[0];
 
 switch ($metodo)
 {
-
     case "index":
         $pedido["enderecosUser"] = $endereco->getEnderecos();
         $pedido["cartoesUser"] = $endereco->getCartoes();
-        $pedido["dadosPedido"] = $carrinho->getPedidoAberto()[0];
-        $pedido["itensPedido"] = $carrinho->getItensCarrinho($pedido["dadosPedido"]["id"]);
-        var_dump($pedido);
+        $pedido["dadosPedido"] = $dadosPedido->getPedidoAberto()[0];
+        $pedido["itensPedido"] = $dadosPedido->getItensPedidoAberto($pedido["dadosPedido"]["id"]);
 
         require_once "app/view/pagamento.php";
         break;
@@ -42,7 +42,7 @@ switch ($metodo)
         // limpa o buffer
         ob_end_clean();
 
-        $pedido = $carrinho->getPedidoAberto()[0];
+        $pedido = $dadosPedido->getPedidoAberto()[0];
 
         if ($flag)
         {
@@ -139,7 +139,7 @@ switch ($metodo)
 
         if ($erro)
         {
-            Redirect::page("Carrinho/pagamento");
+            Redirect::page("Pagamento/index");
         }
         else
         {
@@ -151,7 +151,7 @@ switch ($metodo)
             else
             {
                 $_SESSION["msgSucesso"] = "Falha ao finalizar pedido";
-                Redirect::page("Carrinho/pagamento");
+                Redirect::page("Pagamento/index");
             }
         }
 
