@@ -33,7 +33,12 @@ class MinhaConta extends ModelBase
             return [];
         }
     }
-
+    
+    /**
+     * getCartoes
+     *
+     * @return array
+     */
     public function getCartoes()
     {
         $rscTable = $this->conDb->dbSelect(
@@ -256,7 +261,7 @@ class MinhaConta extends ModelBase
             SET deleted_at = ?
             WHERE id = ?",
             [
-                Data::dataSQL(date("Y/m/d")),
+                Data::dataHoraAtual(),
                 $_GET["id"]
             ]
         );
@@ -270,7 +275,13 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * insertCartao
+     *
+     * @param  mixed $post
+     * @return boolean 
+     */
     public function insertCartao($post)
     {
         $numero = str_replace(" ", "", $post["numeroCartao"]);
@@ -300,7 +311,13 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * updateCartao
+     *
+     * @param  mixed $post
+     * @return boolean
+     */
     public function updateCartao($post)
     {
         $numero = str_replace(" ", "", $post["numeroCartao"]);
@@ -357,7 +374,12 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * deleta o cartao com o id que foi enviado no $_GET pelo JS
+     *
+     * @return boolean
+     */
     public function deleteCartao()
     {
         $rsc = $this->conDb->dbDelete(

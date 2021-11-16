@@ -162,10 +162,11 @@ class Pagamento extends ModelBase
     {
         $rsc = $this->conDb->dbUpdate(
             "UPDATE pedido
-            SET status = ?
+            SET status = ?, finished_at = ?
             WHERE id = ?",
             [
                 "F",
+                Data::dataHoraAtual(),
                 $pedido["id"]
             ]
         );
