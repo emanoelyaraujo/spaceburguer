@@ -4,16 +4,18 @@
         const codUsuario = <?= isset($_SESSION["userId"]) ? $_SESSION["userId"] : 0 ?>
 
         if (codUsuario) {
-            $.post("/Carrinho/addCarrinho", {
-                id
-            }).done(function(response) {
-                response = JSON.parse(response)
-                if (response.status) {
-                    msgSucesso(response.mensagem);
-                } else {
-                    msgError(response.mensagem);
-                }
-            })
+            if (codUsuario == '2'){
+                $.post("/Carrinho/addCarrinho", {
+                    id
+                }).done(function(response) {
+                    response = JSON.parse(response)
+                    if (response.status) {
+                        msgSucesso(response.mensagem);
+                    } else {
+                        msgError(response.mensagem);
+                    }
+                })
+            }
         } else {
             window.location = "<?= SITE_URL ?>Login/index";
         }
@@ -60,7 +62,7 @@
         </button>
     </div>
 </section>
-
+<?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
 <div class="trends">
     <div class="bbb_background"></div>
     <div class="container">
@@ -77,7 +79,7 @@
 
             if ($key == 0 || $lanches["descricao"] != $categoria)
             {
-        ?>
+                ?>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="bbb_container mt-3">
@@ -93,40 +95,42 @@
                         <div class="bbb_slider_container">
                             <div class="owl-carousel owl-theme bbb_slider" id="bbb_slider<?= $key ?>">
                             <?php
-                        }
+            }
 
-                        $categoria = $lanches["descricao"];
-                            ?>
+            $categoria = $lanches["descricao"];
+            ?>
 
-                            <div class="owl-item">
-                                <div class="bbb_item is_new">
-                                    <ul class="bbb_marks">
-                                        <li class="bbb_mark bbb_new">new</li>
-                                    </ul>
-                                    <div class="bbb_image d-flex flex-column align-items-center justify-content-center"><img src="<?= $lanches["imagem"] ?>" alt=""></div>
-                                    <div class="bbb_content">
-                                        <div class="bbb_info clearfix">
-                                            <p><b><?= $lanches["nome"] ?></b></p>
-                                            <p>R$ <?= $lanches["preco"] ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid gap-2 col-12 mx-auto mt-3">
-                                        <button class="btn btnRoxo" onclick="addCarrinho(<?= $lanches['id'] ?>)" type="button">Adicionar ao Carrinho</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
+            <div class="owl-item" style="width: 19rem;">
+                <div class="bbb_item is_new">
+                    <ul class="bbb_marks">
+                        <li class="bbb_mark bbb_new <?= Data::diferencaData($lanches['created_at']) <= 7 ? 'visible' : 'invisible' ?>">new</li>
+                    </ul>
+                    <div class="bbb_image d-flex flex-column align-items-center justify-content-center">
+                        <img class="" src="<?= SITE_URL . 'uploads/lanches/' . $lanches["imagem"] ?>" alt="">
+                    </div>
+                    <div class="bbb_content">
+                        <div class="bbb_info clearfix">
+                            <p><b><?= $lanches["nome"] ?></b></p>
+                            <p>R$ <?= $lanches["preco"] ?></p>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 col-12 mx-auto mt-3">
+                        <button class="btn btnRoxo" onclick="addCarrinho(<?= $lanches['id'] ?>)" type="button">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+            <?php
 
-                            if (count($dados) == ($key - 1) || $flag)
-                            {
-                            ?>
+            if (count($dados) == ($key - 1) || $flag)
+            {
+                ?>
                             </div>
                         </div>
                     </div>
                 </div>
-        <?php
-                            }
-                        }
+                <?php
+            }
+        }
         ?>
     </div>
 </div>
