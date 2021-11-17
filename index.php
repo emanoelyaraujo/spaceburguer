@@ -17,6 +17,7 @@ require_once "lib/Numeros.php";
 require_once "lib/Data.php";
 require_once "lib/EnviaEmail.php";
 require_once "lib/Helpers.php";
+require_once "lib/UploadImagens.php";
 
 // Roteamento da plataforma
 
