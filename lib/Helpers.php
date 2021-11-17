@@ -2,10 +2,9 @@
 
 class Helpers
 {
-
     public static $status = [
         "F" => "Pedido Finalizado",
-        "T" => "Em transporte",
+        "C" => "Pedido a Caminho",
         "E" => "Entregue",
         "1" => "<div class='text-center'><span class='badge bg-success'>Ativo</span></div>",
         "2" => "<div class='text-center'><span class='badge bg-warning'>Inativo</span></div>"

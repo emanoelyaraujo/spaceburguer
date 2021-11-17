@@ -4,7 +4,7 @@ $.get('/MinhaConta/getStatusPedido').done((response) => {
         if (value.status == "F") {
             $(`#finalizado_${value.id}`).addClass("active")
         }
-        if (value.status == "T") {
+        if (value.status == "C") {
             $(`#finalizado_${value.id}`).addClass("active")
             $(`#transporte_${value.id}`).addClass("active")
         }

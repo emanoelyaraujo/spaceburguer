@@ -18,7 +18,7 @@
                                 <div class="d-grid col-md-8 mx-auto">
                                     <div class="track">
                                         <div id="finalizado_<?= $pedido['id'] ?>" title="Finalizado" class="step"> <span class="icon"> <i class="fa fa-check"></i> </span></div>
-                                        <div id="transporte_<?= $pedido['id'] ?>" title="" class="step"> <span class="icon"> <i class="fas fa-motorcycle"></i> </span></div>
+                                        <div id="transporte_<?= $pedido['id'] ?>" title="A caminho" class="step"> <span class="icon"> <i class="fas fa-rocket"></i> </span></div>
                                         <div id="entregue_<?= $pedido['id'] ?>" title="Entregue" id="opa" class="step"> <span class="icon"> <i class="fa fa-home"></i> </span></div>
                                     </div>
                                     <h5 class="text-center text-muted">Status: <?= Helpers::$status[$pedido['status']] ?></h5>
