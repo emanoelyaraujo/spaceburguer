@@ -58,6 +58,7 @@ switch ($metodo)
             $_SESSION["userNivel"]  = $aUsuario['nivel'];
             $_SESSION["userSenha"]  = $aUsuario['senha'];
             $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+            $_SESSION["userImagem"]  = $aUsuario['imagem'];
 
             // Direcionar o usuário para página home
             Redirect::page("Home/index");
@@ -109,6 +110,7 @@ switch ($metodo)
         unset($_SESSION['userNivel']);
         unset($_SESSION['userSenha']);
         unset($_SESSION['userTelefone']);
+        unset($_SESSION["userImagem"]);
         unset($_SESSION['pill']);
 
         Redirect::Page("Home/index");
