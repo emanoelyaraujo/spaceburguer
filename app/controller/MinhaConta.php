@@ -65,7 +65,7 @@ switch ($metodo)
 
     case "updateDados":
 
-        if ($model->updateDados($post))
+        if ($model->updateDados($post, $_FILES))
         {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
         }
@@ -79,6 +79,7 @@ switch ($metodo)
         $_SESSION["userNome"]  = $aUsuario['nome'];
         $_SESSION["userEmail"]  = $aUsuario['email'];
         $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+        $_SESSION["userImagem"]  = $aUsuario['imagem'];
 
         Redirect::Page("MinhaConta/index");
 
@@ -130,6 +131,7 @@ switch ($metodo)
         break;
 
     case "setPill":
+        // seta na session a pill clicada
         $_SESSION["pill"] = $post["id"];
 
         break;

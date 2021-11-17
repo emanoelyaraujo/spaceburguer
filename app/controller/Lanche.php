@@ -34,7 +34,7 @@ switch ($metodo)
 
     case 'insert':
 
-        if ($model->insert($_POST))
+        if ($model->insert($post, $_FILES))
         {
             $_SESSION['msgSucesso'] = 'Lanche inserido com sucesso.';
         }
@@ -48,7 +48,7 @@ switch ($metodo)
 
     case 'update':
 
-        if ($model->update($_POST))
+        if ($model->update($post, $_FILES))
         {
             $_SESSION['msgSucesso'] = 'Lanche atualizado com sucesso.';
         }
@@ -56,13 +56,13 @@ switch ($metodo)
         {
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o lanche na base de dados.';
         }
-
+        
         Redirect::Page("lanche/lista");
         break;
 
     case 'delete':
 
-        if ($model->delete($_POST['id']))
+        if ($model->delete($post['id'], $post['nomeImagem']))
         {
             $_SESSION['msgSucesso'] = 'Lanche excluído com sucesso.';
         }

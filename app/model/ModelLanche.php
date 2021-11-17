@@ -19,26 +19,34 @@ class Lanche extends ModelBase
      * @param array $dados 
      * @return boolean
      */
-    public function insert($dados)
+    public function insert($dados, $arquivo)
     {
-        $preco = Numeros::strValor($dados["preco"]);
+        if (Uploads::upload($arquivo, 'lanches'))
+        {
+            // tipos permitidos
+            $preco = Numeros::strValor($dados["preco"]);
 
-        $rsc = $this->conDb->dbInsert(
-            "INSERT INTO lanche
+            $rsc = $this->conDb->dbInsert(
+                "INSERT INTO lanche
             (id_categoria, descricao, ingredientes, preco, imagem)
             VALUES ( ?, ?, ?, ?, ?) ",
-            [
-                $dados['id_categoria'],
-                $dados['descricao'],
-                $dados['ingredientes'],
-                $preco,
-                $dados['imagem']
-            ]
-        );
+                [
+                    $dados['id_categoria'],
+                    $dados['descricao'],
+                    $dados['ingredientes'],
+                    $preco,
+                    $arquivo['imagem']['name']
+                ]
+            );
 
-        if ($rsc > 0)
-        {
-            return true;
+            if ($rsc > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -52,8 +60,24 @@ class Lanche extends ModelBase
      * @param array $dados 
      * @return boolean
      */
-    public function update($dados)
+    public function update($dados, $arquivo)
     {
+        $nomeArquivo = "";
+
+        // se foi anexada alguma imagem
+        if (!empty($arquivo['imagem']['name']))
+        {
+
+            /*envia para o método de upload o $_FILES, a pasta 
+            para salvar o arquivo e o nome do arquivo antigo*/
+            Uploads::upload($arquivo, 'lanches', $dados['nomeImagem']);
+            $nomeArquivo = $arquivo['imagem']['name'];
+        }
+        else
+        {
+            $nomeArquivo = $dados['nomeImagem'];
+        }
+
         $preco = Numeros::strValor($dados["preco"]);
 
         $rsc = 1;
@@ -77,7 +101,7 @@ class Lanche extends ModelBase
             $dados["ingredientes"] != $select["ingredientes"] ||
             $preco != $select["preco"] ||
             $dados["status"] != $select["status"] ||
-            $dados["imagem"] != $select["imagem"]
+            $nomeArquivo != $select["imagem"]
         )
         {
             $alterado = true;
@@ -95,7 +119,7 @@ class Lanche extends ModelBase
                     $dados['ingredientes'],
                     $preco,
                     $dados['status'],
-                    $dados["imagem"],
+                    $nomeArquivo,
                     $dados['id']
                 ]
             );
@@ -117,7 +141,7 @@ class Lanche extends ModelBase
      * @param integer $id 
      * @return boolean
      */
-    public function delete($id)
+    public function delete($id, $nomeImagem)
     {
         $rsc = $this->conDb->dbDelete(
             "DELETE FROM lanche WHERE id = ?",
@@ -128,6 +152,8 @@ class Lanche extends ModelBase
 
         if ($rsc > 0)
         {
+            // remove o arquivo fisico no servidor
+            unlink("uploads/lanches/" . $nomeImagem);
             return true;
         }
         else

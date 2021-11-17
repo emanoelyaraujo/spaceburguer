@@ -10,7 +10,7 @@
 
 <main class="container">
     <section class="mb-5">
-        <form method="POST" action="<?= SITE_URL ?>lanche/<?= $aDados['acao'] ?>">
+        <form method="POST" action="<?= SITE_URL ?>lanche/<?= $aDados['acao'] ?>" enctype="multipart/form-data">
             <div class="row">
                 <div class="form-group col-md-4 mb-3">
                     <label for="id_categoria" class="form-label">Categoria</label>
@@ -59,13 +59,19 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-8 mb-3">
-                            <label for="imagem" class="form-label">Imagem</label>
-                            <input type="text" name="imagem" id="imagem" class="form-control" maxlength="200" <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> value="<?= isset($aDados['data']['imagem']) ? $aDados['data']['imagem'] : "" ?>" required>
+                            <label for="imagem" class="form-label">Imagem</label><br>
+                            <input type="file" class="form-control" name="imagem" id="imagem" accept="image/png, image/jpeg, image/jpg"
+                                <?= $aDados['acao'] == 'insert' ? 'required' : '' ?>
+                            >
+                            <?php if(!empty($aDados['data']['imagem'])): ?>
+                                <img src="<?= SITE_URL . 'uploads/lanches/' . $aDados['data']['imagem']?>" class="img-thumbnail mt-3" width="200" alt="Imagem do lanche">
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
 
                 <input type="hidden" name="id" value="<?= isset($aDados['data']['id']) ? $aDados['data']['id'] : "" ?>">
+                <input type="hidden" name="nomeImagem" value="<?= isset($aDados['data']['imagem']) ? $aDados['data']['imagem'] : "" ?>">
 
                 <div class="form-group col-12 mt-3">
                     <a href="<?= SITE_URL ?>/lanche/lista" class="btn btn-outline-secondary">Voltar</a>

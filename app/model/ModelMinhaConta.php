@@ -33,7 +33,7 @@ class MinhaConta extends ModelBase
             return [];
         }
     }
-    
+
     /**
      * getCartoes
      *
@@ -66,8 +66,23 @@ class MinhaConta extends ModelBase
      * @param  mixed $dados
      * @return boolean
      */
-    public function updateDados($dados)
+    public function updateDados($dados, $arquivo)
     {
+        $nomeArquivo = "";
+
+        // se foi anexada alguma imagem
+        if (!empty($arquivo['imagem']['name']))
+        {
+            /*envia para o método de upload o $_FILES, a pasta 
+            para salvar o arquivo e o nome do arquivo antigo*/
+            Uploads::upload($arquivo, 'usuarios', $dados['nomeImagem']);
+            $nomeArquivo = $arquivo['imagem']['name'];
+        }
+        else
+        {
+            $nomeArquivo = $dados['nomeImagem'];
+        }
+
         $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
 
         $rsc = 1;
@@ -88,7 +103,8 @@ class MinhaConta extends ModelBase
         if (
             $select["nome"] != $dados["nome"] ||
             $select["email"] != $dados["email"] ||
-            $telefone != $select["telefone"]
+            $telefone != $select["telefone"] ||
+            $nomeArquivo != $select["imagem"]
         )
         {
             $alterado = true;
@@ -98,12 +114,13 @@ class MinhaConta extends ModelBase
         {
             $rsc = $this->conDb->dbUpdate(
                 "UPDATE usuario 
-                        SET nome = ?, telefone = ?, email = ?
+                        SET nome = ?, telefone = ?, email = ?, imagem = ?
                         WHERE id = ?",
                 [
                     $dados['nome'],
                     $telefone,
                     $dados['email'],
+                    $nomeArquivo,
                     $_SESSION["userId"]
                 ]
             );
@@ -275,7 +292,7 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * insertCartao
      *
@@ -311,7 +328,7 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * updateCartao
      *
@@ -374,7 +391,7 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * deleta o cartao com o id que foi enviado no $_GET pelo JS
      *
@@ -386,7 +403,7 @@ class MinhaConta extends ModelBase
             "DELETE FROM cartao 
             WHERE id = ?",
             [
-               $_GET['id']
+                $_GET['id']
             ]
         );
 
