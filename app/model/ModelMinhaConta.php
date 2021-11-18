@@ -75,8 +75,7 @@ class MinhaConta extends ModelBase
         {
             /*envia para o método de upload o $_FILES, a pasta 
             para salvar o arquivo e o nome do arquivo antigo*/
-            Uploads::upload($arquivo, 'usuarios', $dados['nomeImagem']);
-            $nomeArquivo = $arquivo['imagem']['name'];
+            $nomeArquivo = Uploads::upload($arquivo, 'usuarios', $dados['nomeImagem']);;
         }
         else
         {
@@ -114,8 +113,8 @@ class MinhaConta extends ModelBase
         {
             $rsc = $this->conDb->dbUpdate(
                 "UPDATE usuario 
-                        SET nome = ?, telefone = ?, email = ?, imagem = ?
-                        WHERE id = ?",
+                SET nome = ?, telefone = ?, email = ?, imagem = ?
+                WHERE id = ?",
                 [
                     $dados['nome'],
                     $telefone,

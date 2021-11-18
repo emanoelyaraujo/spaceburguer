@@ -4,7 +4,8 @@ require_once 'app/model/ModelCarrinho.php';
 require_once 'app/model/ModelPedido.php';
 
 $model = new Carrinho();
-$dadosPedido = new Pedido();
+// request = pedido em ingles(para não confundir)
+$request = new Pedido();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
@@ -12,21 +13,24 @@ $aDados['acao'] = $acao;
 switch ($metodo)
 {
     case "index":
-        $pedido["dadosPedido"] = $dadosPedido->getPedidoAberto();
-        @$pedido["itensPedido"] = $dadosPedido->getItensPedidoAberto($pedido["dadosPedido"][0]["id"]);
+        $pedido["dadosPedido"] = $request->getPedidoAberto();
+        /* @ = caso o usuário entre no carrinho e 
+        não tenha nenhum item la, não irá mostrar uma mensagem de erro*/
+        @$pedido["itensPedido"] = $request->getItensPedidoAberto($pedido["dadosPedido"][0]["id"]);
 
         require_once "app/view/carrinho.php";
         break;
 
     case "addCarrinho":
-
-        $pedidoPendente = $dadosPedido->getPedidoAberto();
+        // pega os dados do pedido que está aberto, se houver
+        $pedidoPendente = $request->getPedidoAberto();
 
         if (empty($pedidoPendente))
         {
-            $criaPedido = $model->createPedido();
+            // se não houver pedido aberto,cria um 
+            $criaPedido = $request->createPedido();
 
-            // se foi criado o pedido, o idPedido será armazenado com ele 
+            // se foi criado o pedido, o idPedido será armazenado
             $idPedido = $criaPedido;
         }
         else
@@ -35,8 +39,8 @@ switch ($metodo)
             $idPedido = $pedidoPendente[0]["id"];
         }
 
-        // adiciona o primeiro lanche escolhido
-        if ($lanches = $model->adicionaLanche($idPedido, $post["id"], $dadosPedido->getPedidoAberto()[0]))
+        // adiciona o lanche escolhido
+        if ($lanches = $model->adicionaLanche($idPedido, $post["id"], $request->getPedidoAberto()[0]))
         {
             $flag = true;
         }
@@ -59,10 +63,10 @@ switch ($metodo)
     case "updateQuantidade":
 
         // atualiza a quantidade em cada item
-        $model->updateLanche($post, $dadosPedido->getPedidoAberto()[0]);
+        $model->updateLanche($post, $request->getPedidoAberto()[0]);
 
         // busca os dados do lanche que a quantidade foi alterada
-        $pedido = $dadosPedido->getItensPedidoAberto(0, $post["id_produto"]);
+        $pedido = $request->getItensPedidoAberto(0, $post["id_produto"]);
 
         // limpa o buffer de saida
         ob_end_clean();
@@ -79,21 +83,22 @@ switch ($metodo)
     case "deleteItem":
 
         // busca no banco os dados do pedido a ser excluido
-        $item = $dadosPedido->getItensPedidoAberto(0, $id)[0];
+        $item = $request->getItensPedidoAberto(0, $id)[0];
 
         if ($model->deleteLanche($id))
         {
-            if (count($dadosPedido->getItensPedidoAberto($item["id_pedido"])) > 0)
+            // calcula a quantidade de itens
+            if (count($request->getItensPedidoAberto($item["id_pedido"])) > 0)
             {
                 // recalcula o total, valorTotalPedido - valorTotalItem
-                $model->calculaTotal($item["valor_total"], "-", $dadosPedido->getPedidoAberto()[0]);
+                $model->calculaTotal($item["valor_total"], "-", $request->getPedidoAberto()[0]);
 
                 $_SESSION['msgSucesso'] = 'Item removido com sucesso.';
             }
             else
             {
-                // se o carrinho não tiver mais pedidos, exclui o pedido
-                $model->deletePedido($item["id_pedido"]);
+                // se o carrinho não tiver mais itens, exclui o pedido
+                $request->deletePedido($item["id_pedido"]);
             }
         }
         else

@@ -11,7 +11,42 @@ class Pedido extends ModelBase
     {
         $this->conDb = $this->conectaDb();
     }
+    
+    /**
+     * cria o pedido
+     *
+     * @return int
+     */
+    public function createPedido()
+    {
+        $rsc = $this->conDb->dbInsert(
+            "INSERT INTO pedido (id_usuario, valor_total, frete, forma_pagamento) VALUES (?, ?, ?, ?)",
+            [
+                $_SESSION["userId"],
+                5,
+                5,
+                "D"
+            ]
+        );
 
+        if ($rsc > 0)
+        {
+            return $rsc;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
+     * retorna todos os dados do pedido aberto 
+     * OBS: o uso do left é porque quando um 
+     * usuario cria o pedido, não é obrigatório 
+     * colocar o endereço e o cartão
+     *
+     * @return array
+     */
     public function getPedidoAberto()
     {
         $rsc = $this->conDb->dbSelect(
@@ -34,7 +69,14 @@ class Pedido extends ModelBase
             return [];
         }
     }
-
+    
+    /**
+     * retorna os itens do pedido aberto
+     *
+     * @param  string $idPedido
+     * @param  string $itemPedido
+     * @return array
+     */
     public function getItensPedidoAberto($idPedido, $itemPedido = "")
     {
         $rsc = $this->conDb->dbSelect(
@@ -59,14 +101,23 @@ class Pedido extends ModelBase
             return [];
         }
     }
-
+    
+    /**
+     * retorna todos os itens de todos os pedidos, 
+     * OBS: o left é porque pode acontecer de 
+     * um lanche ser excluido, nesse caso ao 
+     * invés da foto irá aparecer uma mensagem
+     *
+     * @param  string $idPedido
+     * @return array
+     */
     public function getAllItens($idPedido)
     {
         $rsc = $this->conDb->dbSelect(
             "SELECT p.id as id, i.quantidade, i.valor_total, l.id as idLanche, l.descricao, l.imagem
             FROM pedido AS p
             INNER JOIN itens_pedido AS i ON i.id_pedido = p.id
-            INNER JOIN lanche AS l ON i.id_lanche = l.id
+            LEFT JOIN lanche AS l ON i.id_lanche = l.id
             WHERE p.status <> 'A' AND p.id_usuario = ? AND id_pedido = ?",
             [
                 $_SESSION["userId"],
@@ -83,7 +134,13 @@ class Pedido extends ModelBase
             return [];
         }
     }
-
+    
+    /**
+     * retorna todas as informações de todos os 
+     * pedidos na tela de meus pedidos
+     *
+     * @return array
+     */
     public function getAllPedidos()
     {
         $rsc = $this->conDb->dbSelect(
@@ -104,6 +161,31 @@ class Pedido extends ModelBase
         else
         {
             return [];
+        }
+    }
+    
+    /**
+     * deleta um pedido
+     *
+     * @param  string $pedido
+     * @return boolean
+     */
+    public function deletePedido($idPedido)
+    {
+        $rsc = $this->conDb->dbDelete(
+            "DELETE FROM pedido WHERE id = ?",
+            [
+                $idPedido
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

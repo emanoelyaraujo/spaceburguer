@@ -2,11 +2,13 @@
 
 require_once 'app/model/ModelMinhaConta.php';
 require_once 'app/model/ModelPedido.php';
+require_once 'app/model/ModelUsuario.php';
 
 Security::isLogado();
 
 $model = new MinhaConta();
-$dadosPedidos = new Pedido();
+$request = new Pedido();
+$usuario = new Usuario();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;
@@ -21,25 +23,37 @@ switch ($metodo)
 
         break;
 
+    case "setPill":
+        // seta na sessão a pill clicada na view minha conta
+        $_SESSION["pill"] = $post["id"];
+
+        break;
+
     case "carregaDadosEndereco":
+        // carrega os dados do endereço quando o usuário clica em editar ou excluir
         $dados["endereco"] = $model->getId("endereco", $_GET["id"]);
 
+        // limpa o buffer de saida para ter acesso ao JSON
         ob_end_clean();
+        // envia para a view od dados retornados do banco
         echo json_encode($dados["endereco"]);
         exit;
         break;
 
     case "carregaDadosCartao":
+        // carrega os dados do cartão quando o usuário clica em editar ou excluir
         $dados["cartao"] = $model->getId("cartao", $_GET["id"]);
 
+        // limpa o buffer de saida para ter acesso ao JSON
         ob_end_clean();
+        // envia para a view od dados retornados do banco
         echo json_encode($dados["cartao"]);
         exit;
         break;
 
     case 'updateSenha':
-
-        if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
+        // verifica as senhas informadas 
+        if (!password_verify($post["senhaAtual"], $_SESSION["a"]) || $post["novaSenha"] != $post["confirmSenha"])
         {
             $_SESSION["msgError"] = "Senhas não conferem";
             Redirect::page("Usuario/formSenha");
@@ -48,15 +62,17 @@ switch ($metodo)
 
         if ($model->updateSenha($post, $_SESSION["userId"]))
         {
-            $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+            $_SESSION['msgSucesso'] = 'Senha atualizada com sucesso.';
         }
         else
         {
-            $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+            $_SESSION['msgError'] = 'Falha ao tentar atualizar a senha.';
         }
 
+        // busca os dados do usuario no banco
         $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
 
+        // grava na sessão o novo hash de senha criado
         $_SESSION["userSenha"] = $aUsuario["senha"];
 
         Redirect::Page("MinhaConta/index");
@@ -74,8 +90,10 @@ switch ($metodo)
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
         }
 
+        // busca os dados do usuario no banco
         $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
 
+        // grava na sessão os novos valores
         $_SESSION["userNome"]  = $aUsuario['nome'];
         $_SESSION["userEmail"]  = $aUsuario['email'];
         $_SESSION["userTelefone"]  = $aUsuario['telefone'];
@@ -83,6 +101,20 @@ switch ($metodo)
 
         Redirect::Page("MinhaConta/index");
 
+        break;
+
+    case 'deleteUser':
+
+        if ($usuario->delete($_SESSION["userId"]))
+        {
+            $_SESSION['msgSucesso'] = 'Conta excluída com sucesso.';
+        }
+        else
+        {
+            $_SESSION['msgError'] = 'Falha ao tentar excluir a conta.';
+        }
+
+        Redirect::Page("Login/logout");
         break;
 
     case "insertEndereco":
@@ -130,12 +162,6 @@ switch ($metodo)
 
         break;
 
-    case "setPill":
-        // seta na session a pill clicada
-        $_SESSION["pill"] = $post["id"];
-
-        break;
-
     case "insertCartao":
 
         if ($model->insertCartao($post))
@@ -178,38 +204,5 @@ switch ($metodo)
 
         Redirect::Page("MinhaConta/index");
 
-        break;
-
-    case "informacoesPedido":
-
-        $pedidos["dadosPedido"] = $dadosPedidos->getAllPedidos();
-
-        require_once "app/view/informacoesPedido.php";
-
-        break;
-
-    case "getStatusPedido":
-
-        $pedido = $dadosPedidos->getAllPedidos();
-
-        ob_end_clean();
-
-        // envia para o método JS os novos valores
-        echo json_encode([
-            'pedido' => $pedido
-        ]);
-        exit;
-        break;
-
-    case "getItens":
-        $itens = $dadosPedidos->getAllItens($id);
-
-        ob_end_clean();
-
-        // envia para o método JS os novos valores
-        echo json_encode([
-            'itens' => $itens
-        ]);
-        exit;
         break;
 }

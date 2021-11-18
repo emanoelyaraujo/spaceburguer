@@ -14,7 +14,7 @@ class Categoria extends ModelBase
 
 
     /**
-     * insert
+     * inserir categoria
      *
      * @param array $dados 
      * @return boolean
@@ -42,7 +42,7 @@ class Categoria extends ModelBase
     }
 
     /**
-     * update
+     * atualizar categoria
      *
      * @param array $dados 
      * @return boolean
@@ -52,18 +52,22 @@ class Categoria extends ModelBase
         $rsc = 1;
 
         $select = $this->conDb->dbSelect(
-            "SELECT * FROM categoria WHERE id = ?",
+            "SELECT * 
+            FROM categoria 
+            WHERE id = ?",
             [
                 $dados["id"]
             ]
         );
 
+        // faz um select no banco com os dados antigos
         $select = $this->conDb->dbBuscaArrayAll($select);
 
         $select = $select[0];
 
         $alterado = false;
 
+        // verifica se foi alterado algo
         if (
             $dados["descricao"] != $select["descricao"] ||
             $dados["status"] != $select["status"]
@@ -97,7 +101,7 @@ class Categoria extends ModelBase
     }
 
     /**
-     * delete
+     * deleta categoria
      *
      * @param integer $id 
      * @return boolean
@@ -105,7 +109,8 @@ class Categoria extends ModelBase
     public function delete($id)
     {
         $rsc = $this->conDb->dbDelete(
-            "DELETE FROM categoria WHERE id = ?",
+            "DELETE FROM categoria 
+            WHERE id = ?",
             [
                 $id
             ]
@@ -122,7 +127,7 @@ class Categoria extends ModelBase
     }
 
     /**
-     * getCategoriaLanche
+     * faz um select da categoria de acordo com o id passado
      *
      * @param  int $id_categoria
      * @return array
@@ -130,8 +135,12 @@ class Categoria extends ModelBase
     public function getCategoriaLanche($id_categoria)
     {
         $rsc = $this->conDb->dbSelect(
-            "SELECT id_categoria FROM lanche WHERE id_categoria = ?",
-            [$id_categoria]
+            "SELECT id_categoria 
+            FROM lanche 
+            WHERE id_categoria = ?",
+            [
+                $id_categoria
+            ]
         );
 
         if ($this->conDb->dbNumeroLinhas($rsc) > 0)

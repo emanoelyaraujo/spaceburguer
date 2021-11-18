@@ -79,7 +79,7 @@ class Usuario extends ModelBase
     }
 
     /**
-     * insert
+     * inserir usuario
      *
      * @param array $dados 
      * @return boolean
@@ -99,7 +99,7 @@ class Usuario extends ModelBase
                 password_hash(trim($dados['senha']), PASSWORD_DEFAULT)
             ]
         );
-
+        
         if ($rsc > 0)
         {
             return true;
@@ -111,7 +111,7 @@ class Usuario extends ModelBase
     }
 
     /**
-     * update
+     * atualizar os dados
      *
      * @param array $dados 
      * @return boolean
@@ -174,7 +174,7 @@ class Usuario extends ModelBase
     }
 
     /**
-     * delete
+     * deletar os dados
      *
      * @param integer $id 
      * @return boolean
@@ -197,7 +197,14 @@ class Usuario extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * atualiza o codigo gerado para atualizar a senha
+     *
+     * @param  string $codigo
+     * @param  string $id
+     * @return void
+     */
     public function updateCodigo($codigo, $id)
     {
         $rsc = $this->conDb->dbUpdate(

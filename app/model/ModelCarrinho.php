@@ -11,7 +11,13 @@ class Carrinho extends ModelBase
     {
         $this->conDb = $this->conectaDb();
     }
-
+    
+    /**
+     * retorna o preço do lanche de acordo com a Id
+     *
+     * @param  string $id
+     * @return array
+     */
     public function getLancheById($id)
     {
         $rsc = $this->conDb->dbSelect(
@@ -32,35 +38,24 @@ class Carrinho extends ModelBase
             return [];
         }
     }
-
-    public function createPedido()
-    {
-        $rsc = $this->conDb->dbInsert(
-            "INSERT INTO pedido (id_usuario, valor_total, frete, forma_pagamento) VALUES (?, ?, ?, ?)",
-            [
-                $_SESSION["userId"],
-                5,
-                5,
-                "D"
-            ]
-        );
-
-        if ($rsc > 0)
-        {
-            return $rsc;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
+    
+    /**
+     * adiciona o lanche no carrinho
+     *
+     * @param  string $idPedido
+     * @param  string $idLanche
+     * @param  mixed $dadosPedido
+     * @return boolean
+     */
     public function adicionaLanche($idPedido, $idLanche, $dadosPedido)
     {
+        // pega o preço do lanche selecionado
         $preco = (float)implode("", $this->getLancheById($idLanche));
 
         $rsc = $this->conDb->dbInsert(
-            "INSERT INTO itens_pedido (id_lanche, id_pedido, valor_unitario, valor_total) VALUES (?, ?, ?, ?)",
+            "INSERT INTO itens_pedido 
+            (id_lanche, id_pedido, valor_unitario, valor_total) 
+            VALUES (?, ?, ?, ?)",
             [
                 $idLanche,
                 $idPedido,
@@ -71,6 +66,8 @@ class Carrinho extends ModelBase
 
         if ($rsc > 0)
         {
+            /* se deu tudo certo, calcula o novo valor passando o 
+            preço do lanche a ser somado, o operador e os dados do pedido*/
             $this->calculaTotal($preco, "+", $dadosPedido);
             return true;
         }
@@ -79,11 +76,20 @@ class Carrinho extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * calculaTotal
+     *
+     * @param  string $precoLanche
+     * @param  string $acao
+     * @param  mixed $dadosPedido
+     * @return boolean
+     */
     public function calculaTotal($precoLanche, $acao = "+", $dadosPedido)
     {
         $valorTotal = $dadosPedido["valor_total"];
 
+        // verifica a opração
         if ($acao == "+")
         {
             $valorTotal += $precoLanche;
@@ -93,6 +99,7 @@ class Carrinho extends ModelBase
             $valorTotal -= $precoLanche;
         }
 
+        // o subtotal sempre vai receber o total - o frete
         $subtotal = $valorTotal - $dadosPedido["frete"];
 
         $rsc = $this->conDb->dbUpdate(
@@ -115,9 +122,17 @@ class Carrinho extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * atualiza a quantidade do lanche
+     *
+     * @param  mixed $post
+     * @param  mixed $dadosPedido
+     * @return boolean
+     */
     public function updateLanche($post, $dadosPedido)
     {
+        // pega o valor unitário do lanche e multiplica pela quantidade
         $valorUnitario = implode("", $this->getLancheById($post['id_lanche']));
 
         $rsc = $this->conDb->dbUpdate(
@@ -133,6 +148,7 @@ class Carrinho extends ModelBase
 
         if ($rsc > 0)
         {
+            //  se deu tudo certo, atualiza o calculo do total
             $this->calculaTotal($valorUnitario, $post['acao'], $dadosPedido);
             return true;
         }
@@ -141,7 +157,13 @@ class Carrinho extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * deleta o lanche
+     *
+     * @param  string $id
+     * @return boolean
+     */
     public function deleteLanche($id)
     {
         $rsc = $this->conDb->dbDelete(
@@ -151,25 +173,6 @@ class Carrinho extends ModelBase
             ]
         );
 
-
-        if ($rsc > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public function deletePedido($pedido)
-    {
-        $rsc = $this->conDb->dbDelete(
-            "DELETE FROM pedido WHERE id = ?",
-            [
-                $pedido
-            ]
-        );
 
         if ($rsc > 0)
         {

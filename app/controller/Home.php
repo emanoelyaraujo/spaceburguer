@@ -24,8 +24,10 @@ switch ($metodo)
 
     case "envioEmail":
 
+        // verifica se o campo mesnagem foi preenchido
         if (!empty($post["mensagem"]))
         {
+            // se sim, chama a lib de email e em seguida passa as configurações a ser enviadas
             $mail = EnviaEmail::create();
 
             $mail->setFrom($post["email"], $post["nome"]);
@@ -35,6 +37,7 @@ switch ($metodo)
             $mail->Body    = $post["mensagem"];
             $mail->AltBody = $post["mensagem"];
 
+            // no final, envia o email
             EnviaEmail::send($mail);
         }
         else

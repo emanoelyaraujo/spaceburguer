@@ -11,7 +11,12 @@ class Home extends ModelBase
     {
         $this->conDb = $this->conectaDb();
     }
-
+    
+    /**
+     * busca todos os lanches que possuem o status diferente de inativo
+     *
+     * @return array
+     */
     public function getLanches()
     {
         $rsc = $this->conDb->dbSelect(

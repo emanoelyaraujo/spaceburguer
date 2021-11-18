@@ -73,8 +73,8 @@ switch ($metodo)
 
     case 'register':
 
+        // caso o usuario tenha solicitado a troca de senha, da um unset do código que foi gerado
         unset($_SESSION["codigo"]);
-
         $aUsuario = $model->getUserEmail($post['email']);
 
         // verifica se o email informado já existe na base de dados
@@ -102,21 +102,8 @@ switch ($metodo)
 
         break;
 
-    case 'logout':
-
-        unset($_SESSION['userId']);
-        unset($_SESSION['userNome']);
-        unset($_SESSION['userEmail']);
-        unset($_SESSION['userNivel']);
-        unset($_SESSION['userSenha']);
-        unset($_SESSION['userTelefone']);
-        unset($_SESSION["userImagem"]);
-        unset($_SESSION['pill']);
-
-        Redirect::Page("Home/index");
-        break;
-
     case "cadastrar":
+        // caso o usuário deseja se cadastrar, envia essas informações
         $configs = [
             "titulo" => "Entrar com e-mail",
             "view" => "cadastrar"
@@ -125,6 +112,7 @@ switch ($metodo)
         break;
 
     case "esqueciMinhaSenha":
+        // caso o usuário deseja trocar a senha, envia essas informações
         $configs = [
             "titulo" => "Esqueci minha Senha",
             "view" => "esqueciMinhaSenha"
@@ -134,23 +122,29 @@ switch ($metodo)
 
     case "verificaEmail":
 
+        // verifica se o usuario esta cadastrado no banco
         $user = $model->getUserEmail($post["email"]);
+
+        // gera um código aleatório para a verificação
         $codigo = substr(uniqid(rand()), 0, 6);
 
         $mail = EnviaEmail::create();
         $mail->setFrom("deliveryspaceburguer@gmail.com", "SpaceBurger");
 
+        // se está cadastrado no banco
         if (!empty($user))
         {
             if ($post["view"] == "esqueciMinhaSenha")
             {
+                // salva o código gerado no banco
                 $salvaCodigo = $model->updateCodigo($codigo, $user["id"]);
 
+                // se foi salvo, envia o email e seta a view de destino, que é a login
                 if ($salvaCodigo)
                 {
                     $mail->addAddress($user["email"], $user["nome"]);
                     $mail->Subject = "Alterar Senha";
-                    $mail->Body    = EnviaEmail::bodyRecuperacaoSenha($codigo, $user["nome"]);
+                    $mail->Body    = EnviaEmail::bodyEnvioEmail($codigo, $user["nome"]);
                     $view = "login";
                 }
                 else
@@ -159,6 +153,7 @@ switch ($metodo)
                     Redirect::page("Login/email");
                 }
             }
+            // se a view de destino escolhida foi cadastrar e o usuário ja esta cadastrado
             else
             {
                 $_SESSION["msgError"] = "Usuário já está cadastrado.";
@@ -169,12 +164,14 @@ switch ($metodo)
         {
             if ($post["view"] == "cadastrar")
             {
+                // seta na sessão o código gerado, envia o email e seta a view de destino, cadastrar
                 $_SESSION["codigo"] = $codigo;
                 $mail->addAddress($post["email"]);
                 $mail->Subject = "Código de Verificação";
-                $mail->Body    = EnviaEmail::bodyRecuperacaoSenha($codigo);
+                $mail->Body    = EnviaEmail::bodyEnvioEmail($codigo);
                 $view = "cadastrar";
             }
+            // se a view de destino escolhida foi esqueci minha senha e o usuário não esta cadastrado
             else
             {
                 $_SESSION["msgError"] = "Usuário não está cadastrado.";
@@ -184,37 +181,51 @@ switch ($metodo)
 
         EnviaEmail::send($mail);
 
+        // envia o email informado para a view para ser armazenado em um input hidden
         $email["emailUser"] = $post["email"];
         require_once "app/view/verificaCodigo.php";
         break;
 
     case "verificaCodigo":
+        // pega os dados do usuario a partir do e-mail informado, caso ja esteja cadastrado
         $user = $model->getUserEmail($post['email']);
+        // caso exista o código na sessão salva ele em uma variável e logo depois da um unset
         $codigo = (isset($_SESSION["codigo"]) ? $_SESSION["codigo"] : "");
 
         unset($_SESSION["codigo"]);
-
+        
+        /* unset nessa mensagem pois não há necessidade de falar 
+        que o email foi enviado pois isso esta escrito na view de inserir o código*/
+        unset($_SESSION["msgSucesso"]);
+        
+        // se o codigo informado é igual ao que foi gerado 
         if (@$user["codVerificacao"] == $post["codigo"] || $post["codigo"] == $codigo)
         {
+            // se o código estiver salvo na sessão
             if (!empty($codigo))
             {
                 $dados["email"] = $post["email"];
                 require_once "app/view/cadastrar.php";
             }
+            // se o código estiver salvo no banco
             else
             {
+                // seta como nulo o campo do banco que estava com o código
                 $model->updateCodigo(null, $user['id']);
                 $dados["usuario"] = $user;
                 require_once "app/view/formEsqueciSenha.php";
             }
         }
+        
         else
         {
+            /* mesmo se o usuario errar o codigo quando 
+            estiver esquecido a senha o campo será setado como nulo*/
             if (empty($codigo))
             {
                 $model->updateCodigo(null, $user['id']);
             }
-            
+
             $_SESSION["msgError"] = "Código incorreto!";
             Redirect::page("Login/esqueciMinhaSenha");
         }
@@ -223,6 +234,7 @@ switch ($metodo)
 
     case "updateSenha":
 
+        // busca os dados do usuário
         $user = $model->getId("usuario", $post["id"]);
 
         if ($minhaConta->updateSenha($post, $user["id"]))
@@ -236,5 +248,19 @@ switch ($metodo)
 
         Redirect::Page("Login/index");
 
+        break;
+
+    case 'logout':
+
+        unset($_SESSION['userId']);
+        unset($_SESSION['userNome']);
+        unset($_SESSION['userEmail']);
+        unset($_SESSION['userNivel']);
+        unset($_SESSION['userSenha']);
+        unset($_SESSION['userTelefone']);
+        unset($_SESSION["userImagem"]);
+        unset($_SESSION['pill']);
+
+        Redirect::Page("Home/index");
         break;
 }

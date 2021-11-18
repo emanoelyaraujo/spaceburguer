@@ -14,14 +14,18 @@ class Lanche extends ModelBase
 
 
     /**
-     * insert
+     * insere lanche
      *
      * @param array $dados 
      * @return boolean
      */
     public function insert($dados, $arquivo)
     {
-        if (Uploads::upload($arquivo, 'lanches'))
+        // pega o nome com codigo aleatorio gerado pela lib 
+        $nomeRetornado = Uploads::upload($arquivo, 'lanches');
+
+        // se não for boolean, significa que está tudo OK
+        if (!is_bool($nomeRetornado))
         {
             // tipos permitidos
             $preco = Numeros::strValor($dados["preco"]);
@@ -35,7 +39,7 @@ class Lanche extends ModelBase
                     $dados['descricao'],
                     $dados['ingredientes'],
                     $preco,
-                    $arquivo['imagem']['name']
+                    $nomeRetornado
                 ]
             );
 
@@ -55,7 +59,7 @@ class Lanche extends ModelBase
     }
 
     /**
-     * update
+     * atualiza lanche
      *
      * @param array $dados 
      * @return boolean
@@ -67,11 +71,9 @@ class Lanche extends ModelBase
         // se foi anexada alguma imagem
         if (!empty($arquivo['imagem']['name']))
         {
-
             /*envia para o método de upload o $_FILES, a pasta 
             para salvar o arquivo e o nome do arquivo antigo*/
-            Uploads::upload($arquivo, 'lanches', $dados['nomeImagem']);
-            $nomeArquivo = $arquivo['imagem']['name'];
+            $nomeArquivo = Uploads::upload($arquivo, 'lanches', $dados['nomeImagem']);;
         }
         else
         {
@@ -82,6 +84,7 @@ class Lanche extends ModelBase
 
         $rsc = 1;
 
+        // faz um select no banco com os antigos dados
         $select = $this->conDb->dbSelect(
             "SELECT * FROM lanche WHERE id = ?",
             [
@@ -95,6 +98,7 @@ class Lanche extends ModelBase
 
         $alterado = false;
 
+        // verifica se algo foi alterado 
         if (
             $dados["id_categoria"] != $select["id_categoria"] ||
             $dados["descricao"] != $select["descricao"] ||
@@ -136,9 +140,10 @@ class Lanche extends ModelBase
     }
 
     /**
-     * delete
+     * deleta lanche
      *
-     * @param integer $id 
+     * @param string $id 
+     * @param string $nomeImagem 
      * @return boolean
      */
     public function delete($id, $nomeImagem)

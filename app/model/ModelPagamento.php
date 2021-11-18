@@ -12,9 +12,16 @@ class Pagamento extends ModelBase
         $this->conDb = $this->conectaDb();
     }
 
+    /**
+     * adiciona e remove o frete
+     *
+     * @param  string $acao
+     * @param  mixed $pedido
+     * @return void
+     */
     public function addRemoveFrete($acao, $pedido)
     {
-
+        // de acordo com a ação, adiciona ou remove o frete 
         if ($acao == "-")
         {
             $frete = 0;
@@ -47,9 +54,15 @@ class Pagamento extends ModelBase
         }
     }
 
+    /**
+     * adiciona endereço
+     *
+     * @param  string $idEndereco
+     * @param  array $pedido
+     * @return boolean
+     */
     public function addEndereco($idEndereco, $pedido)
     {
-
         $rsc = $this->conDb->dbUpdate(
             "UPDATE pedido
             SET id_endereco = ?
@@ -70,9 +83,14 @@ class Pagamento extends ModelBase
         }
     }
 
+    /**
+     * remove endereço e o cartão
+     *
+     * @param  mixed $pedido
+     * @return boolean
+     */
     public function removeEnderecoCartao($pedido)
     {
-
         $rsc = $this->conDb->dbUpdate(
             "UPDATE pedido
             SET id_endereco = ?, id_cartao = ?
@@ -94,9 +112,16 @@ class Pagamento extends ModelBase
         }
     }
 
+    /**
+     * altera método de pagamento de acordo com a option selecionada
+     *
+     * @param  mixed $post
+     * @param  mixed $pedido
+     * @return boolean
+     */
     public function metodoPag($post, $pedido)
     {
-
+        // se o método de pagamento for cartão
         if ($post["metodo"] == "C")
         {
             $rsc = $this->conDb->dbUpdate(
@@ -111,6 +136,7 @@ class Pagamento extends ModelBase
         }
         else
         {
+            //  se o método for dinheiro
             $rsc = $this->conDb->dbUpdate(
                 "UPDATE pedido
                 SET id_cartao = ?, forma_pagamento = ?
@@ -123,8 +149,6 @@ class Pagamento extends ModelBase
             );
         }
 
-
-
         if ($rsc > 0)
         {
             return true;
@@ -134,10 +158,16 @@ class Pagamento extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * adiciona cartão
+     *
+     * @param  string $idCartao
+     * @param  mixed $pedido
+     * @return boolean
+     */
     public function addCartao($idCartao, $pedido)
     {
-
         $rsc = $this->conDb->dbUpdate(
             "UPDATE pedido
             SET id_cartao = ?
@@ -157,7 +187,13 @@ class Pagamento extends ModelBase
             return false;
         }
     }
-
+    
+    /**
+     * finaliza o pedido
+     *
+     * @param  mixed $pedido
+     * @return boolean
+     */
     public function finalizaPedido($pedido)
     {
         $rsc = $this->conDb->dbUpdate(

@@ -23,7 +23,6 @@ switch ($metodo)
 
         if ($acao != 'insert')
         {
-
             $aDados['data'] = $model->getId("lanche", $id);
         }
 
@@ -56,7 +55,7 @@ switch ($metodo)
         {
             $_SESSION['msgError'] = 'Falha ao tentar atualizar o lanche na base de dados.';
         }
-        
+    
         Redirect::Page("lanche/lista");
         break;
 
