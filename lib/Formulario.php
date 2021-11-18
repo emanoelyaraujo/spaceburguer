@@ -87,7 +87,7 @@ class Formulario
         {
 
             $texto .= '
-            <div class="position-relative" style="z-index:1050;">
+            <div class="position-relative" style="z-index:1100;">
                 <div class="position-absolute top-0 end-0 p-3">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <h5 class="alert-heading">' . $_SESSION["msgError"] . '</h5>
@@ -116,7 +116,7 @@ class Formulario
         {
 
             $texto .= '
-                <div class="position-relative" style="z-index:1050;">
+                <div class="position-relative" style="z-index:1100;">
                     <div class="position-absolute top-0 end-0 p-3">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
@@ -132,17 +132,17 @@ class Formulario
 
     public static function FormEmailCodigo($titulo, $subtitulo, $dados, $email = '', $view = "")
     {
-        $html = '<div class="container vh-100">
-                    <form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">'
-                        . Formulario::exibeMsgError() .
-                        '<div class="col-md-4 p-5" style="background-color: #fff;">
+        $html = Formulario::exibeMsgError() . 
+                '<div class="container vh-100">
+                    <form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">
+                        <div class="col-md-4 p-5" style="background-color: #fff;">
                             <div class="text-center mt-2">
                                     <img src="'. SITE_URL .'assets/img/space-icon.PNG" width="100px" alt="">
                                     <h5 style="color: #433A8F;" class="mb-0 fw-bold">'. $titulo .'</h5>
                                     <p class="pt-2 pb-2">' . $subtitulo .'</p>
                             </div>
                             <div class="mb-3">
-                                <input class="form-control" type="' . $dados["type"] .'" name="' . $dados["name"] .'" id="' . $dados["name"] .'" maxlength=' . $dados["maxlength"] .'" required>
+                                <input class="form-control" type="' . $dados["type"] .'" name="' . $dados["name"] .'" id="' . $dados["name"] .'" maxlength=' . $dados["maxlength"] .'" autofocus required>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-4">
                                 <button type="submit" class="btn btnRoxo">ENTRAR</button>
@@ -152,21 +152,6 @@ class Formulario
                         (!empty($email) ? '<input type="hidden" name="email" value=' . $email .'>' : '') .
                         (!empty($view) ? '<input type="hidden" name="view" value=' . $view .'>' : '')
                     .'</form>
-                </div> 
-                <div aria-live="polite" aria-atomic="true" class="position-relative">
-                    <div class="toast-container position-absolute top-0 end-0 p-3">
-                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <img src="..." class="rounded me-2" alt="...">
-                                <strong class="me-auto">Bootstrap</strong>
-                                <small class="text-muted">just now</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body">
-                                See? Just like this.
-                            </div>
-                        </div>
-                    </div>
                 </div>';
                 
         return $html;
