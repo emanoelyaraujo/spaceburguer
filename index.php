@@ -30,7 +30,7 @@ $id         = 0;
 if (substr_count($parametros, "/") > 0)
 {
     $aParam     = explode("/", $parametros);
-    $control    = (file_exists("{$pasta}/controller/{$aParam[0]}.php") ? $aParam[0] : "Error/index");
+    $control    = (file_exists("{$pasta}/controller/{$aParam[0]}.php") ? $aParam[0] : "Error");
     $metodo     = $aParam[1];
 
     if (isset($aParam[2]))
@@ -49,11 +49,11 @@ if (substr_count($parametros, "/") > 0)
 }
 else
 {
-    $control    = (file_exists("{$pasta}/controller/{$parametros}.php") ? $parametros : "Error/index");
+    $control    = (file_exists("{$pasta}/controller/{$parametros}.php") ? $parametros : "Error");
+    $metodo     = 'index';
 }
 
 // views
-
 require_once $pasta . "/view/comuns/header.php";
 
 if ($control != "Login" && $control != "cadastrar")
