@@ -7,7 +7,12 @@ use PHPMailer\PHPMailer\Exception;
 require 'terceiros/vendor/autoload.php';
 
 class EnviaEmail
-{
+{    
+    /**
+     * cria o email 
+     *
+     * @return object
+     */
     public static function create()
     {
         //Create an instance; passing `true` enables exceptions
@@ -34,7 +39,13 @@ class EnviaEmail
 
         return $mail;
     }
-
+    
+    /**
+     * verifica se o email foi enviado
+     *
+     * @param  object $mail
+     * @return boolean
+     */
     public static function send($mail)
     {
         try
@@ -55,8 +66,15 @@ class EnviaEmail
             echo "Falha ao enviar e-mail. {$mail->ErrorInfo}";
         }
     }
-
-    public static function bodyRecuperacaoSenha($codigo, $nome = "")
+    
+    /**
+     * html para a recuperação de senha
+     *
+     * @param  string $codigo
+     * @param  string $nome
+     * @return string
+     */
+    public static function bodyEnvioEmail($codigo, $nome = "")
     {
         $html = '<div><u></u>
                     <div style="color:#595756">
