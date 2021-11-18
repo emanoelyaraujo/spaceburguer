@@ -338,10 +338,10 @@ section {
     margin-top: 30px;
 }
 
-/* .bbb_image img {
-    width: auto !important;
-    max-width: 75% !important
-} */
+.bbb_image img {
+
+    max-width: 200px !important
+}
 
 .bbb_category a {
     font-size: 12px;
@@ -370,7 +370,7 @@ section {
     color: #FFFFFF;
     border-radius: 50%;
     line-height: 36px;
-    text-align: center
+    text-align: center;
 }
 
 .bbb_discount {
