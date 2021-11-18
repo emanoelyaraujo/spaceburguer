@@ -59,12 +59,12 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?= $_SESSION["userNome"] ?>
+                                Olá, <?= $_SESSION["userNome"] ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="<?= SITE_URL ?>MinhaConta/index"><i class="fas fa-user"></i> Minha Conta</a></li>
                                 <?php if($_SESSION['userNivel'] == "2"): ?>
-                                    <li><a class="dropdown-item" href="<?= SITE_URL ?>MinhaConta/informacoesPedido"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
+                                    <li><a class="dropdown-item" href="<?= SITE_URL ?>MinhaConta/index"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
                                 <?php endif; ?>
                                 <hr>
                                 <li><a class="dropdown-item" href="<?= SITE_URL ?>Login/logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
