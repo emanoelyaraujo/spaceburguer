@@ -13,7 +13,7 @@ class Uploads
         foreach ($arquivo as $value)
         {
             // O nome original do arquivo no computador do usuário
-            $arqName = $value["name"];
+            $arqName = rand(0, getrandmax()) . "_" . $value["name"];
             
             // O nome temporário do arquivo, como foi guardado no servidor
             $arqTemp = $value['tmp_name'];
@@ -36,7 +36,7 @@ class Uploads
                     if (!empty($nomeImagem))
                     {
                         // apaga a imagem antiga no servidor
-                        unlink("uploads/$pasta/" . $nomeImagem);
+                        @unlink("uploads/$pasta/" . $nomeImagem);
                     }
 
                     $upload = move_uploaded_file($arqTemp, "uploads/$pasta/" . $arqName);
