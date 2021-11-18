@@ -12,32 +12,32 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="nomeEndereco">Nome do Endereço<span>*</span></label>
+                                    <label for="nomeEndereco">Nome do Endereço<span class='text-danger fw-bolder  '>*</span></label>
                                     <input type="text" name="nomeEndereco" class="form-control" maxlength="60" id="nomeEndereco" autofocus required>
                                     <small>Exemplo: minha casa</small>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="cep">CEP<span>*</span></label>
+                                    <label for="cep">CEP<span class='text-danger fw-bolder'>*</span></label>
                                     <input type="text" name="cep" class="form-control" maxlength="9" id="cep" autofocus required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-3">
-                                    <label for="rua">Rua<span>*</span></label>
+                                    <label for="rua">Rua<span class='text-danger fw-bolder'>*</span></label>
                                     <input type="text" name="rua" maxlength="50" class="form-control" id="rua" autofocus required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-gro mb-3">
-                                    <label for="bairro">Bairro<span>*</span></label>
+                                    <label for="bairro">Bairro<span class='text-danger fw-bolder  '>*</span></label>
                                     <input type="text" name="bairro" maxlength="50" class="form-control" id="bairro" autofocus required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="numero">Número<span>*</span></label>
+                                    <label for="numero">Número<span class='text-danger fw-bolder  '>*</span></label>
                                     <input type="text" name="numero" maxlength="4" class="form-control" id="numero" required>
                                 </div>
                             </div>

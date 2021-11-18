@@ -40,25 +40,25 @@
                     </div>
                 </div>
 
-                <div class="form-group col-lg-6 mb-3">
+                <div class=" col-md-4 mb-3">
                     <div class="row">
-                        <div class="col-6 col-sm-3">
+                        <div class="col form-group">
                             <label for="preco" class="form-label">Preço</label>
                             <div class="input-group mb-2">
                                 <input type="text" name="preco" id="preco" class="form-control text-end" onKeyUp="mask_valor(this,event,'##.###.###.###,##',true)" <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> value="<?= isset($aDados['data']['preco']) ? Numeros::formataValor($aDados['data']['preco']) : "" ?>">
                             </div>
                         </div>
-                        <div class="col-8 col-sm-5">
+                        <div class="col form-group">
                             <label for="status" class="form-label">Status</label>
                             <select name="status" id="status" class="form-control" required <?= Helpers::$acoesInput[$aDados['acao']]['disabled'] ?>>
-                                <option value="" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == ""  ? "selected disabled" : "") : "") ?>>.....</option>
+                                <option value="" selected disabled></option>
                                 <option value="1" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == "1" ? "selected" : "") : "") ?>>Ativo</option>
                                 <option value="2" <?= (isset($aDados['data']['status']) ? ($aDados['data']['status'] == "2" ? "selected" : "") : "") ?>>Inativo</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-8 mb-3">
+                        <div class="form-group col-12 mb-3">
                             <label for="imagem" class="form-label">Imagem</label><br>
                             <input type="file" class="form-control" name="imagem" id="imagem" accept="image/png, image/jpeg, image/jpg"
                                 <?= $aDados['acao'] == 'insert' ? 'required' : '' ?>

@@ -1,9 +1,10 @@
+<?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
 <section>
     <div class="container mt-3">
         <?php if (empty($pedidos['dadosPedido'])) : ?>
             <div class="d-flex justify-content-center">
                 <div class="container text-center">
-                    <img src="<?= SITE_URL ?>assets/img/astronauta_dormindo.png" width="250" alt="">
+                    <img src="<?= SITE_URL ?>assets/img/SVG/astro_dormindo.svg" width="250" alt="">
                     <h4>Você ainda não pediu :(</h4>
                     <p>Que tal conhecer os melhores lanches da GALÁXIA?</p>
                     <a href="<?= SITE_URL ?>" class="btn btn-sm btnLaranja mt-3 mb-2">VOLTAR PARA A PÁGINA INICIAL</a>
@@ -22,8 +23,10 @@
                                         <div id="entregue_<?= $pedido['id'] ?>" title="Entregue" id="opa" class="step"> <span class="icon"> <i class="fa fa-home"></i> </span></div>
                                     </div>
                                     <h5 class="text-center text-muted">Status: <?= Helpers::$status[$pedido['status']] ?></h5>
+                                    <?php if ($pedido['status'] == 'F') : ?>
+                                        <a href="<?= SITE_URL ?>Pedido/cancelarPedido/<?= $pedido['id'] ?>" class="btn btn-outline-secondary btn-sm mt-2 mb-2">Cancelar Pedido</a>
+                                    <?php endif; ?>
                                 </div>
-
                             </div>
 
                             <div class="col-md-3 col-sm-3 col-lg-3">
@@ -54,7 +57,7 @@
     </div>
 </section>
 
-<!-- Modal -->
+<!-- Modal Itens -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
