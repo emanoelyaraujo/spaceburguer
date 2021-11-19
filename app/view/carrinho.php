@@ -23,7 +23,7 @@
                                 <?php foreach ($pedido["itensPedido"] as $itens) : ?>
                                     <div class="border text-sm text-muted p-2 mt-1 mb-3">
                                         <div class="row">
-                                            <?php if ($itens["ingredientes"] != "<p>-</p>") : ?>
+                                            <?php if (!empty($itens["ingredientes"])) : ?>
                                                 <div class="text-end mt-auto">
                                                     <button class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#433A8F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle">
@@ -35,7 +35,7 @@
                                                 </div>
                                             <?php endif; ?>
                                             <div class="col-5 col-sm-6">
-                                                <img src="<?= $itens['imagem'] ?>" class="img-fluid rounded-center" width="142" height="112" alt="...">
+                                                <img src="<?= SITE_URL . 'uploads/lanches/' .$itens['imagem'] ?>" class="img-fluid rounded-center" width="142" height="112" alt="...">
                                             </div>
                                             <div class="col-7 col-sm-6 d-flex flex-column">
                                                 <h6><?= $itens["descricao"] ?></h6>
