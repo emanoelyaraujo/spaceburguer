@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"><i class="fas fa-home"></i> Home</a>
+                        <a class="nav-link active" aria-current="page" href="<?= SITE_URL . (@$_SESSION['userNivel'] == '1' ? "HomeAdmin/index" : "") ?>"><i class="fas fa-home"></i> Home</a>
                     </li>
 
                     <?php
@@ -64,7 +64,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="<?= SITE_URL ?>MinhaConta/index"><i class="fas fa-user"></i> Minha Conta</a></li>
                                 <?php if($_SESSION['userNivel'] == "2"): ?>
-                                    <li><a class="dropdown-item" href="<?= SITE_URL ?>MinhaConta/index"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
+                                    <li><a class="dropdown-item" href="<?= SITE_URL ?>Pedido/index"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
                                 <?php endif; ?>
                                 <hr>
                                 <li><a class="dropdown-item" href="<?= SITE_URL ?>Login/logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>

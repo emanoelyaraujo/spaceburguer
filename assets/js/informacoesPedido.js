@@ -1,4 +1,4 @@
-$.get('/Pagamento/getStatusPedido').done((response) => {
+$.get('/Pedido/getStatusPedido').done((response) => {
     response = JSON.parse(response)
     $.each(response.pedido, function (key, value) {
         if (value.status == "F") {
@@ -18,7 +18,7 @@ $.get('/Pagamento/getStatusPedido').done((response) => {
 
 function abreModal(id) {
     var html = '';
-    $.get(`/Pagamento/getItens/${id}`).done((response) => {
+    $.get(`/Pedido/getItens/${id}`).done((response) => {
         response = JSON.parse(response)
         $.each(response.itens, function (key, value) {
             console.log()
