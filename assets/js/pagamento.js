@@ -36,15 +36,6 @@ function chamaModal() {
     myModal.show()
 }
 
-function chamaView(id) {
-
-    $.post("/MinhaConta/setPill", {
-        id: id
-    });
-
-    window.location = "MinhaConta/index"
-}
-
 function addEndereco() {
 
     $('#modalEndereco').modal('hide');
@@ -86,12 +77,3 @@ $("#pagamento").on('change', function () {
         myModal.show()
     }
 })
-
-function chamaViewCartao() {
-
-    $.post("/MinhaConta/setPill", {
-        id: "#v-pills-cartao"
-    });
-
-    window.location = "MinhaConta/index"
-}

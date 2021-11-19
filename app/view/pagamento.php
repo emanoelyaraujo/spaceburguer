@@ -1,4 +1,5 @@
 <?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
+<?php var_dump($_SESSION); ?>
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-7 col-lg-6 mb-4">
@@ -13,7 +14,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link tabPagamento <?= $pedido['dadosPedido']['frete'] == "0.00" ?
-                                'active' : '' ?>" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false">
+                                                                'active' : '' ?>" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false">
                                 <i class="fas fa-walking"></i>
                                 Retirada</a>
                         </li>
@@ -124,7 +125,7 @@
                     {
                         foreach ($pedido["enderecosUser"] as $endereco)
                         {
-                            ?>
+                    ?>
                             <div class="p-1">
                                 <div class="card" style="width: 16rem;">
                                     <div class="card-body">
@@ -138,7 +139,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <?php
+                    <?php
                         }
                     }
                     ?>
@@ -170,7 +171,7 @@
                 {
                     foreach ($pedido["cartoesUser"] as $cartao)
                     {
-                        ?>
+                ?>
                         <div class="p-1">
                             <div class="card" style="width: 16rem;">
                                 <div class="card-body">
@@ -184,7 +185,7 @@
                                 </div>
                             </div>
                         </div>
-                        <?php
+                <?php
                     }
                 }
                 ?>
@@ -196,3 +197,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    function chamaView(id) {
+        $.post("/MinhaConta/setPill", {
+            id: id
+        });
+
+        window.location = "<?= SITE_URL ?>MinhaConta/index"
+    }
+</script>
