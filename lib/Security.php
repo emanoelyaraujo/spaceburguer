@@ -2,7 +2,6 @@
 
 class Security
 {
-
     public static function isAdmin()
     {
         if (isset($_SESSION["userNivel"]))
@@ -16,6 +15,23 @@ class Security
         else
         {
             Redirect::page("Login/index");
+            exit;
+        }
+    }
+
+    public static function isAUser2()
+    {
+        if (isset($_SESSION["userNivel"]))
+        {
+            if ($_SESSION["userNivel"] != 2)
+            {
+                Redirect::page("Home/index");
+                exit;
+            }
+        }
+        else
+        {
+            Redirect::page("Home/index");
             exit;
         }
     }

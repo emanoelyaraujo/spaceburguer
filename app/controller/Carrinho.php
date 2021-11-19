@@ -3,9 +3,13 @@
 require_once 'app/model/ModelCarrinho.php';
 require_once 'app/model/ModelPedido.php';
 
+
 $model = new Carrinho();
 // request = pedido em ingles(para não confundir)
 $request = new Pedido();
+
+Security::isLogado();
+Security::isAUser2();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;

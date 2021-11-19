@@ -1,9 +1,9 @@
-
 <?php
 
 require_once 'app/model/ModelPedido.php';
 
 Security::isLogado();
+Security::isAUser2();
 
 $model = new Pedido();
 
@@ -37,6 +37,10 @@ switch ($metodo)
         // pega todos os itens retornados do banco e envia para a view em forma de JSON
         $itens = $model->getAllItens($id);
 
+        foreach($itens as $key => $i){
+            $itens[$key]['imagem'] = SITE_URL . "uploads/lanches/" . $i['imagem'];
+        }
+        
         ob_end_clean();
 
         // envia para o método JS os novos valores
@@ -57,7 +61,7 @@ switch ($metodo)
             $_SESSION["msgError"] = "Falha ao cancelar pedido.";
         }
 
-        Redirect::Page("MinhaConta/index");
+        Redirect::Page("Pedido/index");
 
         break;
 }

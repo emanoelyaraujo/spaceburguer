@@ -13,6 +13,8 @@ $request = new Pedido();
 $post           = $_POST;
 $aDados['acao'] = $acao;
 
+Security::isLogado();
+Security::isAUser2();
 Security::pedidoAberto($request->getPedidoAberto());
 
 $pedidoAberto = $request->getPedidoAberto()[0];
