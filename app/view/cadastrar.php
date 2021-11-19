@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="telefone" class="form-label">Telefone<span class="spanRed">*</span></label>
-                                    <input class="form-control" type="text" name="telefone" id="telefone" maxlength="14" placeholder="(00)00000-0000" required>
+                                    <input class="form-control" type="text" name="telefone" id="telefone" maxlength="14" required>
                                 </div>
                             </div>
                             <div class="form-group mb-3">
@@ -50,6 +50,10 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+        $("#telefone").mask('(00)00000-0000');
+    });
+
     var password = document.getElementById("senha"),
         confirm_password = document.getElementById("confirmSenha");
 
