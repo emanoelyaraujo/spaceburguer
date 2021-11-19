@@ -279,11 +279,11 @@ switch ($metodo)
 
         if ($minhaConta->updateSenha($post, $user["id"]))
         {
-            $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+            $_SESSION['msgSucesso'] = 'Senha atualizada com sucesso.';
         }
         else
         {
-            $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+            $_SESSION['msgError'] = 'Falha ao tentar atualizar a senha.';
         }
 
         Redirect::Page("Login/index");
