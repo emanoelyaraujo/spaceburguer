@@ -1,7 +1,7 @@
 <?php
 
 $dados = [
-    "action" => "verificaEmail",
+    "action" => "Login/verificaEmail",
     "name" => "email",
     "label" => "E-mail",
     "maxlength" => "100",

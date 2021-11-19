@@ -1,7 +1,7 @@
 <?php
 
 $dados = [
-    "action" => "verificaCodigo",
+    "action" => "Login/verificaCodigo",
     "name" => "codigo",
     "label" => "Código",
     "maxlength" => "6",

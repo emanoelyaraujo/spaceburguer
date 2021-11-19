@@ -134,7 +134,7 @@ class Formulario
     {
         $html = Formulario::exibeMsgError() . 
                 '<div class="container vh-100">
-                    <form method="post" action="' . $dados["action"] . '" class="row justify-content-center align-items-center h-100">
+                    <form method="post" action="' . SITE_URL . $dados["action"] . '" class="row justify-content-center align-items-center h-100">
                         <div class="col-md-4 p-5" style="background-color: #fff;">
                             <div class="text-center mt-2">
                                     <img src="'. SITE_URL .'assets/img/space-icon.PNG" width="100px" alt="">
