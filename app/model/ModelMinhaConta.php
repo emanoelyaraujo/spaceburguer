@@ -415,4 +415,26 @@ class MinhaConta extends ModelBase
             return false;
         }
     }
+
+    public function updateEmail()
+    {
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE usuario 
+            SET email = ?
+            WHERE id = ?",
+            [
+                $_SESSION['userEmail'],
+                $_SESSION['userId']
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

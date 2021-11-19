@@ -121,10 +121,8 @@ switch ($metodo)
         break;
 
     case "verificaEmail":
-
         // verifica se o usuario esta cadastrado no banco
         $user = $model->getUserEmail($post["email"]);
-
         // gera um código aleatório para a verificação
         $codigo = substr(uniqid(rand()), 0, 6);
 
@@ -156,12 +154,26 @@ switch ($metodo)
             // se a view de destino escolhida foi cadastrar e o usuário ja esta cadastrado
             else
             {
-                $_SESSION["msgError"] = "Usuário já está cadastrado.";
-                Redirect::page("Login/index");
+                // se houver a variavel global $SESSION, significa que o usuario esta tentando alterar seu email
+                $flag = $_SESSION['userEmail'] == $post['email'];
+
+                // verifica se o e-mail não é igual ao da $SESSION e se está cadastrado no banco
+                if (!$flag)
+                {
+                    $_SESSION["msgError"] = "Usuário já está cadastrado.";
+                    Redirect::page(($post['view'] == 'cadastrar') ? "Login/index" : "MinhaConta/index");
+                }
+                else
+                {
+                    // se o email informado é o mesmo que esta no cadastro do usuario
+                    $_SESSION['msgError'] = "Você já está cadastrado<br>com o e-mail informado.";
+                    Redirect::page("MinhaConta/index");
+                }
             }
         }
         else
         {
+            // verifica em qual view esta
             if ($post["view"] == "cadastrar")
             {
                 // seta na sessão o código gerado, envia o email e seta a view de destino, cadastrar
@@ -174,8 +186,25 @@ switch ($metodo)
             // se a view de destino escolhida foi esqueci minha senha e o usuário não esta cadastrado
             else
             {
-                $_SESSION["msgError"] = "Usuário não está cadastrado.";
-                Redirect::page("Login/cadastrar");
+                if ($post['view'] == "alteraEmail")
+                {
+                    // salva o código gerado no banco
+                    $salvaCodigo = $model->updateCodigo($codigo, $_SESSION["userId"]);
+
+                    // se foi salvo, envia o email e seta a view de destino, que é a login
+                    if ($salvaCodigo)
+                    {
+                        $mail->addAddress($post['email'], $_SESSION['userNome']);
+                        $mail->Subject = "Alterar E-mal";
+                        $mail->Body    = EnviaEmail::bodyEnvioEmail($codigo, $_SESSION['userNome']);
+                        $view = "alteraEmail";
+                    }
+                    else
+                    {
+                        $_SESSION["msgError"] = "Erro. Tente mais tarde.";
+                        Redirect::page("MinhaConta/index");
+                    }
+                }
             }
         }
 
@@ -187,20 +216,31 @@ switch ($metodo)
         break;
 
     case "verificaCodigo":
+
+        // pega o email, ou da sessão ou o que o usuario informou esqueci minha senha
+        $email = (isset($_SESSION['userEmail']) ? $_SESSION['userEmail'] : $post['email']);
         // pega os dados do usuario a partir do e-mail informado, caso ja esteja cadastrado
-        $user = $model->getUserEmail($post['email']);
+        $user = $model->getUserEmail($email);
         // caso exista o código na sessão salva ele em uma variável e logo depois da um unset
         $codigo = (isset($_SESSION["codigo"]) ? $_SESSION["codigo"] : "");
 
         unset($_SESSION["codigo"]);
-        
+
         /* unset nessa mensagem pois não há necessidade de falar 
         que o email foi enviado pois isso esta escrito na view de inserir o código*/
         unset($_SESSION["msgSucesso"]);
-        
+
         // se o codigo informado é igual ao que foi gerado 
         if (@$user["codVerificacao"] == $post["codigo"] || $post["codigo"] == $codigo)
         {
+            // se o usuario estiver logado
+            if (isset($_SESSION['userId']))
+            {
+                // seta como nulo o campo do banco que estava com o código
+                $model->updateCodigo(null, $user['id']);
+                $_SESSION['userEmail'] = $post["email"];
+                Redirect::page("MinhaConta/alterarEmail");
+            }
             // se o código estiver salvo na sessão
             if (!empty($codigo))
             {
@@ -216,7 +256,7 @@ switch ($metodo)
                 require_once "app/view/formEsqueciSenha.php";
             }
         }
-        
+
         else
         {
             /* mesmo se o usuario errar o codigo quando 

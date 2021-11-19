@@ -1,6 +1,9 @@
 <section>
     <h2>Seu perfil</h2>
     <form action="<?= SITE_URL ?>MinhaConta/updateDados" method="post" enctype="multipart/form-data">
+        <div class="d-flex justify-content-end">
+            <a href="<?= SITE_URL ?>MinhaConta/solicitarTrocaEmail" class="btn btn-outline-secondary btn-sm">Alterar e-mail</a>
+        </div>
         <div class="d-flex align-items-center flex-column">
             <div class="d-flex justify-content-center">
                 <img src="<?= is_null($_SESSION['userImagem']) ?  SITE_URL . "assets/img/user2.jpg" : SITE_URL . "uploads/usuarios/" . $_SESSION['userImagem'] ?>" class="rounded-circle rounded-full" width="180" height="180" alt="">
@@ -12,7 +15,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="email" class="form-label">E-mail</label>
-                    <input type="email" name="email" id="email" class="form-control" maxlength="100" value="<?= isset($_SESSION["userEmail"]) ? $_SESSION["userEmail"] : "" ?>">
+                    <input type="email" readonly name="email" id="email" class="form-control" maxlength="100" value="<?= isset($_SESSION["userEmail"]) ? $_SESSION["userEmail"] : "" ?>">
                 </div>
                 <div class="form-group mb-3">
                     <label for="telefone" class="form-label">Telefone</label>
