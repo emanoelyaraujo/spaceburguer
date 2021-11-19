@@ -53,10 +53,10 @@ switch ($metodo)
 
     case 'updateSenha':
         // verifica as senhas informadas 
-        if (!password_verify($post["senhaAtual"], $_SESSION["a"]) || $post["novaSenha"] != $post["confirmSenha"])
+        if (!password_verify($post["senhaAtual"], $_SESSION["userSenha"]) || $post["novaSenha"] != $post["confirmSenha"])
         {
             $_SESSION["msgError"] = "Senhas não conferem";
-            Redirect::page("Usuario/formSenha");
+            Redirect::page("MinhaConta/index");
             break;
         }
 
@@ -74,30 +74,36 @@ switch ($metodo)
 
         // grava na sessão o novo hash de senha criado
         $_SESSION["userSenha"] = $aUsuario["senha"];
-
         Redirect::Page("MinhaConta/index");
 
         break;
 
     case "updateDados":
 
-        if ($model->updateDados($post, $_FILES))
+        if (!empty($post['nome']) && !empty($post['telefone']))
         {
-            $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+            if ($model->updateDados($post, $_FILES))
+            {
+                $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
+            }
+            else
+            {
+                $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+            }
+
+            // busca os dados do usuario no banco
+            $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
+
+            // grava na sessão os novos valores
+            $_SESSION["userNome"]  = $aUsuario['nome'];
+            $_SESSION["userEmail"]  = $aUsuario['email'];
+            $_SESSION["userTelefone"]  = $aUsuario['telefone'];
+            $_SESSION["userImagem"]  = $aUsuario['imagem'];
         }
         else
         {
-            $_SESSION['msgError'] = 'Falha ao tentar atualizar o registro na base de dados.';
+            $_SESSION['msgError'] = "Campos nome e telefone<br>não podem ficar em branco";
         }
-
-        // busca os dados do usuario no banco
-        $aUsuario = $model->getId("usuario", $_SESSION["userId"]);
-
-        // grava na sessão os novos valores
-        $_SESSION["userNome"]  = $aUsuario['nome'];
-        $_SESSION["userEmail"]  = $aUsuario['email'];
-        $_SESSION["userTelefone"]  = $aUsuario['telefone'];
-        $_SESSION["userImagem"]  = $aUsuario['imagem'];
 
         Redirect::Page("MinhaConta/index");
 
@@ -204,5 +210,27 @@ switch ($metodo)
 
         Redirect::Page("MinhaConta/index");
 
+        break;
+
+    case "solicitarTrocaEmail":
+        $configs = [
+            "titulo" => "Informe seu novo e-mail",
+            "view" => "alteraEmail"
+        ];
+        require_once "app/view/verificaEmail.php";
+        
+        break;
+
+    case "alterarEmail":
+
+        if($model->updateEmail()){
+            $_SESSION["msgSucesso"] = "E-mail atualizado com sucesso.";
+        }
+        else 
+        {
+            $_SESSION["msgError"] = "Falha ao atualizar e-mail.";
+        }
+
+        Redirect::page("MinhaConta/index");
         break;
 }
