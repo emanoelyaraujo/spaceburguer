@@ -9,6 +9,9 @@
 
 body {
     background-color: #E0E0E0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .btnRoxo {

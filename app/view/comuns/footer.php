@@ -1,3 +1,4 @@
+</main>
 <footer class="pt-4 mb-0">
     <div class="container">
         <div class="row justify-content-center">
@@ -44,7 +45,6 @@
 
 <script src="<?= SITE_URL ?>assets/js/toasts.js"></script>
 <script src="<?= SITE_URL ?>assets/js/informacoesPedido.js"></script>
-<script src="<?= SITE_URL ?>assets/js/carrinho.js"></script>
 <script src="<?= SITE_URL ?>assets/js/pagamento.js"></script>
 <script src="<?= SITE_URL ?>assets/js/mascara.js"></script>
 <script src="<?= SITE_URL ?>assets/DataTables/js/jquery.dataTables.min.js"></script>
