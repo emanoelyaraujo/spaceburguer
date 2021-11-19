@@ -1,7 +1,7 @@
-<!-- <script>
+<script>
     function addCarrinho(id) {
 
-        const codUsuario = <?= isset($_SESSION["userId"]) ? $_SESSION["userId"] : 0 ?>
+        const codUsuario = <?= isset($_SESSION["userNivel"]) ? $_SESSION["userNivel"] : 0 ?>
 
         if (codUsuario) {
             if (codUsuario == '2'){
@@ -20,7 +20,7 @@
             window.location = "<?= SITE_URL ?>Login/index";
         }
     }
-</script> -->
+</script>
 
 <?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
 <div class="sticky-top">
