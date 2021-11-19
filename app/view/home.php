@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     function addCarrinho(id) {
 
         const codUsuario = <?= isset($_SESSION["userId"]) ? $_SESSION["userId"] : 0 ?>
@@ -20,7 +20,8 @@
             window.location = "<?= SITE_URL ?>Login/index";
         }
     }
-</script>
+</script> -->
+
 <?= Formulario::exibeMsgError() . Formulario::exibeMsgSucesso() ?>
 <div class="sticky-top">
     <div class="position-relative" style="z-index: 1000; ">
@@ -100,7 +101,7 @@
             $categoria = $lanches["descricao"];
             ?>
 
-            <div class="owl-item" style="width: 19rem;">
+            <div class="owl-item" style="width: 16rem;">
                 <div class="bbb_item is_new">
                     <ul class="bbb_marks">
                         <li class="bbb_mark bbb_new <?= Data::diferencaData($lanches['created_at']) <= 7 ? 'visible' : 'invisible' ?>">new</li>
