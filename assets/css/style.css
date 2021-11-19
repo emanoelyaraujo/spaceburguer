@@ -107,6 +107,16 @@ button.nav-link:hover {
     border: 1px solid var(--color-roxo);
 }
 
+#v-pills-excluirConta-tab {
+    margin-right: 0px !important;
+}
+
+@media (min-width: 768px) {
+    #v-pills-excluirConta-tab {
+        margin-right: 15px !important;
+    }
+}
+
 /* CKEditor */
 
 .ck-editor__editable {

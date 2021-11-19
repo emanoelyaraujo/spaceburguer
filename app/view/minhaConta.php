@@ -18,7 +18,7 @@
     echo Formulario::exibeMsgError() . Formulario::exibeMsgSucesso()
     ?>
 
-    <div class="d-flex flex-column flex-md-row vh-100">
+    <div class="d-flex flex-column flex-md-row">
         <div class="nav d-flex flex-md-column nav-pills me-3 mt-3 ms-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link <?= Redirect::getPills('#v-pills-dados') ?>" onclick="changeSession('#v-pills-dados')" id="v-pills-dados-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dados" type="button" role="tab" title="Meu Perfil">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4621b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
@@ -45,7 +45,7 @@
                     <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
                 </svg>
             </button>
-            <button class="nav-link <?= Redirect::getPills('#v-pills-excluirConta') ?>" style="margin-right: 0px !important;" onclick="changeSession('#v-pills-excluirConta')" id="v-pills-excluirConta-tab" data-bs-toggle="pill" data-bs-target="#v-pills-excluirConta" type="button" role="tab" title="Excluir conta">
+            <button class="nav-link <?= Redirect::getPills('#v-pills-excluirConta') ?>" onclick="changeSession('#v-pills-excluirConta')" id="v-pills-excluirConta-tab" data-bs-toggle="pill" data-bs-target="#v-pills-excluirConta" type="button" role="tab" title="Excluir conta">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4621b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-x">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                     <circle cx="8.5" cy="7" r="4"></circle>
