@@ -4,7 +4,7 @@
 
 <div class="container">
     <h2>Redefinir senha</h2>
-    <form action="<?= SITE_URL ?>MinhaConta/updateSenha" method="post">
+    <form action="<?= SITE_URL ?>Login/updateSenha" method="post">
         <div class="d-flex align-items-center flex-column">
             <div class="col-md-5 mb-3">
                 <label for="novaSenha" class="form-label">Nova Senha</label>
