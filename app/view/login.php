@@ -24,12 +24,6 @@
                                     <a href="<?= SITE_URL ?>Login/esqueciMinhaSenha">Esqueceu sua senha?</a>
                                 </small>
                             </div>
-                            <div>
-                                <div class="form-check">
-                                    <input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked="">
-                                    <label class="form-check-label text-small" for="customControlInline">Lembre-se de mim na próxima vez</label>
-                                </div>
-                            </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-4">
                                 <button type="submit" class="btn btnRoxo">ENTRAR</button>
                             </div>
