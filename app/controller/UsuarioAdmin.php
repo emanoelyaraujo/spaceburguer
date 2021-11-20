@@ -31,7 +31,7 @@ switch ($metodo)
 
     case 'insert':
 
-        if ($model->insert($_POST))
+        if ($model->insert($post))
         {
             $_SESSION['msgSucesso'] = 'Registro inserido com sucesso.';
         }
@@ -45,7 +45,7 @@ switch ($metodo)
 
     case 'update':
 
-        if ($model->update($_POST))
+        if ($model->update($post))
         {
             $_SESSION['msgSucesso'] = 'Registro atualizado com sucesso.';
         }
