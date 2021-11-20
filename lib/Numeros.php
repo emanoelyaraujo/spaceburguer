@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-class Numeros {
-    
+class Numeros
+{
     /**
      * formata o valor para o padrão brasileiro
      *
@@ -12,7 +12,7 @@ class Numeros {
     {
         return number_format($valor, $decimal, ",", ".");
     }
-    
+
     /**
      * formata o valor para salvar no banco
      *

@@ -99,7 +99,7 @@ class Usuario extends ModelBase
                 password_hash(trim($dados['senha']), PASSWORD_DEFAULT)
             ]
         );
-        
+
         if ($rsc > 0)
         {
             return true;
@@ -197,7 +197,7 @@ class Usuario extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * atualiza o codigo gerado para atualizar a senha
      *
@@ -209,8 +209,8 @@ class Usuario extends ModelBase
     {
         $rsc = $this->conDb->dbUpdate(
             "UPDATE usuario 
-                    SET codVerificacao = ?
-                    WHERE id = ?",
+            SET codVerificacao = ?
+            WHERE id = ?",
             [
                 $codigo,
                 $id

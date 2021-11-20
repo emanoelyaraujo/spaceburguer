@@ -19,7 +19,9 @@
                             <div class="col-12">
                                 <div class="form-group mb-3">
                                     <label for="nomeCartao">Nome<span class="spanRed">*</span></label>
-                                    <input type="text" name="nomeCartao" class="form-control text-uppercase" maxlength="20" id="nomeCartao" autofocus required>
+                                    <input type="text" name="nomeCartao" class="form-control text-uppercase" 
+                                        maxlength="20" id="nomeCartao" required
+                                    >
                                 </div>
                             </div>
                             <div class="col-12">
@@ -40,7 +42,7 @@
                             <div class="col-md-6">
                                 <div class="form-gro mb-3">
                                     <label for="cvv">CVV<span class="spanRed">*</span></label>
-                                    <input type="password" name="cvv" maxlength="3" minlength="3" class="form-control" id="cvv" autofocus required>
+                                    <input type="password" name="cvv" maxlength="3" minlength="3" class="form-control" id="cvv" required>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center">
@@ -89,7 +91,7 @@
     </div>
 
     <div class="d-flex justify-content-center mt-3">
-        <button type="button" class="btn btnRoxo btnPerfil" data-bs-toggle="modal" data-bs-target="#modalCartao">
+        <button type="button" class="btn btnRoxo btnPerfil mb-4" data-bs-toggle="modal" data-bs-target="#modalCartao">
             ADICIONAR NOVO CARTÃO
         </button>
     </div>
@@ -132,7 +134,6 @@
             $("#data").val(data)
             $("#cvv").val("")
             $("#tipo").val(response.tipo)
-
         })
 
         if (acao == "update") {

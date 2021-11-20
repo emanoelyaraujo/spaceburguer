@@ -1,6 +1,5 @@
 <script>
     function addCarrinho(id) {
-
         const codUsuario = <?= isset($_SESSION["userNivel"]) ? $_SESSION["userNivel"] : 0 ?>
 
         if (codUsuario) {
@@ -87,8 +86,12 @@
                             <p>Categoria</p>
                             <h2 class=""><?= $lanches["descricao"] ?></h2>
                             <div class="bbb_slider_nav">
-                                <div class="bbb_prev bbb_nav" onclick="voltar(<?= $key ?>)"><i class="fas fa-angle-left ml-auto"></i></div>
-                                <div class="bbb_next bbb_nav" onclick="ir(<?= $key ?>)"><i class="fas fa-angle-right ml-auto"></i></div>
+                                <div class="bbb_prev bbb_nav" onclick="voltar(<?= $key ?>)">
+                                    <i class="fas fa-angle-left ml-auto"></i>
+                                </div>
+                                <div class="bbb_next bbb_nav" onclick="ir(<?= $key ?>)">
+                                    <i class="fas fa-angle-right ml-auto"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,7 +107,11 @@
             <div class="owl-item" style="width: 16rem;">
                 <div class="bbb_item is_new">
                     <ul class="bbb_marks">
-                        <li class="bbb_mark bbb_new <?= Data::diferencaData($lanches['created_at']) <= 7 ? 'visible' : 'invisible' ?>">new</li>
+                        <li class="bbb_mark bbb_new 
+                            <?= Data::diferencaData($lanches['created_at']) <= 7 ? 'visible' : 'invisible' ?>"
+                        >
+                            new
+                        </li>
                     </ul>
                     <div class="bbb_image d-flex flex-column align-items-center justify-content-center">
                         <img class="" src="<?= SITE_URL . 'uploads/lanches/' . $lanches["imagem"] ?>" alt="">
@@ -116,7 +123,9 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2 col-12 mx-auto mt-3">
-                        <button class="btn btnRoxo" onclick="addCarrinho(<?= $lanches['id'] ?>)" type="button">Adicionar ao Carrinho</button>
+                        <button class="btn btnRoxo" onclick="addCarrinho(<?= $lanches['id'] ?>)" type="button">
+                            Adicionar ao Carrinho
+                        </button>
                     </div>
                 </div>
             </div>
@@ -146,7 +155,6 @@
     }
 
     $(document).ready(function() {
-
         if ($('.bbb_slider').length) {
             var trendsSlider = $('.bbb_slider');
 

@@ -12,27 +12,29 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="nomeEndereco">Nome do Endereço<span class='text-danger fw-bolder  '>*</span></label>
-                                    <input type="text" name="nomeEndereco" class="form-control" maxlength="60" id="nomeEndereco" autofocus required>
+                                    <label for="nomeEndereco">Nome do Endereço<span class='text-danger fw-bolder'>*</span></label>
+                                    <input type="text" name="nomeEndereco" class="form-control" maxlength="60" 
+                                        id="nomeEndereco" autofocus required
+                                    >
                                     <small>Exemplo: minha casa</small>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="cep">CEP<span class='text-danger fw-bolder'>*</span></label>
-                                    <input type="text" name="cep" class="form-control" maxlength="9" id="cep" autofocus required>
+                                    <input type="text" name="cep" class="form-control" maxlength="9" id="cep" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-3">
                                     <label for="rua">Rua<span class='text-danger fw-bolder'>*</span></label>
-                                    <input type="text" name="rua" maxlength="50" class="form-control" id="rua" autofocus required>
+                                    <input type="text" name="rua" maxlength="50" class="form-control" id="rua" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-gro mb-3">
                                     <label for="bairro">Bairro<span class='text-danger fw-bolder  '>*</span></label>
-                                    <input type="text" name="bairro" maxlength="50" class="form-control" id="bairro" autofocus required>
+                                    <input type="text" name="bairro" maxlength="50" class="form-control" id="bairro" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -50,7 +52,9 @@
                             <div class="d-flex justify-content-center">
                                 <div class="d-flex flex-column bd-highlight justify-content-center mb-3">
                                     <div class="p-2 bd-highlight">
-                                        <button class="btn btnRoxo btnPerfil" type="submit" id="entrar" title="Cadastrar">SALVAR INFORMAÇÕES</button>
+                                        <button class="btn btnRoxo btnPerfil" type="submit" id="entrar" title="Cadastrar">
+                                            SALVAR INFORMAÇÕES
+                                        </button>
                                     </div>
                                     <div class="p-2 bd-highlight text-center">
                                         <a href="">Cancelar</a>
@@ -75,12 +79,18 @@
                         </p>
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <a class="text-decoration-none text-dark me-3 acaoEndereco" onclick="acaoEndereco(<?= $endereco['id'] ?>, 'update')">
-                                <img src="<?= SITE_URL ?>assets/img/SVG/edit.svg" alt="">Editar
+                            <a class="text-decoration-none text-dark me-3 acaoEndereco" 
+                                onclick="acaoEndereco(<?= $endereco['id'] ?>, 'update')"
+                            >
+                                <img src="<?= SITE_URL ?>assets/img/SVG/edit.svg" alt="">
+                                Editar
                             </a>
                             <?php if (count($dados["endereco"]) > 1) : ?>
-                                <a class="text-decoration-none text-dark acaoEndereco" onclick="acaoEndereco(<?= $endereco['id'] ?>, 'delete')">
-                                    <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">Excluir
+                                <a class="text-decoration-none text-dark acaoEndereco" 
+                                    onclick="acaoEndereco(<?= $endereco['id'] ?>, 'delete')"
+                                >
+                                    <img src="<?= SITE_URL ?>assets/img/SVG/trash.svg" alt="">
+                                    Excluir
                                 </a>
                             <?php endif; ?>
                         </div>
@@ -91,7 +101,7 @@
     </div>
 
     <div class="d-flex justify-content-center mt-3">
-        <button type="button" class="btn btnRoxo btnPerfil" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button type="button" class="btn btnRoxo btnPerfil mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             ADICIONAR NOVO ENDEREÇO
         </button>
     </div>

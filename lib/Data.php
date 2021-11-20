@@ -2,7 +2,6 @@
 
 class Data
 {
-
     /**
      * formata a data para o formato d/m/Y
      *

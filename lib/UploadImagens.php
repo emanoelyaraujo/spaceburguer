@@ -1,7 +1,15 @@
 <?php
 
 class Uploads
-{
+{    
+    /**
+     * upload de imagens
+     *
+     * @param  mixed $arquivo
+     * @param  string $pasta
+     * @param  string $nomeImagem
+     * @return void
+     */
     public static function upload($arquivo, $pasta, $nomeImagem = '')
     {
         // Lista de tipos de arquivos permitidos
@@ -35,7 +43,11 @@ class Uploads
                 {
                     if (!empty($nomeImagem))
                     {
-                        // apaga a imagem antiga no servidor
+                        /* apaga a imagem antiga no servidor
+                        OBS: caso o usuário tenha excluido a imagem da pasta uploads
+                        não será possivel dar o unlink e irá aparecer uma mensagem de erro, 
+                        dessa forma, utilizo o @ para esconder esse erro do usuário
+                        */
                         @unlink("uploads/$pasta/" . $nomeImagem);
                     }
 

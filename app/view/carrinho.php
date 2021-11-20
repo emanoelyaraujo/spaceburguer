@@ -26,7 +26,10 @@
                                             <?php if (!empty($itens["ingredientes"])) : ?>
                                                 <div class="text-end mt-auto">
                                                     <button class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#433A8F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" 
+                                                            fill="none" stroke="#433A8F" stroke-width="3" stroke-linecap="round" 
+                                                            stroke-linejoin="round" class="feather feather-alert-circle"
+                                                        >
                                                             <circle cx="12" cy="12" r="10"></circle>
                                                             <line x1="12" y1="8" x2="12" y2="12"></line>
                                                             <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -35,24 +38,38 @@
                                                 </div>
                                             <?php endif; ?>
                                             <div class="col-5 col-sm-6">
-                                                <img src="<?= SITE_URL . 'uploads/lanches/' .$itens['imagem'] ?>" class="img-fluid rounded-center" width="142" height="112" alt="...">
+                                                <img src="<?= SITE_URL . 'uploads/lanches/' .$itens['imagem'] ?>" 
+                                                    class="img-fluid rounded-center" width="142" height="112" alt="..."
+                                                >
                                             </div>
                                             <div class="col-7 col-sm-6 d-flex flex-column">
                                                 <h6><?= $itens["descricao"] ?></h6>
-                                                <span class="fw-bold" id="totalProduto<?= $itens['id'] ?>">R$<?= Numeros::formataValor($itens["valor_total"]) ?></span>
+                                                <span class="fw-bold" id="totalProduto<?= $itens['id'] ?>">
+                                                    R$<?= Numeros::formataValor($itens["valor_total"]) ?></span>
                                                 <div class="row justify-content-between mt-auto">
                                                     <div class="col-auto">
-                                                        <button data-type="quantity" onclick="decrease(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" class="btn btn-sm quantidade">
+                                                        <button data-type="quantity" 
+                                                            class="btn btn-sm quantidade"
+                                                            onclick="decrementar(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" 
+                                                        >
                                                             <i class="fas fa-minus"></i>
                                                         </button>
-                                                        <input id="quantity<?= $itens['id'] ?>" class="text-center inputQuantidade" value="<?= $itens["quantidade"] ?>">
-                                                        <button data-type="quantity" onclick="increase(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" class="btn btn-sm quantidade">
+                                                        <input id="quantity<?= $itens['id'] ?>" 
+                                                            class="text-center inputQuantidade" value="<?= $itens["quantidade"] ?>"
+                                                        >
+                                                        <button data-type="quantity" 
+                                                            class="btn btn-sm quantidade"
+                                                            onclick="incrementar(event, <?= $itens['id'] ?>, <?= $itens['idLanche'] ?>)" 
+                                                        >
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                     </div>
                                                     <div class="col-auto">
                                                         <a href="<?= SITE_URL ?>Carrinho/deleteItem/<?= $itens['id'] ?>" class="btn p-0">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" 
+                                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+                                                                stroke-linejoin="round" class="feather feather-trash"
+                                                            >
                                                                 <polyline points="3 6 5 6 21 6"></polyline>
                                                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                                             </svg>
@@ -77,15 +94,24 @@
                     </div>
                     <div class="card-body">
                         <!-- SUBTOTAL -->
-                        <h6 class="card-title d-inline text-muted">Subtotal(<?= count($pedido['itensPedido']) ?> itens)</h6>
-                        <span class="float-end text-muted" id="subtotal">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["subtotal"]) ?></span><br>
+                        <h6 class="card-title d-inline text-muted">
+                            Subtotal(<?= count($pedido['itensPedido']) ?> itens)
+                        </h6>
+                        <span class="float-end text-muted" id="subtotal">
+                            R$<?= Numeros::formataValor($pedido['itensPedido'][0]["subtotal"]) ?>
+                        </span>
+                        <br>
                         <!-- FRETE -->
                         <h6 class="card-title d-inline text-muted">Taxa de entrega</h6>
-                        <span class="float-end text-muted">R$<?= Numeros::formataValor($pedido['itensPedido'][0]['frete']) ?></span>
+                        <span class="float-end text-muted">
+                            R$<?= Numeros::formataValor($pedido['itensPedido'][0]['frete']) ?>
+                        </span>
                         <hr>
                         <!-- TOTAL -->
                         <h6 class="card-title d-inline">Valor Total</h6>
-                        <span class="float-end fw-bold" id="totalPedido">R$<?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?></span>
+                        <span class="float-end fw-bold" id="totalPedido">
+                            R$<?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?>
+                        </span>
 
                         <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
                             <a href="<?= SITE_URL ?>Pagamento/index" class="btn btnRoxo" type="button">CONTINUAR</a>
@@ -117,7 +143,7 @@
 <?php endif; ?>
 
 <script>
-    function handleSubmit(event, id_produto, quantidade, id_lanche, acao) {
+    function acaoQuantidade(event, id_produto, quantidade, id_lanche, acao) {
         $.post("/Carrinho/updateQuantidade", {
             id_produto,
             quantidade,
@@ -131,8 +157,7 @@
         })
     }
 
-    function decrease(event, id_produto, id_lanche) {
-
+    function decrementar(event, id_produto, id_lanche) {
         let quantidade = document.getElementById(`quantity${id_produto}`)
         const newValue = parseInt(quantidade.value) - 1
 
@@ -140,18 +165,18 @@
             quantidade.value = newValue
 
             setTimeout(
-                handleSubmit(event, id_produto, quantidade.value, id_lanche, "-"),
+                acaoQuantidade(event, id_produto, quantidade.value, id_lanche, "-"),
                 6000
             )
         }
     }
 
-    function increase(event, id_produto, id_lanche) {
+    function incrementar(event, id_produto, id_lanche) {
         let quantidade = document.getElementById(`quantity${id_produto}`)
         quantidade.value = parseInt(quantidade.value) + 1
 
         setTimeout(
-            handleSubmit(event, id_produto, quantidade.value, id_lanche, "+"),
+            acaoQuantidade(event, id_produto, quantidade.value, id_lanche, "+"),
             6000
         )
     }

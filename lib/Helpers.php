@@ -2,6 +2,7 @@
 
 class Helpers
 {
+    // busca o status de acordo com a ação passada
     public static $status = [
         "F" => "Pedido Finalizado",
         "C" => "Pedido a Caminho",
@@ -10,7 +11,7 @@ class Helpers
         "2" => "<div class='text-center'><span class='badge bg-warning'>Inativo</span></div>"
     ];
 
-
+    // busca o texto e a cor dos botões de acordo com a ação passada 
     public static $botoes = [
         "update" => [
             "textoBotao" => "Gravar",
@@ -28,6 +29,7 @@ class Helpers
         ]
     ];
 
+    // busca as ações do input de acordo com a ação passada
     public static $acoesInput = [
         "delete" => [
             "readonly" => "readonly",

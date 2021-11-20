@@ -1,7 +1,16 @@
 <?php
 
 class Lista
-{
+{    
+    /**
+     * monta a lista dos cruds do adm
+     *
+     * @param  string $controller
+     * @param  array $thead
+     * @param  array $tbody
+     * @param  array $id
+     * @return void
+     */
     public static function montaLista($controller, $thead, $tbody, $id)
     {
         ?>

@@ -18,13 +18,29 @@
                             <div class="col-md-6 col-sm-6 col-lg-6">
                                 <div class="d-grid col-md-8 mx-auto">
                                     <div class="track">
-                                        <div id="finalizado_<?= $pedido['id'] ?>" title="Finalizado" class="step"> <span class="icon"> <i class="fa fa-check"></i> </span></div>
-                                        <div id="transporte_<?= $pedido['id'] ?>" title="A caminho" class="step"> <span class="icon"> <i class="fas fa-rocket"></i> </span></div>
-                                        <div id="entregue_<?= $pedido['id'] ?>" title="Entregue" id="opa" class="step"> <span class="icon"> <i class="fa fa-home"></i> </span></div>
+                                        <div id="finalizado_<?= $pedido['id'] ?>" title="Finalizado" class="step">
+                                            <span class="icon">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                        </div>
+                                        <div id="transporte_<?= $pedido['id'] ?>" title="A caminho" class="step"> 
+                                            <span class="icon"> 
+                                                <i class="fas fa-rocket"></i> 
+                                            </span>
+                                        </div>
+                                        <div id="entregue_<?= $pedido['id'] ?>" title="Entregue" id="opa" class="step"> 
+                                            <span class="icon"> 
+                                                <i class="fa fa-home"></i> 
+                                            </span>
+                                        </div>
                                     </div>
                                     <h5 class="text-center text-muted">Status: <?= Helpers::$status[$pedido['status']] ?></h5>
                                     <?php if ($pedido['status'] == 'F') : ?>
-                                        <a href="<?= SITE_URL ?>Pedido/cancelarPedido/<?= $pedido['id'] ?>" class="btn btn-outline-secondary btn-sm mt-2 mb-2">Cancelar Pedido</a>
+                                        <a href="<?= SITE_URL ?>Pedido/cancelarPedido/<?= $pedido['id'] ?>" 
+                                            class="btn btn-outline-secondary btn-sm mt-2 mb-2"
+                                        >
+                                            Cancelar Pedido
+                                        </a>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -33,17 +49,41 @@
                                 <h6>Resumo da compra</h6>
                                 <div>
                                     <div class="mt-2">
-                                        <p class="text-dark">Pedido: <strong><?= $pedido['id'] ?></strong></p>
-                                        <p class="text-dark">Data do Pedido: <strong><?= Data::dmY($pedido['finished_at']) ?></strong></p>
-                                        <p class="text-dark">Taxa de entrega: <strong>R$ <?= Numeros::formataValor($pedido["frete"]) ?></strong></p>
-                                        <p class="text-dark">Valor total: <strong>R$ <?= Numeros::formataValor($pedido["valor_total"]) ?></strong></p>
-                                        <p class="text-dark">Forma de Pagamento: <?= $pedido['forma_pagamento'] == "C" ? '<i class="far fa-credit-card"></i>' : '<i class="fas fa-dollar-sign"></i>' ?></p>
+                                        <p class="text-dark">Pedido: 
+                                            <strong>
+                                                <?= $pedido['id'] ?>
+                                            </strong>
+                                        </p>
+                                        <p class="text-dark">Data do Pedido: 
+                                            <strong>
+                                                <?= Data::dmY($pedido['finished_at']) ?>
+                                            </strong>
+                                        </p>
+                                        <p class="text-dark">Taxa de entrega: 
+                                            <strong>
+                                                R$ <?= Numeros::formataValor($pedido["frete"]) ?>
+                                            </strong>
+                                        </p>
+                                        <p class="text-dark">Valor total: 
+                                            <strong>
+                                                R$ <?= Numeros::formataValor($pedido["valor_total"]) ?>
+                                            </strong>
+                                        </p>
+                                        <p class="text-dark">Forma de Pagamento: 
+                                            <?= $pedido['forma_pagamento'] == "C" ? 
+                                            '<i class="far fa-credit-card"></i>' : 
+                                            '<i class="fas fa-dollar-sign"></i>' ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-3 col-lg-3 pt-0">
                                 <div class="pt-md-4 pt-lg-4 pt-sm-5">
-                                    <p class="text-dark"><?= is_null($pedido['rua']) ? "<strong>Retirada</strong>" : "Entrega: <strong>" . $pedido['rua'] . ", " . $pedido['numero'] . "<br>" . $pedido['bairro'] . ", " . $pedido['cep'] . "</strong>" ?></p>
+                                    <p class="text-dark">
+                                        <?= is_null($pedido['rua']) ? "<strong>Retirada</strong>" : 
+                                            "Entrega: <strong>" . $pedido['rua'] . ", " . $pedido['numero'] . 
+                                            "<br>" . $pedido['bairro'] . ", " . $pedido['cep'] . "</strong>" ?>
+                                    </p>
                                     <button type="button" onclick="abreModal(<?= $pedido['id'] ?>)" class="btn btnLaranja mt-2 btn-sm">
                                         Ver itens
                                     </button>

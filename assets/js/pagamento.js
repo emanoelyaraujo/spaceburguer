@@ -20,8 +20,8 @@ $(".tabPagamento").on("click", function () {
         acao
     }).done(function (response) {
         response = JSON.parse(response)
-        document.getElementById('frete').innerHTML = `R$ ${response.frete.replace('.', ',')}`
-        document.getElementById('total').innerHTML = `R$ ${response.total.replace('.', ',')}`
+        $('#frete').html(`R$ ${response.frete.replace('.', ',')}`)
+        $('#total').html(`R$ ${response.total.replace('.', ',')}`)
     });
 
     if (!deliverySelecionado && $("a[href='#tabDelivery']").hasClass("active")) {

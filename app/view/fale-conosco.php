@@ -1,10 +1,6 @@
-<style>
-
-</style>
-
 <div class="content">
     <div class="container">
-        <?= Formulario::exibeMsgSucesso() . Formulario::exibeMsgError()  ?>
+        <?= Formulario::exibeMsgSucesso() . Formulario::exibeMsgError() ?>
         <div class="row justify-content-center">
             <div class="col-md-10 p-4">
                 <div class="row justify-content-center">
@@ -32,7 +28,10 @@
                             </div>
                             <div class="row mb-4">
                                 <div class="col-md-12 form-group">
-                                    <textarea class="form-control" name="mensagem" id="mensagem" placeholder="Descreva de forma detalhada o motivo do seu contato" style="margin-top: 0px; margin-bottom: 0px; height: 162px;"></textarea>
+                                    <textarea class="form-control" name="mensagem" id="mensagem" 
+                                        placeholder="Descreva de forma detalhada o motivo do seu contato" 
+                                        style="margin-top: 0px; margin-bottom: 0px; height: 162px;">
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="row">
@@ -47,7 +46,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     ClassicEditor
