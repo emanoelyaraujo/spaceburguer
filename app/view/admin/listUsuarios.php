@@ -10,7 +10,7 @@ foreach($aDados['data'] as $b)
     $body[] = [
         $b['nome'],
         $b['email'],
-        ($b['nivel'] == 1 ? 'Administrador' : 'Visitante'),
+        Helpers::$nivel[$b['nivel']],
         Helpers::$status[$b['status']]
     ];
 

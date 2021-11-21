@@ -11,6 +11,12 @@ class Helpers
         "2" => "<div class='text-center'><span class='badge bg-warning'>Inativo</span></div>"
     ];
 
+    public static $nivel = [
+        "1" => "Administrador",
+        "2" => "Usuário",
+        "3" => "Motoboy"
+    ];
+
     // busca o texto e a cor dos botões de acordo com a ação passada 
     public static $botoes = [
         "update" => [

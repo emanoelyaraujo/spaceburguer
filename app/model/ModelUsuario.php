@@ -57,8 +57,8 @@ class Usuario extends ModelBase
                 array(
                     "administrador",
                     "0000",
-                    "adm@spaceburguer.com.br",
-                    password_hash("fasm@2021", PASSWORD_DEFAULT),
+                    "deliveryspaceburguer@gmail.com",
+                    password_hash("adm@2021", PASSWORD_DEFAULT),
                     1
                 )
             );
@@ -86,17 +86,29 @@ class Usuario extends ModelBase
      */
     public function insert($dados)
     {
+        if(isset($dados['nivel']))
+        {
+            $nivel = $dados['nivel'];
+            $status = $dados['status'];
+        }
+        else
+        {
+            $nivel = 2;
+            $status = 1;
+        }
         $telefone = str_replace("(", "", str_replace(")", "", str_replace("-", "", $dados['telefone'])));
 
         $rsc = $this->conDb->dbInsert(
             "INSERT INTO usuario
-            (nome, email, telefone, senha)
-            VALUES ( ?, ?, ?, ?) ",
+            (nome, email, telefone, senha, nivel, status)
+            VALUES ( ?, ?, ?, ?, ?, ?) ",
             [
                 $dados['nome'],
                 $dados['email'],
                 $telefone,
-                password_hash(trim($dados['senha']), PASSWORD_DEFAULT)
+                password_hash(trim($dados['senha']), PASSWORD_DEFAULT),
+                $nivel,
+                $status
             ]
         );
 
