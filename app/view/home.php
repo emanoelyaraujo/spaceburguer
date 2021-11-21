@@ -75,16 +75,16 @@
 
         foreach ($dados as $key => $lanches)
         {
-            $flag = $lanches["descricao"] != @$dados[$key + 1]["descricao"];
+            $flag = $lanches["categoria"] != @$dados[$key + 1]["categoria"];
 
-            if ($key == 0 || $lanches["descricao"] != $categoria)
+            if ($key == 0 || $lanches["categoria"] != $categoria)
             {
                 ?>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="bbb_container mt-3">
                             <p>Categoria</p>
-                            <h2 class=""><?= $lanches["descricao"] ?></h2>
+                            <h2 class=""><?= $lanches["categoria"] ?></h2>
                             <div class="bbb_slider_nav">
                                 <div class="bbb_prev bbb_nav" onclick="voltar(<?= $key ?>)">
                                     <i class="fas fa-angle-left ml-auto"></i>
@@ -101,7 +101,7 @@
                             <?php
             }
 
-            $categoria = $lanches["descricao"];
+            $categoria = $lanches["categoria"];
             ?>
 
             <div class="owl-item" style="width: 16rem;">
@@ -118,7 +118,7 @@
                     </div>
                     <div class="bbb_content">
                         <div class="bbb_info clearfix">
-                            <p><b><?= $lanches["nome"] ?></b></p>
+                            <p><b><?= $lanches["descricao"] ?></b></p>
                             <p>R$ <?= $lanches["preco"] ?></p>
                         </div>
                     </div>
