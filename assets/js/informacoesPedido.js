@@ -16,12 +16,30 @@ $.get('/Pedido/getStatusPedido').done((response) => {
     });
 })
 
-function abreModal(id) {
+function abreModal(id, idEndereco) {
     var html = '';
-    $.get(`/Pedido/getItens/${id}`).done((response) => {
+    $.post('/Pedido/getItens', {
+        id,
+        idEndereco
+    }).done((response) => {
         response = JSON.parse(response)
+        if (typeof idEndereco != 'undefined') {
+            html += `
+                <div class="card col-12">
+                    <div class="card-body">
+                        <h5 class="card-title d-inline ms-2">
+                            Endereço de entrega
+                        </h5>
+                        <p class="">
+                            ${response.endereco[0].rua}, ${response.endereco[0].numero}
+                            <br>${response.endereco[0].bairro}, ${response.endereco[0].cep}
+                            <br>${response.endereco[0].complemento}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
         $.each(response.itens, function (key, value) {
-            console.log()
 
             if (value.idLanche == null) {
                 conteudo = `

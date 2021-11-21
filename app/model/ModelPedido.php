@@ -11,7 +11,7 @@ class Pedido extends ModelBase
     {
         $this->conDb = $this->conectaDb();
     }
-    
+
     /**
      * cria o pedido
      *
@@ -38,7 +38,7 @@ class Pedido extends ModelBase
             return 0;
         }
     }
-    
+
     /**
      * retorna todos os dados do pedido aberto 
      * OBS: o uso do left é porque quando um 
@@ -69,7 +69,7 @@ class Pedido extends ModelBase
             return [];
         }
     }
-    
+
     /**
      * retorna os itens do pedido aberto
      *
@@ -101,7 +101,7 @@ class Pedido extends ModelBase
             return [];
         }
     }
-    
+
     /**
      * retorna todos os itens de todos os pedidos, 
      * OBS: o left é porque pode acontecer de 
@@ -118,9 +118,8 @@ class Pedido extends ModelBase
             FROM pedido AS p
             INNER JOIN itens_pedido AS i ON i.id_pedido = p.id
             LEFT JOIN lanche AS l ON i.id_lanche = l.id
-            WHERE p.status <> 'A' AND p.id_usuario = ? AND id_pedido = ?",
+            WHERE p.status <> 'A' AND  id_pedido = ?",
             [
-                $_SESSION["userId"],
                 $idPedido
             ]
         );
@@ -134,7 +133,7 @@ class Pedido extends ModelBase
             return [];
         }
     }
-    
+
     /**
      * retorna todas as informações de todos os 
      * pedidos na tela de meus pedidos
@@ -163,7 +162,7 @@ class Pedido extends ModelBase
             return [];
         }
     }
-    
+
     /**
      * deleta um pedido
      *
@@ -186,6 +185,28 @@ class Pedido extends ModelBase
         else
         {
             return false;
+        }
+    }
+
+    public function getEnderecoPedido($id)
+    {
+        $rsc = $this->conDb->dbSelect(
+            "SELECT e.rua, e.numero, e.bairro, e.cep, e.complemento
+            from pedido as p
+            LEFT JOIN endereco as e ON p.id_endereco = e.id
+            WHERE p.id = ?",
+            [
+                $id
+            ]
+        );
+
+        if ($this->conDb->dbNumeroLinhas($rsc) > 0)
+        {
+            return $this->conDb->dbBuscaArrayAll($rsc);
+        }
+        else
+        {
+            return [];
         }
     }
 }

@@ -117,6 +117,10 @@ button.nav-link:hover {
     }
 }
 
+.acaoCartao, .acaoEndereco {
+    cursor: pointer;
+}
+
 /* CKEditor */
 
 .ck-editor__editable {
@@ -522,4 +526,19 @@ footer .info {
 #contactForm input:focus {
     outline: none !important;
     box-shadow: none !important;
+}
+
+/* home admin */
+
+.tblLista {
+    width: 1291px !important;
+}
+
+.dataTables_length, .dataTables_filter {
+    display: flex!important;
+    align-items: flex-start!important;
+}
+
+.dataTables_filter label {
+    margin: 10px 0px 10px -11px;
 }

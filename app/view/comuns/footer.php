@@ -58,7 +58,7 @@
                     return mock.json()
                 })
                 .then(data => {
-                    $('#tblLista').DataTable({
+                    $('.tblLista').DataTable({
                         language: data
                     });
                 });

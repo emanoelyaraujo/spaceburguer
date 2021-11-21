@@ -3,7 +3,6 @@
 require_once 'app/model/ModelPedido.php';
 
 Security::isLogado();
-Security::isAUser2();
 
 $model = new Pedido();
 
@@ -14,6 +13,7 @@ switch ($metodo)
 {
     case "index":
 
+        Security::isAUser2();
         $pedidos["dadosPedido"] = $model->getAllPedidos();
 
         require_once "app/view/informacoesPedido.php";
@@ -34,9 +34,15 @@ switch ($metodo)
         break;
 
     case "getItens":
-        // pega todos os itens retornados do banco e envia para a view em forma de JSON
-        $itens = $model->getAllItens($id);
 
+        $endereco = [];
+        // pega todos os itens retornados do banco e envia para a view em forma de JSON
+        $itens = $model->getAllItens($post['id']);
+
+        if(isset($post['idEndereco']))
+        {
+            $endereco = $model->getEnderecoPedido($post['id']);
+        }
         foreach($itens as $key => $i){
             $itens[$key]['imagem'] = SITE_URL . "uploads/lanches/" . $i['imagem'];
         }
@@ -45,7 +51,8 @@ switch ($metodo)
 
         // envia para o método JS os novos valores
         echo json_encode([
-            'itens' => $itens
+            'itens' => $itens,
+            'endereco' => $endereco
         ]);
         exit;
         break;
