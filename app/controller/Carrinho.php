@@ -9,7 +9,6 @@ $model = new Carrinho();
 $request = new Pedido();
 
 Security::isLogado();
-Security::isAUser2();
 
 $post           = $_POST;
 $aDados['acao'] = $acao;

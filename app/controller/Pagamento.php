@@ -14,7 +14,6 @@ $post           = $_POST;
 $aDados['acao'] = $acao;
 
 Security::isLogado();
-Security::isAUser2();
 Security::pedidoAberto($request->getPedidoAberto());
 
 $pedidoAberto = $request->getPedidoAberto()[0];
@@ -167,6 +166,47 @@ switch ($metodo)
                 Redirect::page("Pagamento/index");
             }
         }
+
+        break;
+
+    case "getClientes":
+
+        $clientes = $model->getUsuarios();
+
+        // limpa o buffer
+        ob_end_clean();
+
+        echo json_encode([
+            'clientes' => $clientes
+        ]);
+
+        exit;
+
+        break;
+
+    case "addClientePedido":
+
+        if ($model->addClientePedido($post['usuario'], $pedidoAberto))
+        {
+            $flag = true;
+            // $_SESSION["msgSucesso"] = "Pedido finalizado com sucesso!";
+            // Redirect::page("Home/index");
+        }
+        else
+        {
+            $flag = false;
+            // $_SESSION["msgSucesso"] = "Falha ao finalizar pedido";
+            // Redirect::page("Pagamento/index");
+        }
+
+        // limpa o buffer
+        ob_end_clean();
+
+        echo json_encode([
+            'flag' => $flag
+        ]);
+
+        exit;
 
         break;
 }
