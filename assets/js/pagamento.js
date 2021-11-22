@@ -77,3 +77,13 @@ $("#pagamento").on('change', function () {
         myModal.show()
     }
 })
+
+$(document).ready(function () {
+    $.get('/Pagamento/getClientes').done((response) => {
+        response = JSON.parse(response)
+        console.log(response)
+        $.each(response.clientes, function (key, value) {
+            $('#cliente').append(`<option value='${value.id}'>${value.nome}</option>`)
+        })
+    })
+});

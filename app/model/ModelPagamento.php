@@ -158,7 +158,7 @@ class Pagamento extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * adiciona cartão
      *
@@ -187,7 +187,7 @@ class Pagamento extends ModelBase
             return false;
         }
     }
-    
+
     /**
      * finaliza o pedido
      *
@@ -209,6 +209,48 @@ class Pagamento extends ModelBase
 
         if ($rsc > 0)
         {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    public function getUsuarios()
+    {
+        $rsc = $this->conDb->dbSelect(
+            "SELECT id, nome
+            FROM usuario
+            WHERE status != '2' AND nivel NOT IN ('1', '3')"
+        );
+
+        if ($this->conDb->dbNumeroLinhas($rsc) > 0)
+        {
+            return $this->conDb->dbBuscaArrayAll($rsc);
+        }
+        else
+        {
+            return [];
+        }
+    }
+
+    public function addClientePedido($idCliente, $idPedido)
+    {
+        $rsc = $this->conDb->dbUpdate(
+            "UPDATE pedido
+            SET id_usuario = ?
+            WHERE id = ?",
+            [
+                $idCliente,
+                $idPedido['id']
+            ]
+        );
+
+        if ($rsc > 0)
+        {
+            $this->finalizaPedido($idPedido);
             return true;
         }
         else

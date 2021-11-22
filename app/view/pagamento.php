@@ -6,25 +6,21 @@
                 <div class="tab">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link tabPagamento <?= $pedido['dadosPedido']['frete'] != "0.00" ? 'active' : '' ?>" 
-                                href="#tabDelivery" data-bs-toggle="tab" role="tab" aria-selected="false"
-                            >
+                            <a class="nav-link tabPagamento <?= $pedido['dadosPedido']['frete'] != "0.00" ? 'active' : '' ?>" href="#tabDelivery" data-bs-toggle="tab" role="tab" aria-selected="false">
                                 <i class="fas fa-motorcycle"></i>
                                 Delivery
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link tabPagamento <?= $pedido['dadosPedido']['frete'] == "0.00" ?
-                                'active' : '' ?>" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false">
+                                                                'active' : '' ?>" href="#tabRetirada" data-bs-toggle="tab" role="tab" aria-selected="false">
                                 <i class="fas fa-walking"></i>
                                 Retirada
                             </a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane <?= $pedido['dadosPedido']['frete'] != "0.00" ? 'active' : '' ?>" 
-                            id="tabDelivery" role="tabpanel"
-                        >
+                        <div class="tab-pane <?= $pedido['dadosPedido']['frete'] != "0.00" ? 'active' : '' ?>" id="tabDelivery" role="tabpanel">
                             <div class="d-flex flex-column mt-2 ms-2">
                                 <div class="row justify-content-between mt-auto">
                                     <div class="col-auto">
@@ -34,7 +30,7 @@
                                                 $pedido['dadosPedido']['rua'] . " ," .
                                                 $pedido['dadosPedido']['numero'] . "<br>" .
                                                 $pedido['dadosPedido']['bairro'] . " ," .
-                                                $pedido['dadosPedido']['cep'] : "") 
+                                                $pedido['dadosPedido']['cep'] : "")
                                             ?>
                                         </span>
                                     </div>
@@ -46,7 +42,7 @@
                         </div>
                         <div class="tab-pane <?= $pedido['dadosPedido']['frete'] == "0.00" ? 'active' : '' ?>" id="tabRetirada" role="tabpanel">
                             <div class="mt-2 ms-2">
-                                <i class="fas fa-map-marked-alt"></i> 
+                                <i class="fas fa-map-marked-alt"></i>
                                 Praça Irmã Annina Bisegna, 40
                                 <br>Centro, Muriaé - MG, 36880-083
                             </div>
@@ -56,7 +52,7 @@
                 <div class="row">
                     <div class="col-6">
                         <label class="mt-3 mb-2" id="labelPagamento" for="pagamento">Pague na entrega</label>
-                        <select class="form-select" id="pagamento" name="pagamento" aria-label="Default select example">
+                        <select class="form-select" id="pagamento" name="pagamento">
                             <option value="D" <?= ($pedido["dadosPedido"]["forma_pagamento"] == "D" ? "selected" : "") ?>>
                                 Dinheiro
                             </option>
@@ -65,11 +61,19 @@
                             </option>
                         </select>
                     </div>
+                    <?php if ($_SESSION['userNivel'] == '1') : ?>
+                        <div class="col-6">
+                            <label class="mt-3 mb-2" for="cliente">Cliente</label>
+                            <select class="form-select" id="cliente" name="cliente">
+                                <option value="" selected disabled required></option>
+                            </select>
+                        </div>
+                    <?php endif; ?>
                     <div class="col-6 mt-4" id="divDadosCartao">
                         <p class="" id="dadosCartao">
                             <?= (isset($pedido["dadosPedido"]["nomeCartao"]) ?
                                 $pedido['dadosPedido']['nomeCartao'] . "<br>" .
-                                "**** **** **** " . substr($pedido['dadosPedido']['numeroCartao'], 12, 16) . "<br>" : "") 
+                                "**** **** **** " . substr($pedido['dadosPedido']['numeroCartao'], 12, 16) . "<br>" : "")
                             ?>
                         </p>
                     </div>
@@ -123,7 +127,11 @@
                         R$ <?= Numeros::formataValor($pedido['itensPedido'][0]["total_pedido"]) ?>
                     </span>
                     <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
-                        <a href="<?= SITE_URL ?>Pagamento/finalizarPedido" class="btn btnRoxo" type="button">Finalizar</a>
+                        <?php if ($_SESSION['userNivel'] == '1') : ?>
+                            <button onclick="addCliente()" class="btn btnRoxo">Finalizar</button>
+                        <?php else : ?>
+                            <a href="<?= SITE_URL ?>Pagamento/finalizarPedido" class="btn btnRoxo" type="button">Finalizar</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -155,18 +163,15 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-start">
                                             <div class="custom-control custom-checkbox">
-                                                <input class="form-check-input" type="radio" 
-                                                    id="endereco<?= $endereco['id'] ?>" name="endereco" 
-                                                    value="<?= $endereco['id'] ?>"
-                                                >
+                                                <input class="form-check-input" type="radio" id="endereco<?= $endereco['id'] ?>" name="endereco" value="<?= $endereco['id'] ?>">
                                             </div>
                                             <h5 class="card-title d-inline ms-2">
                                                 <?= $endereco['nomeEndereco'] ?>
                                             </h5>
                                         </div>
                                         <p class="">
-                                            <?= $endereco['rua'] . ", " . $endereco['numero'] . 
-                                                '<br>' . $endereco['bairro'] . ", " . $endereco['cep'] 
+                                            <?= $endereco['rua'] . ", " . $endereco['numero'] .
+                                                '<br>' . $endereco['bairro'] . ", " . $endereco['cep']
                                             ?>
                                         </p>
                                     </div>
@@ -210,15 +215,13 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-start">
                                         <div class="custom-control custom-checkbox">
-                                            <input class="form-check-input" type="radio" id="cartao<?= $cartao['id'] ?>" 
-                                                name="cartao" value="<?= $cartao['id'] ?>"
-                                            >
+                                            <input class="form-check-input" type="radio" id="cartao<?= $cartao['id'] ?>" name="cartao" value="<?= $cartao['id'] ?>">
                                         </div>
                                         <h5 class="card-title d-inline ms-2"><?= $cartao['nome'] ?></h5>
                                     </div>
-                                    <p class="">**** **** **** 
-                                        <?= substr($cartao['numero'], 12, 16) . '<br>' . 
-                                            ($cartao['tipo'] == "D" ? "Débito" : "Crédito") 
+                                    <p class="">**** **** ****
+                                        <?= substr($cartao['numero'], 12, 16) . '<br>' .
+                                            ($cartao['tipo'] == "D" ? "Débito" : "Crédito")
                                         ?>
                                     </p>
                                 </div>
@@ -244,5 +247,18 @@
         });
 
         window.location = "<?= SITE_URL ?>MinhaConta/index"
+    }
+
+    function addCliente() {
+        var usuario = $("#cliente").val()
+        if (usuario != null) {
+            $.post("/Pagamento/addClientePedido", {
+                usuario
+            }).done(function(response) {
+                response = JSON.parse(response)
+                console.log(response)
+                window.location = "<?= SITE_URL ?>Home/index"
+            });
+        }
     }
 </script>

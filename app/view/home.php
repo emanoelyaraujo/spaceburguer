@@ -3,7 +3,7 @@
         const codUsuario = <?= isset($_SESSION["userNivel"]) ? $_SESSION["userNivel"] : 0 ?>
 
         if (codUsuario) {
-            if (codUsuario == '2'){
+            if (codUsuario != '3'){
                 $.post("/Carrinho/addCarrinho", {
                     id
                 }).done(function(response) {
