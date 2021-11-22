@@ -17,7 +17,7 @@ switch ($metodo)
         $pedidos['entregadores'] = $model->getEntregadores();
         $pedidos['pedidos'] = $model->getPedidoByStatus();
 
-        require_once "app/view/homeAdmin.php";
+        require_once "app/view/admin/homeAdmin.php";
         break;
 
     case "alteraStatus":
