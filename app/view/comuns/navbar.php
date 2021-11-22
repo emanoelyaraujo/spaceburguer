@@ -70,6 +70,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= SITE_URL ?>Home/sobre-nos">
+                        <i class="fas fa-user-astronaut"></i>
+                        Sobre nós
+                    </a>
+                </li>
+
                 <?php
 
                 if (isset($_SESSION["userId"]))
