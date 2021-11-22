@@ -36,9 +36,11 @@ class HomeAdmin extends ModelBase
             "SELECT p.*, u.nome
             FROM pedido as p
             LEFT JOIN usuario as u ON p.id_usuario = u.id
-            WHERE p.status in ('F', 'C', 'E') AND (DATE(p.finished_at) = CURDATE() OR*/ p.status = 'F')
+            WHERE p.status in ('F', 'C', 'E')
             ORDER BY p.finished_at desc"
         );
+
+        // AND (DATE(p.finished_at) = CURDATE() OR*/ p.status = 'F')
 
         if ($this->conDb->dbNumeroLinhas($rsc) > 0)
         {
