@@ -70,7 +70,7 @@ function abreModal(id, idEndereco) {
             $(".modal-title").html(`Itens do Pedido ${value.id}`)
         });
         var myModal = new bootstrap.Modal(document.getElementById("modalItensPedido"))
-        $(".modal-body").html(html)
+        $("#modal-body-itens").html(html)
         myModal.show()
     })
 }
