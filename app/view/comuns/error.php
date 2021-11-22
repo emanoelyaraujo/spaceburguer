@@ -1,10 +1,10 @@
-<div class="container">
-    <div class="alert alert-danger d-flex alert-dismissible" role="alert">
-        <div>
-            <strong>Erro! </strong>Não encontramos a página solicitada.
-        </div>
-        <div class="col-1">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
+<div class="container p-5">
+   <div class="row justify-content-center">
+       <div class="col-4">
+         <h3> <strong>Erro!</strong> Página não econtrada.</h3>  
+       </div>
+       <div class="col">
+           <img src="../../../assets/img/error.png" alt="imagem de erro 404" width="400px">
+       </div>
+   </div>
 </div>
