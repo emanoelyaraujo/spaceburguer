@@ -27,9 +27,7 @@ function abreModal(id, idEndereco) {
             html += `
                 <div class="card col-12">
                     <div class="card-body">
-                        <h5 class="card-title d-inline ms-2">
-                            Endereço de entrega
-                        </h5>
+                        <h5 class="card-title d-inline">Endereço de entrega</h5>
                         <p class="">
                             ${response.endereco[0].rua}, ${response.endereco[0].numero}
                             <br>${response.endereco[0].bairro}, ${response.endereco[0].cep}
@@ -71,7 +69,7 @@ function abreModal(id, idEndereco) {
             `;
             $(".modal-title").html(`Itens do Pedido ${value.id}`)
         });
-        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"))
+        var myModal = new bootstrap.Modal(document.getElementById("modalItensPedido"))
         $(".modal-body").html(html)
         myModal.show()
     })
