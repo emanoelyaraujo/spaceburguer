@@ -57,8 +57,14 @@ class Tabela
             </div>
         </div>
         <?php
+        echo self::datatables();
     }
-
+    
+    /**
+     * metodo que monta o model que contém os itens do pedido
+     *
+     * @return string
+     */
     public static function modelItensPedido()
     {
         $html = '
@@ -69,7 +75,7 @@ class Tabela
                             <h5 class="modal-title" id="exampleModalLabel"></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div id="modal-body-itens" class="modal-body">
                         </div>
                     </div>
                 </div>
@@ -78,43 +84,52 @@ class Tabela
 
         return $html;
     }
-
-    public static function tabelaHome($total, $tabFinalizados, $tabACaminho, $tabEntregue)
+    
+    /**
+     * método que monta a tabela da home admin e da home do motoboy
+     *
+     * @param  array $total
+     * @param  string $tabFinalizados
+     * @param  string $tabACaminho
+     * @param  string $tabEntregue
+     * @param  string $config
+     * @return string
+     */
+    public static function tabelaHome($total, $tabFinalizados, $tabACaminho, $tabEntregue, $config = '')
     {
-        if($_SESSION['userNivel'] == '1')
+        if ($_SESSION['userNivel'] == '1')
         {
             $finalizados = '
                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                     Finalizados <span class="badge bg-danger">' . $total['totalFinalizados'] . '</span>
-                </button>
-            '; 
+                </button>';
 
             $tabelaFinalizados = '
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered table-light table-sm tblLista">'. 
-                            self::theaderPedidos()
-                            . '<tbody>' 
-                                . $tabFinalizados
-                            . '</tbody>
+                        <table class="table table-hover table-bordered table-light table-sm tblLista">' .
+                self::theaderPedidos()
+                . '<tbody>'
+                . $tabFinalizados
+                . '</tbody>
                         </table>
                     </div>
-                </div>
-            ';
+                </div>';
         }
         else
         {
             $finalizados = '';
             $tabelaFinalizados = '';
         }
+
         $html = '
             <div class="container mt-3 p-3 mb-4">
                 <h1 style="color: #433A8F;" class="">Olá, ' . $_SESSION['userNome'] . '!</h1>
                 <h2>Bem-vindo a Home Admin!</h2>
                 <nav class="mt-5 mb-4">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">'
-                        . $finalizados . 
-                        '<button class="nav-link ' . ($_SESSION['userNivel'] == '3' ? 'active' : '') . '" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+            . $finalizados .
+            '<button class="nav-link ' . ($_SESSION['userNivel'] == '3' ? 'active' : '') . '" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
                             Á caminho <span class="badge bg-primary">' . $total['totalACaminho'] . '</span>
                         </button>
                         <button class="nav-link" id="nav-fin-tab" data-bs-toggle="tab" data-bs-target="#nav-fin" type="button" role="tab" aria-controls="nav-fin" aria-selected="false">
@@ -123,35 +138,39 @@ class Tabela
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">' .
-                    $tabelaFinalizados
-                    . '<div class="tab-pane fade ' . ($_SESSION['userNivel'] == '3' ? 'show active' : '') . '" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            $tabelaFinalizados
+            . '<div class="tab-pane fade ' . ($_SESSION['userNivel'] == '3' ? 'show active' : '') . '" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered table-light table-sm tblLista">'. 
-                                self::theaderPedidos()
-                                .'<tbody>' 
-                                    . $tabACaminho
-                                . '</tbody>
+                            <table class="table table-hover table-bordered table-light table-sm tblLista">' .
+            self::theaderPedidos()
+            . '<tbody>'
+            . $tabACaminho
+            . '</tbody>
                             </table>
                         </div>
             
                     </div>
                     <div class="tab-pane fade" id="nav-fin" role="tabpanel" aria-labelledby="nav-fin-tab">
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered table-light table-sm tblLista">'. 
-                                self::theaderPedidos()
-                                . '<tbody>' 
-                                    . $tabEntregue
-                                . '</tbody>
+                            <table class="table table-hover table-bordered table-light table-sm tblLista">' .
+            self::theaderPedidos()
+            . '<tbody>'
+            . $tabEntregue
+            . '</tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>
-        ';
+            </div>' . self::datatables($config);
 
         return $html;
     }
-
+    
+    /**
+     * metodo que monta a thead da tabela
+     *
+     * @return string
+     */
     public static function theaderPedidos()
     {
         $theader = '
@@ -165,12 +184,18 @@ class Tabela
                     <th>Motoboy</th>
                     <th>Ações</th>
                 </tr>
-            </thead>
-        ';
+            </thead>';
 
         return $theader;
     }
-
+    
+    /**
+     * metodo que monta o tbory da tabela
+     *
+     * @param  array $pedido
+     * @param  array $motoboys
+     * @return string
+     */
     public static function tbodyPedidos($pedido, $motoboys = [])
     {
         $button = '';
@@ -189,7 +214,7 @@ class Tabela
         }
         else
         {
-            $motoboy = $_SESSION['userNome'];
+            $motoboy = "";
         }
 
         // se o status for diferente de entregue
@@ -201,7 +226,7 @@ class Tabela
                 if (is_null($pedido['id_endereco']))
                 {
                     $button .= '
-                        <a href="' . SITE_URL . 'HomeAdmin/alteraStatus&id=' . $pedido['id'] . '&btnEntregue=true" class="btn btn-sm btn-success" title="Enviar pedido">
+                        <a href="' . SITE_URL . 'HomeAdmin/alteraStatus&id=' . $pedido['id'] . '&btnEntregue=true" class="btnHome btn btn-sm btn-success" title="Enviar pedido">
                             <i class="fas fa-check"></i> 
                             Entregue 
                         </a>
@@ -211,7 +236,7 @@ class Tabela
                 {
                     // é igual a caminho
                     $button .= '
-                        <button type="button" class="btn btn-success btn-sm" title="Enviar" onclick="modalEntregador(' . $pedido['id'] . ')">
+                        <button type="button" class="btnHome btn btn-success btn-sm" title="Enviar" onclick="modalEntregador(' . $pedido['id'] . ')">
                             <i class="fas fa-rocket"></i>  
                             Enviar
                         </button> 
@@ -220,8 +245,8 @@ class Tabela
 
                 // botão de exluir 
                 $button .= '
-                    <a href="' . SITE_URL . 'HomeAdmin/deletaPedido/' . $pedido['id'] . '" class="btn btn-sm btn-secondary" title="Excluir">
-                        <i class="bx bx-trash"></i> 
+                    <a href="' . SITE_URL . 'HomeAdmin/deletaPedido/' . $pedido['id'] . '" class="btnHome btn btn-sm btn-secondary" title="Excluir">
+                        <i class="fas fa-trash-alt"></i>
                         Excluir
                     </a>
                 ';
@@ -238,7 +263,7 @@ class Tabela
                 }
                 // botao que abre modal de escolher o motoboy
                 $button .= '
-                    <a href="' . SITE_URL . $controller . '/alteraStatus&id=' . $pedido['id'] . '&btnEntregue=true" class="btn btn-sm btn-success" title="Enviar pedido">
+                    <a href="' . SITE_URL . $controller . '/alteraStatus&id=' . $pedido['id'] . '&btnEntregue=true" class="btnHome btn btn-sm btn-success" title="Enviar pedido">
                         <i class="fas fa-check"></i> 
                         Entregue 
                     </a>
@@ -257,7 +282,7 @@ class Tabela
                 <td>' . Data::dmY($pedido["finished_at"], 2) . '</td>
                 <td>' . $motoboy . ' </td>
                 <td class="fs-4">
-                    <button class="btn btn-sm btn-secondary" 
+                    <button class="btnHome btn btn-sm btn-secondary" 
                         onclick="abreModal(' . $pedido['id'] . ', ' . $pedido['id_endereco'] . ')" title="Visualizar"
                     >
                         <i class="fas fa-eye"></i> 
@@ -269,5 +294,33 @@ class Tabela
         ';
 
         return $tbody;
+    }
+    
+    /**
+     * método que monta o script da datatables e se for necessário, 
+     * há p parâmetro de configs que foi utilizado para deixar a tabela
+     * em ordem decrescente
+     *
+     * @param  mixed $config
+     * @return void
+     */
+    public static function datatables($config = '')
+    {
+        return '
+            <script src="'.  SITE_URL . 'assets/DataTables/js/jquery.dataTables.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    fetch("'. SITE_URL . 'assets/DataTables/pt_br.json")
+                        .then(mock => {
+                            return mock.json()
+                        })
+                        .then(data => {
+                            $(".tblLista").DataTable({
+                                language: data,'. 
+                                $config .
+                            '});
+                        });
+                });
+            </script>';
     }
 }

@@ -542,3 +542,7 @@ footer .info {
 .dataTables_filter label {
     margin: 10px 0px 10px -11px;
 }
+
+.btnHome {
+    width: 100px;
+}
