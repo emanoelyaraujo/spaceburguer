@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
 * {
     --color-roxo: #433A8F;
 }
@@ -545,4 +547,13 @@ footer .info {
 
 .btnHome {
     width: 100px;
+}
+
+/* Style view Sobre nós */
+#circle-radius{
+    font-size: 18px;
+    font-family: 'Righteous', cursive;
+    background: #433A8F;
+    border-radius: 0 70px 0 70px ;
+    padding: 10px;
 }
