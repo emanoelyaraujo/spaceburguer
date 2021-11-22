@@ -1,6 +1,6 @@
 <?php
 
-class Lista
+class Tabela
 {
     /**
      * monta a lista dos cruds do adm
@@ -59,6 +59,99 @@ class Lista
         <?php
     }
 
+    public static function modelItensPedido()
+    {
+        $html = '
+            <div class="modal fade" id="modalItensPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ';
+
+        return $html;
+    }
+
+    public static function tabelaHome($total, $tabFinalizados, $tabACaminho, $tabEntregue)
+    {
+        if($_SESSION['userNivel'] == '1')
+        {
+            $finalizados = '
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                    Finalizados <span class="badge bg-danger">' . $total['totalFinalizados'] . '</span>
+                </button>
+            '; 
+
+            $tabelaFinalizados = '
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-light table-sm tblLista">'. 
+                            self::theaderPedidos()
+                            . '<tbody>' 
+                                . $tabFinalizados
+                            . '</tbody>
+                        </table>
+                    </div>
+                </div>
+            ';
+        }
+        else
+        {
+            $finalizados = '';
+            $tabelaFinalizados = '';
+        }
+        $html = '
+            <div class="container mt-3 p-3 mb-4">
+                <h1 style="color: #433A8F;" class="">Olá, ' . $_SESSION['userNome'] . '!</h1>
+                <h2>Bem-vindo a Home Admin!</h2>
+                <nav class="mt-5 mb-4">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">'
+                        . $finalizados . 
+                        '<button class="nav-link ' . ($_SESSION['userNivel'] == '3' ? 'active' : '') . '" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+                            Á caminho <span class="badge bg-primary">' . $total['totalACaminho'] . '</span>
+                        </button>
+                        <button class="nav-link" id="nav-fin-tab" data-bs-toggle="tab" data-bs-target="#nav-fin" type="button" role="tab" aria-controls="nav-fin" aria-selected="false">
+                            Entregues <span class="badge bg-success">' . $total['totalEntregues'] . '</span>
+                        </button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">' .
+                    $tabelaFinalizados
+                    . '<div class="tab-pane fade ' . ($_SESSION['userNivel'] == '3' ? 'show active' : '') . '" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-light table-sm tblLista">'. 
+                                self::theaderPedidos()
+                                .'<tbody>' 
+                                    . $tabACaminho
+                                . '</tbody>
+                            </table>
+                        </div>
+            
+                    </div>
+                    <div class="tab-pane fade" id="nav-fin" role="tabpanel" aria-labelledby="nav-fin-tab">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-light table-sm tblLista">'. 
+                                self::theaderPedidos()
+                                . '<tbody>' 
+                                    . $tabEntregue
+                                . '</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ';
+
+        return $html;
+    }
+
     public static function theaderPedidos()
     {
         $theader = '
@@ -78,18 +171,25 @@ class Lista
         return $theader;
     }
 
-    public static function tbodyPedidos($pedido, $motoboys)
+    public static function tbodyPedidos($pedido, $motoboys = [])
     {
         $button = '';
         $motoboy = '';
 
         // loop para armazenar o nome do motoboy para mostrar na lista
-        foreach ($motoboys as $m)
+        if (!empty($motoboys))
         {
-            if ($m['id'] == $pedido['id_motoboy'])
+            foreach ($motoboys as $m)
             {
-                $motoboy = $m['nome'];
+                if ($m['id'] == $pedido['id_motoboy'])
+                {
+                    $motoboy = $m['nome'];
+                }
             }
+        }
+        else
+        {
+            $motoboy = $_SESSION['userNome'];
         }
 
         // se o status for diferente de entregue
@@ -98,12 +198,12 @@ class Lista
             // se o pedido for igual a finalizado
             if ($pedido['status'] == 'F')
             {
-                if (!is_null($pedido['id_endereco']))
+                if (is_null($pedido['id_endereco']))
                 {
                     $button .= '
-                        <a href="' . SITE_URL . 'HomeAdmin/alteraStatus&id=' . $pedido['id'] . '&btnEnviar=true" class="btn btn-sm btn-success" title="Enviar pedido">
-                            <i class="fas fa-rocket"></i> 
-                            Enviar 
+                        <a href="' . SITE_URL . 'HomeAdmin/alteraStatus&id=' . $pedido['id'] . '&btnEntregue=true" class="btn btn-sm btn-success" title="Enviar pedido">
+                            <i class="fas fa-check"></i> 
+                            Entregue 
                         </a>
                     ';
                 }
@@ -128,9 +228,17 @@ class Lista
             }
             else
             {
+                if ($_SESSION['userNivel']  == '1')
+                {
+                    $controller = "HomeAdmin";
+                }
+                else
+                {
+                    $controller = "HomeMotoboy";
+                }
                 // botao que abre modal de escolher o motoboy
                 $button .= '
-                    <a href="' . SITE_URL . 'HomeAdmin/alteraStatus&id=' . $pedido['id'] . '&btnEntregue=true" class="btn btn-sm btn-success" title="Enviar pedido">
+                    <a href="' . SITE_URL . $controller . '/alteraStatus&id=' . $pedido['id'] . '&btnEntregue=true" class="btn btn-sm btn-success" title="Enviar pedido">
                         <i class="fas fa-check"></i> 
                         Entregue 
                     </a>
@@ -144,8 +252,8 @@ class Lista
                 <td>' . (!is_null($pedido['nome']) ? $pedido['nome'] : "Cliente inexistente") . '</td>
                 <td>' . Numeros::formataValor($pedido['valor_total']) . '</td>
                 <td>' . (!is_null($pedido['id_endereco']) ? "Entrega" : "Retirada") . " - "
-                    . ($pedido['forma_pagamento'] == "C" ? "<i class='far fa-credit-card'></i>" : "<i class='fas fa-dollar-sign'></i>") .
-                '</td>
+            . ($pedido['forma_pagamento'] == "C" ? "<i class='far fa-credit-card'></i>" : "<i class='fas fa-dollar-sign'></i>") .
+            '</td>
                 <td>' . Data::dmY($pedido["finished_at"], 2) . '</td>
                 <td>' . $motoboy . ' </td>
                 <td class="fs-4">

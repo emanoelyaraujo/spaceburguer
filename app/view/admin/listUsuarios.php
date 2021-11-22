@@ -19,4 +19,4 @@ foreach($aDados['data'] as $b)
     ];
 }
 
-echo Lista::montaLista("usuarioAdmin", ['Nome', 'E-mail', 'Nível', 'Status', 'Opções'], $body, $id);
+echo Tabela::montaLista("usuarioAdmin", ['Nome', 'E-mail', 'Nível', 'Status', 'Opções'], $body, $id);

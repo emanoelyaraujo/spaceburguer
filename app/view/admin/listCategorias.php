@@ -17,4 +17,4 @@ foreach ($aDados['data'] as $b)
     ];
 }
 
-echo Lista::montaLista("categoria", ['Descrição', 'Status', 'Opções'], $body, $id);
+echo Tabela::montaLista("categoria", ['Descrição', 'Status', 'Opções'], $body, $id);
