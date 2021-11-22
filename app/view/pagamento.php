@@ -254,9 +254,7 @@
         if (usuario != null) {
             $.post("/Pagamento/addClientePedido", {
                 usuario
-            }).done(function(response) {
-                response = JSON.parse(response)
-                console.log(response)
+            }).done(function() {
                 window.location = "<?= SITE_URL ?>Home/index"
             });
         }

@@ -189,21 +189,19 @@ switch ($metodo)
         if ($model->addClientePedido($post['usuario'], $pedidoAberto))
         {
             $flag = true;
-            // $_SESSION["msgSucesso"] = "Pedido finalizado com sucesso!";
-            // Redirect::page("Home/index");
+            $_SESSION["msgSucesso"] = "Pedido finalizado com sucesso!";
         }
         else
         {
             $flag = false;
-            // $_SESSION["msgSucesso"] = "Falha ao finalizar pedido";
-            // Redirect::page("Pagamento/index");
+            $_SESSION["msgError"] = "Falha ao finalizar pedido";
         }
 
         // limpa o buffer
         ob_end_clean();
 
         echo json_encode([
-            'flag' => $flag
+            'flag' => $flag ? "Pedido finalizado com sucesso!" : "Falha ao finalizar pedido"
         ]);
 
         exit;
