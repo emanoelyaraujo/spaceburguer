@@ -19,7 +19,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" 
-                        href="<?= SITE_URL . (@$_SESSION['userNivel'] == '1' ? "HomeAdmin/index" : "") ?>"
+                        href="<?= SITE_URL . @Helpers::$homeNivel[$_SESSION['userNivel']] ?>"
                     >
                         <i class="fas fa-home"></i> 
                         Home
@@ -74,7 +74,7 @@
 
                 if (isset($_SESSION["userId"]))
                 {
-                    if ($_SESSION['userNivel'] == "2")
+                    if ($_SESSION['userNivel'] != "3")
                     {
                         ?>
                         <li class="nav-item">

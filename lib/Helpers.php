@@ -54,4 +54,10 @@ class Helpers
             "disabled" => ""
         ],
     ];
+
+    public static $homeNivel = [
+        '1' => 'HomeAdmin/index',
+        '2' => '',
+        '3' => 'HomeMotoboy/index'
+    ];
 }
