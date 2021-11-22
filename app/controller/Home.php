@@ -21,6 +21,11 @@ switch ($metodo)
         require_once "app/view/fale-conosco.php";
 
         break;
+    
+    case "sobre-nos":
+        require_once "app/view/sobre-nos.php";
+
+        break;
 
     case "envioEmail":
 
