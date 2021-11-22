@@ -1,7 +1,7 @@
 <?php
 
 class Security
-{    
+{
     /**
      * verifica se o usuário é adm
      *
@@ -23,7 +23,7 @@ class Security
             exit;
         }
     }
-    
+
     /**
      * verifica se é um usuário normal
      *
@@ -45,7 +45,7 @@ class Security
             exit;
         }
     }
-    
+
     /**
      * verifica se esta logado
      *
@@ -55,7 +55,7 @@ class Security
     {
         if (isset($_SESSION["userNivel"]))
         {
-            if ($_SESSION["userNivel"] != 1 && $_SESSION["userNivel"] != 2)
+            if ($_SESSION["userNivel"] != 1 && $_SESSION["userNivel"] != 2  && $_SESSION["userNivel"] != 3)
             {
                 Redirect::page("Login/index");
                 exit;
@@ -67,7 +67,7 @@ class Security
             exit;
         }
     }
-    
+
     /**
      * verifica se há pedido aberto do usuario
      *
@@ -76,7 +76,24 @@ class Security
      */
     public static function pedidoAberto($pedido)
     {
-        if(empty($pedido))
+        if (empty($pedido))
+        {
+            Redirect::page("Home/index");
+            exit;
+        }
+    }
+
+    public static function isMotoboy()
+    {
+        if (isset($_SESSION["userNivel"]))
+        {
+            if ($_SESSION["userNivel"] != 3)
+            {
+                Redirect::page("Home/index");
+                exit;
+            }
+        }
+        else
         {
             Redirect::page("Home/index");
             exit;
