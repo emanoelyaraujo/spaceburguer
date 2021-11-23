@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 * {
+    font-family: 'Montserrat', sans-serif;
     --color-roxo: #433A8F;
 }
 
@@ -131,8 +132,7 @@ button.nav-link:hover {
 
 /* HOME */
 
-h1>div#nomeUsuario {
-    display: block;
+h1>span#nomeUsuario {
     color: var(--color-roxo);
 }
 
@@ -543,10 +543,6 @@ footer .info {
 
 .dataTables_filter label {
     margin: 10px 0px 10px -11px;
-}
-
-.btnHome {
-    width: 100px;
 }
 
 /* Style view Sobre nós */
