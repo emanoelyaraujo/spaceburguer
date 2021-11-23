@@ -125,7 +125,7 @@ class Tabela
         $html = '
             <div class="container mt-3 p-3 mb-4">
                 <h1 style="color: #433A8F;" class="">Olá, ' . $_SESSION['userNome'] . '!</h1>
-                <h2>Bem-vindo a Home Admin!</h2>
+                <h2>Bem-vindo(a) a Home' . ($_SESSION['userNivel'] == '1' ? ' Admin' : '') .'!</h2>
                 <nav class="mt-5 mb-4">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">'
             . $finalizados .
