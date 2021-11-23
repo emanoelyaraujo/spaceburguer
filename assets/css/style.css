@@ -64,10 +64,10 @@ body {
     margin-right: 15px !important;
 }
 
-.nav-link:hover {
+/* .nav-link:hover {
     background-color: rgba(21, 21, 99, 0.226);
     transition: 1.5s;
-}
+} */
 
 .dropdown-item:hover {
     background-color: #433A8F !important;

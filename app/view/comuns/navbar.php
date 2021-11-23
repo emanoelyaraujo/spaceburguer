@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" 
+                    <a class="nav-link active hvr-underline-from-center" aria-current="page" 
                         href="<?= SITE_URL . @Helpers::$homeNivel[$_SESSION['userNivel']] ?>"
                     >
                         <i class="fas fa-home"></i> 
@@ -33,7 +33,7 @@
                     {
                         ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
+                            <a class="nav-link dropdown-toggle hvr-underline-from-center" href="#" id="navbarDropdownMenuLink" 
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"
                             >
                                 <i class="fas fa-user-lock"></i> 
@@ -64,14 +64,14 @@
                 ?>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= SITE_URL ?>Home/faleConosco">
+                    <a class="nav-link hvr-underline-from-center" href="<?= SITE_URL ?>Home/faleConosco">
                         <i class="fas fa-envelope"></i> 
                         Fale Conosco
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= SITE_URL ?>Home/sobre-nos">
+                    <a class="nav-link hvr-underline-from-center" href="<?= SITE_URL ?>Home/sobre-nos">
                         <i class="fas fa-user-astronaut"></i>
                         Sobre nós
                     </a>
@@ -85,7 +85,7 @@
                     {
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= SITE_URL ?>Carrinho/index">
+                            <a class="nav-link hvr-underline-from-center" href="<?= SITE_URL ?>Carrinho/index">
                                 <i class="fas fa-shopping-cart"></i> 
                                 Carrinho
                             </a>
@@ -95,7 +95,7 @@
                     ?>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
+                        <a class="nav-link dropdown-toggle hvr-underline-from-center" href="#" id="navbarDropdownMenuLink" 
                             role="button" data-bs-toggle="dropdown" aria-expanded="false"
                         >
                             Olá, <?= $_SESSION["userNome"] ?>
