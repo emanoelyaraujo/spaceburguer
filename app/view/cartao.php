@@ -12,13 +12,13 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group mb-3">
-                                    <label for="numeroCartao">Número<span class="spanRed">*</span></label>
+                                    <label for="numeroCartao">Número<span class="text-dark fw-bold">*</span></label>
                                     <input type="text" name="numeroCartao" class="form-control" id="numeroCartao" autofocus required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-3">
-                                    <label for="nomeCartao">Nome<span class="spanRed">*</span></label>
+                                    <label for="nomeCartao">Nome<span class="text-dark fw-bold">*</span></label>
                                     <input type="text" name="nomeCartao" class="form-control text-uppercase" 
                                         maxlength="20" id="nomeCartao" required
                                     >
@@ -26,13 +26,13 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-3">
-                                    <label for="data">Vencimento<span class="spanRed">*</span></label>
+                                    <label for="data">Vencimento<span class="text-dark fw-bold">*</span></label>
                                     <input type="month" id="data" value="" class="form-control" name="data" min="<?= date("Y-m") ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="tipo">Tipo<span class="spanRed">*</span></label>
+                                    <label for="tipo">Tipo<span class="text-dark fw-bold">*</span></label>
                                     <select class="form-select" name="tipo" id="tipo" aria-label="Default select example">
                                         <option value="C" selected>Crédito</option>
                                         <option value="D">Débito</option>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-gro mb-3">
-                                    <label for="cvv">CVV<span class="spanRed">*</span></label>
+                                    <label for="cvv">CVV<span class="text-dark fw-bold">*</span></label>
                                     <input type="password" name="cvv" maxlength="3" minlength="3" class="form-control" id="cvv" required>
                                 </div>
                             </div>
@@ -50,9 +50,7 @@
                                     <div class="p-2 bd-highlight">
                                         <button class="btn btnRoxo btnPerfil" type="submit" id="informacoesCartao">SALVAR INFORMAÇÕES</button>
                                     </div>
-                                    <div class="p-2 bd-highlight text-center">
-                                        <a href="">Cancelar</a>
-                                    </div>
+                                    <button type="button" class="btn text-dark text-decoration-underline" data-bs-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +66,8 @@
                     <div class="card-body">
                         <h5 class="card-title text-uppercase"><?= $cartao["nome"] ?></h5>
                         <p class="card-text" id="numeroCartao">
-                            <?= $cartao["numero"] ?>
+                            **** **** ****
+                            <?=  substr($cartao["numero"], 12, 16) ?>
                         </p>
                         <p class="card-text">
                             <?= $cartao["tipo"] == "D" ? "Débito" : "Crédito" ?>

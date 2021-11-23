@@ -56,9 +56,7 @@
                                             SALVAR INFORMAÇÕES
                                         </button>
                                     </div>
-                                    <div class="p-2 bd-highlight text-center">
-                                        <a href="">Cancelar</a>
-                                    </div>
+                                    <button type="button" class="btn text-dark text-decoration-underline" data-bs-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>
