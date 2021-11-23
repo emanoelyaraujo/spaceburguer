@@ -36,7 +36,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <button class="btn btnRoxo rounded-0" type="submit">Enviar Mensagem</button>
+                                    <button class="btn btnRoxo rounded-0" type="submit"><i class="fas fa-paper-plane"></i> Enviar Mensagem</button>
                                 </div>
                             </div>
                         </form>

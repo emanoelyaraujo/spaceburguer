@@ -66,7 +66,7 @@
 <div class="trends">
     <div class="bbb_background"></div>
     <div class="container">
-        <h1 class="d-block">Olá, <span class="fw-bold" id="nomeUsuario"><?= (isset($_SESSION["userNome"]) ? $_SESSION["userNome"] : "") ?></span>
+        <h1 class="d-block">Bem vindo(a), <span class="fw-bold" id="nomeUsuario"><?= (isset($_SESSION["userNome"]) ? $_SESSION["userNome"] : "") ?></span>
         </h1>
         <h4>Que tal comprar um lanche hoje?</h4>
         <?php
@@ -123,8 +123,8 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2 col-12 mx-auto mt-3">
-                        <button class="btn btnRoxo" onclick="addCarrinho(<?= $lanches['id'] ?>)" type="button">
-                            Adicionar ao Carrinho
+                        <button class="btn btnRoxo btn-sm" onclick="addCarrinho(<?= $lanches['id'] ?>)" type="button">
+                            <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
                         </button>
                     </div>
                 </div>
