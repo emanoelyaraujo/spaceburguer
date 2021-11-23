@@ -8,7 +8,7 @@
                     </h2>
                     <p class="menu">
                         <a href="<?= SITE_URL ?>">Home</a>
-                        <a href="<?= SITE_URL ?>Home/faleConosco">Contact</a>
+                        <a href="<?= SITE_URL ?>Home/faleConosco">Contato</a>
                     </p>
 
                     <ul class="icons p-0">
@@ -35,6 +35,13 @@
 
             <div class="row mt-3 pb-3">
                 <div class="col-md-12 text-center">
+                    <p class="info mb-3">
+                        <i class="fas fa-home"></i>
+                        Praça Cel. Tibúrcio, 65 <br>
+                        Barra, Muriaé – MG, CEP 36888-011
+                    </p>
+                </div>
+                <div class="col-md-12 text-center">
                     <p class="info">
                         Copyright © <?= date("Y") ?> | By SpaceBurguer
                     </p>
@@ -52,22 +59,8 @@
     <link rel="stylesheet" href="<?= SITE_URL ?>assets/DataTables/css/dataTables.bootstrap5.min.css">
 
     <script>
-        // $(document).ready(function() {
-        //     fetch('<?= SITE_URL ?>assets/DataTables/pt_br.json')
-        //         .then(mock => {
-        //             return mock.json()
-        //         })
-        //         .then(data => {
-        //             $('.tblLista').DataTable({
-        //                 language: data,
-        //             });
-        //         });
-        // });
-    </script>
-
-    <script>
         feather.replace()
     </script>
     </body>
 
-    </html>
+</html>
