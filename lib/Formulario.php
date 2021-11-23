@@ -114,7 +114,7 @@ class Formulario
             $texto .= '
                 <div class="position-relative" style="z-index:1100;" id="notify">
                     <div class="position-absolute top-0 end-0 p-3">
-                        <div class="alert alert-dismissible fade show color-success" role="alert">
+                        <div class="alert alert-dismissible fade show color-success text-light" role="alert">
                             <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
