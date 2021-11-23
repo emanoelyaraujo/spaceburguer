@@ -43,8 +43,8 @@
                         <div class="tab-pane <?= $pedido['dadosPedido']['frete'] == "0.00" ? 'active' : '' ?>" id="tabRetirada" role="tabpanel">
                             <div class="mt-2 ms-2">
                                 <i class="fas fa-map-marked-alt"></i>
-                                Praça Irmã Annina Bisegna, 40
-                                <br>Centro, Muriaé - MG, 36880-083
+                                    Praça Cel. Tibúrcio, 65
+                                    <br>Barra, Muriaé – MG, CEP 36888-011
                             </div>
                         </div>
                     </div>
