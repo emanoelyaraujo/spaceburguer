@@ -59,7 +59,7 @@ switch ($metodo)
 
     case "cancelarPedido":
 
-        if ($model->deletePedido($id))
+        if ($model->deletePedido($post['id']))
         {
             $_SESSION['msgSucesso'] = "Pedido cancelado com sucesso!";
         }

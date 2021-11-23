@@ -7,7 +7,7 @@
                     <img src="<?= SITE_URL ?>assets/img/SVG/astro_dormindo.svg" width="250" alt="">
                     <h4>Você ainda não pediu :(</h4>
                     <p>Que tal conhecer os melhores lanches da GALÁXIA?</p>
-                    <a href="<?= SITE_URL ?>" class="btn btn-sm btnLaranja mt-3 mb-2">VOLTAR PARA A PÁGINA INICIAL</a>
+                    <a href="<?= SITE_URL ?>" class="btn btn-sm btnLaranja mt-3 mb-5">VOLTAR PARA A PÁGINA INICIAL</a>
                 </div>
             </div>
         <?php else : ?>
@@ -36,11 +36,11 @@
                                     </div>
                                     <h5 class="text-center text-muted">Status: <?= Helpers::$status[$pedido['status']] ?></h5>
                                     <?php if ($pedido['status'] == 'F') : ?>
-                                        <a href="<?= SITE_URL ?>Pedido/cancelarPedido/<?= $pedido['id'] ?>" 
+                                        <button onclick="cancelarPedido(<?= $pedido['id'] ?>)" 
                                             class="btn btn-outline-secondary btn-sm mt-2 mb-2"
                                         >
                                             Cancelar Pedido
-                                        </a>
+                                    </button>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -98,3 +98,15 @@
 </section>
 
 <?= Tabela::modelItensPedido(); ?>
+
+<script>
+    function cancelarPedido(id) {
+    if (confirm("Deseja realmente cancelar o pedido?")) {
+        $.post("/Pedido/cancelarPedido", {
+            id
+        }).done(function () {
+            window.location = "<?= SITE_URL ?>Pedido/index"
+        });
+    }
+}
+</script>

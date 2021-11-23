@@ -252,10 +252,10 @@ class Tabela
 
                 // botão de exluir 
                 $button .= '
-                    <a href="' . SITE_URL . 'HomeAdmin/deletaPedido/' . $pedido['id'] . '" class="btnHome btn btn-sm btn-secondary" title="Excluir">
+                    <button onclick="exluirPedido('. $pedido['id'] . ')" class="btnHome btn btn-sm btn-secondary" title="Excluir">
                         <i class="fas fa-trash-alt"></i>
                         Excluir
-                    </a>
+                    </button>
                 ';
             }
             else

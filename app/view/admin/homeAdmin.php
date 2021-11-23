@@ -68,4 +68,14 @@ echo Tabela::modelItensPedido()
         var myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"))
         myModal.show()
     }
+
+    function exluirPedido(id) {
+        if (confirm("Deseja realmente excluír o pedido?")) {
+            $.post("/HomeAdmin/deletaPedido", {
+                id
+            }).done(function() {
+                window.location = "<?= SITE_URL ?>HomeAdmin/index"
+            });
+        }
+    }
 </script>

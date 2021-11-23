@@ -37,7 +37,7 @@ switch ($metodo)
 
     case 'deletaPedido':
 
-        if ($model->deletePedido($id))
+        if ($model->deletePedido($post['id']))
         {
             $_SESSION['msgSucesso'] = "Pedido excluído com sucesso";
         }
