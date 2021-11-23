@@ -81,19 +81,7 @@
 
                 if (isset($_SESSION["userId"]))
                 {
-                    if ($_SESSION['userNivel'] != "3")
-                    {
-                        ?>
-                        <li class="nav-item">
-                            <a class="nav-link hvr-underline-from-center" href="<?= SITE_URL ?>Carrinho/index">
-                                <i class="fas fa-shopping-cart"></i> 
-                                Carrinho
-                            </a>
-                        </li>
-                        <?php
-                    }
                     ?>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle hvr-underline-from-center" href="#" id="navbarDropdownMenuLink" 
                             role="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -122,7 +110,20 @@
                             </li>
                         </ul>
                     </li>
-                    <?php
+
+                    <?php 
+                    
+                    if ($_SESSION['userNivel'] != "3")
+                    {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link hvr-underline-from-center" href="<?= SITE_URL ?>Carrinho/index">
+                                <i class="fas fa-shopping-cart"></i> 
+                                Carrinho
+                            </a>
+                        </li>
+                        <?php
+                    }
                 }
                 ?>
             </ul>
