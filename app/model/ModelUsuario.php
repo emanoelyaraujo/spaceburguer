@@ -152,7 +152,8 @@ class Usuario extends ModelBase
             $dados["status"] != $select["status"] ||
             $dados["email"] != $select["email"] ||
             $telefone != $select["telefone"] ||
-            $dados["nivel"] != $select["nivel"]
+            $dados["nivel"] != $select["nivel"] ||
+            password_hash($dados['senha'], PASSWORD_DEFAULT) != $select['senha']
         )
         {
             $alterado = true;
@@ -162,7 +163,7 @@ class Usuario extends ModelBase
         {
             $rsc = $this->conDb->dbUpdate(
                 "UPDATE usuario 
-                    SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
+                    SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?, senha = ?
                     WHERE id = ?",
                 [
                     $dados['nome'],
@@ -170,6 +171,7 @@ class Usuario extends ModelBase
                     $dados['email'],
                     $dados['status'],
                     $dados['nivel'],
+                    password_hash($dados['senha'], PASSWORD_DEFAULT),
                     $dados['id']
                 ]
             );
