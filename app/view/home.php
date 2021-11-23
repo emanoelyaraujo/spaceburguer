@@ -66,7 +66,7 @@
 <div class="trends">
     <div class="bbb_background"></div>
     <div class="container">
-        <h1 class="d-block">Olá, <div id="nomeUsuario"><?= (isset($_SESSION["userNome"]) ? $_SESSION["userNome"] : "") ?></div>
+        <h1 class="d-block">Olá, <span class="fw-bold" id="nomeUsuario"><?= (isset($_SESSION["userNome"]) ? $_SESSION["userNome"] : "") ?></span>
         </h1>
         <h4>Que tal comprar um lanche hoje?</h4>
         <?php
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="bbb_container mt-3">
-                            <p>Categoria</p>
+                            <p class='fs-5'>Categoria</p>
                             <h2 class=""><?= $lanches["categoria"] ?></h2>
                             <div class="bbb_slider_nav">
                                 <div class="bbb_prev bbb_nav" onclick="voltar(<?= $key ?>)">
@@ -118,8 +118,8 @@
                     </div>
                     <div class="bbb_content">
                         <div class="bbb_info clearfix">
-                            <p><b><?= $lanches["descricao"] ?></b></p>
-                            <p>R$ <?= $lanches["preco"] ?></p>
+                            <p class='text-dark fs-6'><b><?= $lanches["descricao"] ?></b></p>
+                            <p class='text-dark'>R$ <?= Numeros::formataValor($lanches["preco"]) ?></p>
                         </div>
                     </div>
                     <div class="d-grid gap-2 col-12 mx-auto mt-3">
