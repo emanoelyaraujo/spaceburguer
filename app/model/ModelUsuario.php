@@ -86,7 +86,7 @@ class Usuario extends ModelBase
      */
     public function insert($dados)
     {
-        if(isset($dados['nivel']))
+        if (isset($dados['nivel']))
         {
             $nivel = $dados['nivel'];
             $status = $dados['status'];
@@ -153,7 +153,7 @@ class Usuario extends ModelBase
             $dados["email"] != $select["email"] ||
             $telefone != $select["telefone"] ||
             $dados["nivel"] != $select["nivel"] ||
-            password_hash($dados['senha'], PASSWORD_DEFAULT) != $select['senha']
+            !empty($dados['senha'])
         )
         {
             $alterado = true;
@@ -161,20 +161,39 @@ class Usuario extends ModelBase
 
         if ($alterado)
         {
-            $rsc = $this->conDb->dbUpdate(
-                "UPDATE usuario 
-                    SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?, senha = ?
-                    WHERE id = ?",
-                [
-                    $dados['nome'],
-                    $telefone,
-                    $dados['email'],
-                    $dados['status'],
-                    $dados['nivel'],
-                    password_hash($dados['senha'], PASSWORD_DEFAULT),
-                    $dados['id']
-                ]
-            );
+            if (!empty($dados['senha']))
+            {
+                $rsc = $this->conDb->dbUpdate(
+                    "UPDATE usuario 
+                        SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?, senha = ?
+                        WHERE id = ?",
+                    [
+                        $dados['nome'],
+                        $telefone,
+                        $dados['email'],
+                        $dados['status'],
+                        $dados['nivel'],
+                        password_hash($dados['senha'], PASSWORD_DEFAULT),
+                        $dados['id']
+                    ]
+                );
+            }
+            else
+            {
+                $rsc = $this->conDb->dbUpdate(
+                    "UPDATE usuario 
+                        SET nome = ?, telefone = ?, email = ?, status = ?, nivel = ?
+                        WHERE id = ?",
+                    [
+                        $dados['nome'],
+                        $telefone,
+                        $dados['email'],
+                        $dados['status'],
+                        $dados['nivel'],
+                        $dados['id']
+                    ]
+                );
+            }
         }
 
         if ($rsc > 0)
