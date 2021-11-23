@@ -84,9 +84,9 @@ class Formulario
         {
 
             $texto .= '
-            <div class="position-relative" style="z-index:1100;">
+            <div class="position-relative" style="z-index:1100;" id="notify">
                 <div class="position-absolute top-0 end-0 p-3">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="alert alert-dismissible fade show color-error text-light" role="alert">
                         <h5 class="alert-heading">' . $_SESSION["msgError"] . '</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
@@ -112,9 +112,9 @@ class Formulario
         if (isset($_SESSION['msgSucesso']))
         {
             $texto .= '
-                <div class="position-relative" style="z-index:1100;">
+                <div class="position-relative" style="z-index:1100;" id="notify">
                     <div class="position-absolute top-0 end-0 p-3">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="alert alert-dismissible fade show color-success" role="alert">
                             <h5 class="alert-heading">' . $_SESSION["msgSucesso"] . '</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
