@@ -86,7 +86,7 @@
                         <a class="nav-link dropdown-toggle hvr-underline-from-center" href="#" id="navbarDropdownMenuLink" 
                             role="button" data-bs-toggle="dropdown" aria-expanded="false"
                         >
-                            Olá, <?= $_SESSION["userNome"] ?>
+                            <strong>Olá, <?= $_SESSION["userNome"] ?></strong>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
