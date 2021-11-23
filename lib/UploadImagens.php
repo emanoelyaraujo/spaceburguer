@@ -44,11 +44,8 @@ class Uploads
                     if (!empty($nomeImagem))
                     {
                         /* apaga a imagem antiga no servidor
-                        OBS: caso o usuário tenha excluido a imagem da pasta uploads
-                        não será possivel dar o unlink e irá aparecer uma mensagem de erro, 
-                        dessa forma, utilizo o @ para esconder esse erro do usuário
                         */
-                        @unlink("uploads/$pasta/" . $nomeImagem);
+                        unlink("uploads/$pasta/" . $nomeImagem);
                     }
 
                     $upload = move_uploaded_file($arqTemp, "uploads/$pasta/" . $arqName);
