@@ -214,7 +214,14 @@ class Tabela
         }
         else
         {
-            $motoboy = "";
+            if($_SESSION['userNivel'] == '1')
+            {
+                $motoboy = "";
+            }
+            else 
+            {
+                $motoboy = $_SESSION['userNome'];
+            }
         }
 
         // se o status for diferente de entregue
