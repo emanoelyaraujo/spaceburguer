@@ -67,7 +67,7 @@
                     <label for="senha" class="form-label">Senha <span class='fw-bold text-danger'>*</span></label>
                     <input type="password" name="senha" id="senha" class="form-control" minlength="8" maxlength="15" 
                         <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> autocomplete="on"
-                        value="<?= isset($aDados['data']['senha']) ? $aDados['data']['senha'] : "" ?>"
+                        value=""
                     >
                 </div>
 
@@ -75,7 +75,7 @@
                     <label for="confirmacao" class="form-label">Confirmação <span class='fw-bold text-danger'>*</span></label>
                     <input type="password" name="confirmacao" id="confirmacao" class="form-control" minlength="8" maxlength="15" 
                         <?= Helpers::$acoesInput[$aDados['acao']]['readonly'] ?> autocomplete="on"
-                        value="<?= isset($aDados['data']['senha']) ? $aDados['data']['senha'] : "" ?>"
+                        value=""
                     >
                 </div>
 
