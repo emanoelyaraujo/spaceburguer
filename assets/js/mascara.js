@@ -65,3 +65,5 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#numeroCartao").mask('0000 0000 0000 0000');
 });
+
+$("#notify").delay(3000).fadeOut('slow');
